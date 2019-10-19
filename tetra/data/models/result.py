@@ -133,6 +133,43 @@ class Result(BaseModel):
             return []
 
     @classmethod
+    def get_last_count_by_test_name(cls, handler=None, limit=None, offset=None,
+                                    **kwargs):
+        handler = handler or get_handler()
+        if (kwargs and
+                'project_id' in kwargs and
+                'test_name' in kwargs and
+                'count' in kwargs):
+
+            # select * from results
+            # where build_id in (
+            #   select build_id from build
+            #   where test_name = kwargs['test_name']
+            #   and project_id = kwargs['project_id']
+            #   order by build_id desc
+            #   limit kwargs['count']
+            # )
+            query_by_build_name = select([Build.TABLE.c.id]).select_from(
+                    Build.TABLE).where(
+                        Build.TABLE.c.project_id == kwargs['project_id'],
+                        ).order_by(
+                                desc(Build.TABLE.c.id)
+                            ).limit(
+                                kwargs['count']
+                            )
+
+            last_count_by_status_query = cls.TABLE.select().where(
+                    and_(
+                        cls.TABLE.c.test_name == kwargs['test_name'],
+                        cls.TABLE.c.build_id.in_(query_by_build_name)))
+
+            return handler.get_all(
+                resource_class=cls, query=last_count_by_status_query,
+                limit=limit, offset=offset)
+        else:
+            return []
+
+    @classmethod
     def create_many(cls, resources, handler=None, **kwargs):
         handler = handler or get_handler()
         super(cls, Result).create_many(resources, handler=handler)

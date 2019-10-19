@@ -125,6 +125,17 @@ class LastCountByStatusClientMixin(BaseClient):
         return requests.get(url, params=params)
 
 
+class LastCountByTestNameClientMixin(BaseClient):
+
+    @log_response
+    def list_last_x_by_test_name_results(self, project_id,
+                                         test_name, count, params=None):
+        url = self.url('/projects', project_id,
+                       '/test_name', test_name,
+                       '/count', count)
+        return requests.get(url, params=params)
+
+
 class WorkerClientMixin(BaseClient):
 
     @log_response
@@ -139,6 +150,7 @@ class TetraClient(
     BuildClientMixin,
     ResultClientMixin,
     WorkerClientMixin,
-    LastCountByStatusClientMixin
+    LastCountByStatusClientMixin,
+    LastCountByTestNameClientMixin
 ):
     pass

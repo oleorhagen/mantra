@@ -274,6 +274,56 @@ class TestLastCountByStatusResults(BaseResultTest):
             self.assertEqual(i['build_id'], self.build_id_two)
 
 
+class LastCountByTestNameResults(BaseResultTest):
+
+    def setUp(self):
+        super(LastCountByTestNameResults, self).setUp()
+
+        # add another build with the same name
+        resp = self._create_build(self.project_id)
+        self.build_id_two = resp.json()['id']
+        self.build_name_two = resp.json()['name']
+
+        # add another build with a different name
+        resp = self._create_build(self.project_id, name='build_two')
+        self.build_id_three = resp.json()['id']
+        self.build_name_three = resp.json()['name']
+
+        self.result_ids = []
+        self._add_results(self.project_id, self.build_id, "passed")
+        self._add_results(self.project_id, self.build_id_two, "failed")
+        self._add_results(self.project_id, self.build_id_three, "skip")
+
+    def _add_results(self, project_id, build_id, result):
+        self.result_ids = []
+        for i in range(4):
+            test_name = "test-{}".format(i)
+            resp = self._create_result(
+                project_id, build_id, test_name=test_name,
+                result=result,
+            )
+            self.result_ids.append(resp.json()['id'])
+
+    def test_list_all_results_by_test_name(self):
+        test_name = "test-1"
+
+        resp = self.client.list_last_x_by_test_name_results(self.project_id,
+                                                            test_name, 5)
+        self.assertEqual(resp.status_code, 200)
+
+        results = resp.json()
+        self.assertEqual(len(results), 3)
+
+        for idx, result in enumerate(results):
+            if idx == 0:
+                status = "passed"
+            elif idx == 1:
+                status = "failed"
+            else:
+                status = "skip"
+            self.assertEqual(result['result'], status)
+
+
 class TestResultStringTuncation(BaseResultTest):
     """Test that the api truncates user input to fit in database columns"""
 

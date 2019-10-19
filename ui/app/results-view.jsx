@@ -25,13 +25,13 @@ var ResultsView = React.createClass({
     },
 
     componentWillUnmount: function() {
-        this.buildsRequest.abort();
+        this.getResultsRequest.abort();
     },
 
     getResults: function(offset) {
         var url = "/api/projects/" + this.projectId() + "/builds/" + this.buildId() +
                   "/results?offset=" + offset;
-        $.get(url, function(result) {
+        this.getResultsRequest = $.get(url, function(result) {
             this.setState({
                 results: result.results,
                 metadata: result.metadata,

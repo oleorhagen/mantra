@@ -15,6 +15,9 @@ var ResultsTable = React.createClass({
         project_id: function(r) {
             return "/projects/" + r.project_id + "/builds";
         },
+        test_name: function(r) {
+            return "/projects/" + r.project_id + "/tests/" + encodeURIComponent(r.test_name) + "/history/10";
+        },
     },
 
     render: function() {
