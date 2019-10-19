@@ -19,6 +19,7 @@ import json
 from api.resources import (
     BuildResource,
     LastCountByStatusResultsResource,
+    LastCountByTestNameResultsResource,
     ResultResource,
     ResultsResource,
     ProjectResultsResource,
@@ -54,6 +55,7 @@ class TetraAPI(falcon.API):
         ResultsResource(),
         ResultResource(),
         LastCountByStatusResultsResource(),
+        LastCountByTestNameResultsResource(),
         ProjectResultsResource(),
         BuildsResource(),
         ProjectsResource(),
