@@ -138,6 +138,11 @@ Or you can use the makefile:
 
     $ make test
 
+To create the default config files and launch docker composition
+before testing:
+
+    $ TOXENV=functional ./travis-setup.sh
+
 ### Style checks
 
 Tetra's code should pass the `flake8` style checks. To run these, use tox:
