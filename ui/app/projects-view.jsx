@@ -1,35 +1,31 @@
 import React from 'react';
 import ProjectsTable from './projects-table';
 
-var ProjectsView = React.createClass({
+class ProjectsView extends React.Component {
+    state = {
+        projects: []
+    };
 
-    getInitialState: function() {
-        return {
-            projects: [],
-        }
-    },
-
-    componentDidMount: function() {
-        this.projectsRequest = $.get("/api/projects", function(result) {
+    componentDidMount() {
+        this.projectsRequest = fetch('http://localhost:7374/projects', result => {
             this.setState({
                 projects: result
-            })
-        }.bind(this));
-    },
+            });
+        });
+    }
 
-    componentWillUnmount: function() {
+    componentWillUnmount() {
         this.projectsRequest.abort();
-    },
+    }
 
-    render: function() {
+    render() {
         return (
             <div>
                 <h2 className="rs-page-title">Projects</h2>
                 <ProjectsTable projects={this.state.projects} />
             </div>
         );
-    },
-
-});
+    }
+}
 
 export default ProjectsView;

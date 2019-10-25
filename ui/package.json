@@ -1,15 +1,15 @@
 {
-  "name": "tetra-ui",
-  "version": "1.0.0",
-  "description": "the dashboard for tetra",
-  "main": "app/main.js",
-  "dependencies": {
-    "canon-react": "^0.11.1",
-    "react": "~0.14.8",
-    "react-dom": "~0.14.8",
-    "react-router": "^2.4.1"
-  },
-  "devDependencies": {
+    "name": "tetra-ui",
+    "version": "1.0.0",
+    "description": "the dashboard for tetra",
+    "main": "app/main.js",
+    "dependencies": {
+        "canon-react": "^1.0.0",
+        "react": "~16.8.6",
+        "react-dom": "~16.8.6",
+        "react-router-dom": "~4.3.1"
+    },
+    "devDependencies": {
         "@babel/core": "^7.6.4",
         "@babel/plugin-proposal-class-properties": "^7.5.5",
         "@babel/preset-env": "^7.6.3",
@@ -21,14 +21,14 @@
         "webpack": "^4.41.2",
         "webpack-cli": "^3.3.9",
         "webpack-dev-server": "^3.9.0"
-  },
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    },
+    "scripts": {
+        "test": "echo \"Error: no test specified\" && exit 1",
         "build": "webpack --mode production",
         "autobuild": "webpack-dev-server --open --mode development"
-  },
-  "babel": {
-    "presets": [
+    },
+    "babel": {
+        "presets": [
             [
                 "@babel/preset-env",
                 {
@@ -40,8 +40,8 @@
         ],
         "plugins": [
             "@babel/plugin-proposal-class-properties"
-    ]
-  },
-  "author": "",
-  "license": "MIT"
+        ]
+    },
+    "author": "",
+    "license": "MIT"
 }

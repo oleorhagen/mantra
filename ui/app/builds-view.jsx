@@ -1,39 +1,32 @@
 import React from 'react';
 import BuildsTable from './builds-table';
 
-var BuildsView = React.createClass({
+class BuildsView extends React.Component {
+    state = {
+        builds: []
+    };
 
-    getInitialState: function() {
-        return {
-            builds: [],
-        }
-    },
-
-    projectId: function() {
-        return this.props.params.project_id || this.props.project_id;
-    },
-
-    componentDidMount: function() {
-        var url = "/api/projects/" + this.projectId() + "/builds";
-        this.buildsRequest = $.get(url, function(result) {
+    componentDidMount() {
+        var url = `/api/projects/${this.props.params.project_id || this.props.project_id}/builds`;
+        this.buildsRequest = fetch(url, result => {
             this.setState({
                 builds: result
-            })
-        }.bind(this))
-    },
+            });
+        });
+    }
 
-    componentWillUnmount: function() {
+    componentWillUnmount() {
         this.buildsRequest.abort();
-    },
+    }
 
-    render: function() {
+    render() {
         return (
             <div>
                 <h2 className="rs-page-title">Builds</h2>
                 <BuildsTable builds={this.state.builds} />
             </div>
         );
-    },
-});
+    }
+}
 
 export default BuildsView;
