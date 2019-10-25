@@ -47,6 +47,6 @@ services:
     image: tetra-ui
     container_name: tetra-ui
     ports:
-      - "7375:80"
+      - "7375:7375"
     depends_on:
       - api
