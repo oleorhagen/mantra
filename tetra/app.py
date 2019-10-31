@@ -15,6 +15,7 @@ limitations under the License.
 """
 import falcon
 import json
+from falcon_cors import CORS
 
 from api.resources import (
     BuildResource,
@@ -48,6 +49,9 @@ class VersionResource(object):
         resp.body = json.dumps(version)
 
 
+cors = CORS(allow_all_origins=True)
+
+
 class TetraAPI(falcon.API):
 
     RESOURCES = [
@@ -65,7 +69,7 @@ class TetraAPI(falcon.API):
     ]
 
     def __init__(self):
-        super(TetraAPI, self).__init__()
+        super(TetraAPI, self).__init__(middleware=[cors.middleware])
         for resource in self.RESOURCES:
             self.add_route(resource.ROUTE, resource)
 
