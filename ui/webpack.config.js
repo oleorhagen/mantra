@@ -1,19 +1,38 @@
-var webpack = require('webpack');
+const path = require('path');
+const HtmlWebPackPlugin = require('html-webpack-plugin');
 
 module.exports = {
+    entry: path.resolve(__dirname, 'app', 'main.jsx'),
     // babel will run and put all the files in .dist
-    entry: './dist/main.js',
     output: {
-        path: './dist',
-        filename: 'tetra.bundle.js',
+        path: path.resolve(__dirname, 'dist'),
+        filename: 'tetra.bundle.js'
     },
-
-    // disable warnings from third-party code
-    plugins: [
-        new webpack.optimize.UglifyJsPlugin({
-            compress: {
-                warnings: false
+    devServer: {
+        inline: true,
+        port: 7375,
+        host: '0.0.0.0'
+    },
+    module: {
+        rules: [
+            {
+                test: /\.(js|jsx)$/,
+                exclude: /node_modules/,
+                use: ['babel-loader'],
+                resolve: {
+                    extensions: ['.js', '.jsx']
+                }
+            },
+            {
+                test: /\.html$/,
+                use: ['html-loader']
             }
+        ]
+    },
+    plugins: [
+        new HtmlWebPackPlugin({
+            template: './index.html',
+            filename: './index.html'
         })
-    ],
-}
+    ]
+};

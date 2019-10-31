@@ -7,5 +7,10 @@ services:
     volumes:
       - .:/tetra
   ui:
+    build:
+      context: ./ui
+      dockerfile: Dockerfile.dev
     volumes:
-      - ./ui/:/usr/share/nginx/html
+      - ./ui/:/work
+      - /work/node_modules
+      - /work/dist

@@ -1,9 +1,9 @@
 import React from 'react';
 import ResourceTableEntry from './resource-table-entry';
 
-var ResourceTable = React.createClass({
+class ResourceTable extends React.PureComponent {
 
-    render: function() {
+    render() {
         var headers = this.tableHeaders(this.props.columnTitles);
         var entries = this.tableEntries(this.props.resources,
                                         this.props.columnKeys);
@@ -15,9 +15,9 @@ var ResourceTable = React.createClass({
                 </table>
             </div>
         );
-    },
+    }
 
-    tableHeaders: function(headerNames) {
+    tableHeaders(headerNames) {
         return (
             <thead>
                 <tr>
@@ -26,10 +26,10 @@ var ResourceTable = React.createClass({
                 </tr>
             </thead>
         );
-    },
+    }
 
     /* TODO: "At this time Canon does not provide javascript for handling sorting" */
-    tableHeader: function(headerName, i) {
+    tableHeader(headerName, i) {
         return (
             <th key={i}>
                 <a href ="#list-table" className="rs-table-sort">
@@ -38,9 +38,9 @@ var ResourceTable = React.createClass({
                 </a>
             </th>
         );
-    },
+    }
 
-    tableEntries: function(resources, columnKeys) {
+    tableEntries(resources, columnKeys) {
         var columnLinks = this.props.columnLinks;
         var entries = resources.map(function(resource, i) {
             return <ResourceTableEntry key={i}
@@ -49,8 +49,8 @@ var ResourceTable = React.createClass({
                                        columnLinks={columnLinks} />
         });
         return (<tbody>{entries}</tbody>);
-    },
+    }
 
-});
+}
 
 export default ResourceTable;

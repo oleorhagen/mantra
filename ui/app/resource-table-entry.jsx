@@ -1,9 +1,9 @@
 import React from 'react';
-import { Link } from 'react-router';
+import { Link } from 'react-router-dom';
 
-var ResourceTableEntry = React.createClass({
+class ResourceTableEntry extends React.PureComponent {
 
-    render: function() {
+    render() {
         var resource = this.props.resource;
         var columnKeys = this.props.columnKeys;
         var columnLinks = this.props.columnLinks;
@@ -13,10 +13,10 @@ var ResourceTableEntry = React.createClass({
                 { this.columns(resource, columnKeys, columnLinks) }
             </tr>
         );
-    },
+    }
 
     // todo: we need to be able to configure the column order
-    columns: function(resource, columnKeys, columnLinks) {
+    columns(resource, columnKeys, columnLinks) {
         var result = [];
         for (var i = 0; i < columnKeys.length; i++) {
             var key = columnKeys[i];
@@ -47,9 +47,9 @@ var ResourceTableEntry = React.createClass({
             }
         }
         return result;
-    },
+    }
 
-    status:  function(resource) {
+    status(resource) {
         var status = resource["result"] || resource["status"];
         if (status === "failed" || status === "error") {
             return <td className="rs-table-status rs-table-status-error"> </td>;
@@ -60,8 +60,8 @@ var ResourceTableEntry = React.createClass({
         } else {
             return <td className="rs-table-status rs-table-status-disabled"> </td>;
         }
-    },
+    }
 
-});
+};
 
 export default ResourceTableEntry;

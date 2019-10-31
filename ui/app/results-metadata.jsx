@@ -1,16 +1,16 @@
 import React from 'react';
 
-var ResultsMetadata = React.createClass({
+class ResultsMetadata extends React.PureComponent {
 
-    render: function() {
+    render() {
         return (
             <ul className="rs-detail-list">
                 {this.items()}
             </ul>
         );
-    },
+    }
 
-    items: function() {
+    items() {
         var metadata = this.props.metadata;
         var items = [];
         for (var key in metadata) {
@@ -22,8 +22,8 @@ var ResultsMetadata = React.createClass({
             )
         }
         return items;
-    },
+    }
 
-});
+}
 
 export default ResultsMetadata;
