@@ -50,7 +50,7 @@ docker-build:
 	docker-compose -f docker-compose.yml -f development.yml build
 
 docker-dev:
-	docker-compose -f docker-compose.yml -f development.yml up -d api worker ui
+	docker-compose -f docker-compose.yml -f development.yml up -d
 
 docker-deploy-production:
 	docker-compose -f docker-compose.yml -f production.yml up -d
