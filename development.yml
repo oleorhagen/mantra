@@ -1,9 +1,11 @@
 version: '2'
 services:
   api:
+    build: .
     volumes:
       - .:/tetra
   worker:
+    build: .
     volumes:
       - .:/tetra
   ui:
@@ -14,3 +16,15 @@ services:
       - ./ui/:/work
       - /work/node_modules
       - /work/dist
+  gateway:
+    # Enables the web UI and tells Traefik to listen to docker
+    command: 
+      - "--providers.docker=true"
+      - "--providers.docker.exposedbydefault=false"
+      - "--entrypoints.web.address=:80"
+      - "--api.insecure=true"
+      - "--log.filePath=`/home/traefik.log`"
+      - "--accesslog=true"
+    ports:
+      # The Web UI (enabled by --api.insecure=true)
+      - "8888:8080"
