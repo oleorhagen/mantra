@@ -1,2 +1,2 @@
 [api]
-base_url = http://localhost:7374
+base_url = http://localhost/api

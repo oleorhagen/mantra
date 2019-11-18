@@ -47,6 +47,7 @@ class VersionResource(object):
                 }
         resp.body = json.dumps(version)
 
+
 class TetraAPI(falcon.API):
 
     RESOURCES = [
