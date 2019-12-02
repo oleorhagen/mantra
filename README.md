@@ -128,7 +128,7 @@ The tests look for a `tetra-test.conf` file. The complete list of options is in
 `tests/config.py`. Here's an example `tetra-test.conf` file:
 
     [api]
-    base_url = http://localhost:7374
+    base_url = http://localhost/api
 
 The you can either use `tox` to run the tests:
 

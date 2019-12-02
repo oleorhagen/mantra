@@ -7,7 +7,7 @@ class ProjectsView extends React.Component {
     };
 
     componentDidMount() {
-        this.projectsRequest = fetch('http://localhost:7374/projects', result => {
+        this.projectsRequest = fetch('/api/projects', result => {
             this.setState({
                 projects: result
             });
