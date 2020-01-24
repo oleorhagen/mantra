@@ -3,7 +3,7 @@ services:
   api:
     build: .
     restart: always
-    label:
+    labels:
       - "traefik.http.middlewares.auth.basicauth.users=$TETRA_USERNAME:$TETRA_PASSWORD"
   worker:
     build: .
@@ -16,5 +16,7 @@ services:
     build:
       context: ./ui
     restart: always
+    labels:
+      - "traefik.http.services.frontend.loadbalancer.server.port=7375"
   gateway:
     restart: always
