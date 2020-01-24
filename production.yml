@@ -1,16 +1,20 @@
 version: '2'
 services:
   api:
+    build: .
     restart: always
     label:
       - "traefik.http.middlewares.auth.basicauth.users=$TETRA_USERNAME:$TETRA_PASSWORD"
   worker:
+    build: .
     restart: always
   queue:
     restart: always
   db:
     restart: always
   ui:
+    build:
+      context: ./ui
     restart: always
   gateway:
     restart: always

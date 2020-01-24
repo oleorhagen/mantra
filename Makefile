@@ -22,6 +22,7 @@ help:
 	@echo '  deploy-docs                - build and deploy docs to github pages'
 	@echo 'Docker commands:'
 	@echo '  docker-build               - build all docker images for a dev environment'
+	@echo '  docker-build-production    - build all docker images for a production environment'
 	@echo '  docker-dev                 - build/run all images/containers for a dev environment'
 	@echo '  docker-restart-worker      - restart the worker container'
 	@echo '  docker-db                  - run the postgres docker container in background ($(DOCKER_DB_TAG))'
@@ -49,11 +50,23 @@ deploy-docs:
 docker-build:
 	docker-compose -f docker-compose.yml -f development.yml build
 
+docker-build-production:
+	docker-compose -f docker-compose.yml -f production.yml build
+
 docker-dev:
 	docker-compose -f docker-compose.yml -f development.yml up -d
 
+docker-deploy-development:
+	docker-compose -f docker-compose.yml -f development.yml up -d db
+	docker-compose -f docker-compose.yml -f development.yml up -d queue
+	sleep 5
+	docker-compose -f docker-compose.yml -f development.yml up --no-recreate -d api worker ui gateway
+
 docker-deploy-production:
-	docker-compose -f docker-compose.yml -f production.yml up -d
+	docker-compose -f docker-compose.yml -f production.yml up -d db
+	docker-compose -f docker-compose.yml -f production.yml up -d queue
+	sleep 5
+	docker-compose -f docker-compose.yml -f production.yml up --no-recreate -d api worker ui gateway
 
 docker-restart-worker:
 	docker-compose -f docker-compose.yml -f development.yml restart worker
