@@ -9,3 +9,6 @@ tetra-test.conf
 npm-debug.log
 site/
 .pytest_cache/
+
+# Helpers
+scripts/test_results/
