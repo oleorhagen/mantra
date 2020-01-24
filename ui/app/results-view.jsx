@@ -14,14 +14,15 @@ class ResultsView extends React.Component {
     }
 
     componentWillUnmount() {
-        this.getResultsRequest.abort();
+        // this.getResultsRequest.abort();
     }
 
     getResults(offset) {
-        var url = `/api/projects/${this.props.params.project_id || this.props.project_id}/builds/${this.props.params.build_id ||
-            this.props.build_id}/results?offset=${offset}`;
-        this.getResultsRequest = fetch(url, result => {
-            this.setState({
+        const self = this;
+        var url = `/api/projects/${self.props.params.project_id || self.props.project_id}/builds/${self.props.params.build_id ||
+            self.props.build_id}/results?offset=${offset}`;
+        self.getResultsRequest = fetch(url).then(response => response.json()).then( result => {
+            self.setState({
                 results: result.results,
                 metadata: result.metadata,
                 offset: offset

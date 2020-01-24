@@ -16,17 +16,18 @@ class LastFailedView extends React.Component {
     }
 
     componentDidMount() {
-        var url = `/api/projects/${this.props.params.project_id || this.props.project_id}/status/failed/count/${this.props.params.count ||
-            this.props.count}?build_name=${this.buildName()}`;
-        this.lastFailedResultsRequest = fetch(url, result => {
-            this.setState({
+        const self = this;
+        var url = `/api/projects/${self.props.params.project_id || self.props.project_id}/status/failed/count/${self.props.params.count ||
+            self.props.count}?build_name=${self.buildName()}`;
+        self.lastFailedResultsRequest = fetch(url).then(response => response.json()).then( result => {
+            self.setState({
                 results: result
             });
         });
     }
 
     componentWillUnmount() {
-        this.lastFailedResultsRequest.abort();
+        // this.lastFailedResultsRequest.abort();
     }
 
     render() {

@@ -12,17 +12,18 @@ class HistoryView extends React.Component {
     }
 
     componentDidMount() {
-        var url = `/api/projects/${this.props.params.project_id || this.props.project_id}/test_name/${this.testName()}/count/${this.props.params.count ||
-            this.props.count}`;
-        this.historyResultsRequest = fetch(url, result => {
-            this.setState({
+        const self = this;
+        var url = `/api/projects/${self.props.params.project_id || self.props.project_id}/test_name/${self.testName()}/count/${self.props.params.count ||
+            self.props.count}`;
+        self.historyResultsRequest = fetch(url).then(response => response.json()).then( result => {
+            self.setState({
                 results: result
             });
         });
     }
 
     componentWillUnmount() {
-        this.historyResultsRequest.abort();
+        // this.historyResultsRequest.abort();
     }
 
     render() {
