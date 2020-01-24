@@ -17,6 +17,6 @@ services:
       context: ./ui
     restart: always
     labels:
-      - "traefik.http.services.frontend.loadbalancer.server.port=7375"
+      - "traefik.http.services.frontend.loadbalancer.server.port=80"
   gateway:
     restart: always
