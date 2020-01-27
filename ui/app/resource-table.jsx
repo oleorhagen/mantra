@@ -2,18 +2,14 @@ import React from 'react';
 import ResourceTableEntry from './resource-table-entry';
 
 class ResourceTable extends React.PureComponent {
-
     render() {
         var headers = this.tableHeaders(this.props.columnTitles);
-        var entries = this.tableEntries(this.props.resources,
-                                        this.props.columnKeys);
+        var entries = this.tableEntries(this.props.resources, this.props.columnKeys);
         return (
-            <div className="rs-embedded-list-table-wrapper rs-embedded-medium">
-                <table className="rs-list-table rs-embedded-list-table">
-                    {headers}
-                    {entries}
-                </table>
-            </div>
+            <table className="rs-list-table rs-embedded-list-table">
+                {headers}
+                {entries}
+            </table>
         );
     }
 
@@ -22,7 +18,7 @@ class ResourceTable extends React.PureComponent {
             <thead>
                 <tr>
                     <th className="rs-table-status"></th>
-                    { headerNames.map(this.tableHeader) }
+                    {headerNames.map(this.tableHeader)}
                 </tr>
             </thead>
         );
@@ -32,7 +28,7 @@ class ResourceTable extends React.PureComponent {
     tableHeader(headerName, i) {
         return (
             <th key={i}>
-                <a href ="#list-table" className="rs-table-sort">
+                <a href="#list-table" className="rs-table-sort">
                     <span className="rs-table-sort-text">{headerName}</span>
                     <span className="rs-table-sort-indicator"></span>
                 </a>
@@ -43,14 +39,10 @@ class ResourceTable extends React.PureComponent {
     tableEntries(resources, columnKeys) {
         var columnLinks = this.props.columnLinks;
         var entries = resources.map(function(resource, i) {
-            return <ResourceTableEntry key={i}
-                                       resource={resource}
-                                       columnKeys={columnKeys}
-                                       columnLinks={columnLinks} />
+            return <ResourceTableEntry key={i} resource={resource} columnKeys={columnKeys} columnLinks={columnLinks} />;
         });
-        return (<tbody>{entries}</tbody>);
+        return <tbody>{entries}</tbody>;
     }
-
 }
 
 export default ResourceTable;

@@ -8,12 +8,14 @@ class BuildsView extends React.Component {
 
     componentDidMount() {
         const self = this;
-        var url = `/api/projects/${self.props.params.project_id || self.props.project_id}/builds`;
-        self.buildsRequest = fetch(url).then(response => response.json()).then( result => {
-            self.setState({
-                builds: result
+        var url = `/api/projects/${self.props.match.params.project_id || self.props.project_id}/builds`;
+        self.buildsRequest = fetch(url)
+            .then(response => response.json())
+            .then(result => {
+                self.setState({
+                    builds: result
+                });
             });
-        });
     }
 
     componentWillUnmount() {

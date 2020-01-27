@@ -19,15 +19,17 @@ class ResultsView extends React.Component {
 
     getResults(offset) {
         const self = this;
-        var url = `/api/projects/${self.props.params.project_id || self.props.project_id}/builds/${self.props.params.build_id ||
+        var url = `/api/projects/${self.props.match.params.project_id || self.props.project_id}/builds/${self.props.match.params.build_id ||
             self.props.build_id}/results?offset=${offset}`;
-        self.getResultsRequest = fetch(url).then(response => response.json()).then( result => {
-            self.setState({
-                results: result.results,
-                metadata: result.metadata,
-                offset: offset
+        self.getResultsRequest = fetch(url)
+            .then(response => response.json())
+            .then(result => {
+                self.setState({
+                    results: result.results,
+                    metadata: result.metadata,
+                    offset: offset
+                });
             });
-        });
     }
 
     offsetIncrease(event) {
