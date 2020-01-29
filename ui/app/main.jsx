@@ -11,8 +11,8 @@ render(
     <BrowserRouter>
         <Switch>
             <Route path="/projects/:project_id/builds/:build_name/last_failed/:count" component={LastFailedView} />
-            <Route path="/projects/:project_id/builds" component={BuildsView} />
             <Route path="/projects/:project_id/builds/:build_id/results" component={ResultsView} />
+            <Route path="/projects/:project_id/builds" component={BuildsView} />
             <Route path="/projects/:project_id/tests/:test_name/history/:count" component={HistoryView} />
             <Route exact path="/" component={ProjectsView} />
         </Switch>
