@@ -7,15 +7,16 @@ class ProjectsView extends React.Component {
     };
 
     componentDidMount() {
-        this.projectsRequest = fetch('/api/projects', result => {
-            this.setState({
+        const self = this;
+        self.projectsRequest = fetch('/api/projects').then(response => response.json()).then(result => {
+            self.setState({
                 projects: result
             });
         });
     }
 
     componentWillUnmount() {
-        this.projectsRequest.abort();
+        // this.projectsRequest.abort();
     }
 
     render() {

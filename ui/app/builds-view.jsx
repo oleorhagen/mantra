@@ -7,16 +7,19 @@ class BuildsView extends React.Component {
     };
 
     componentDidMount() {
-        var url = `/api/projects/${this.props.params.project_id || this.props.project_id}/builds`;
-        this.buildsRequest = fetch(url, result => {
-            this.setState({
-                builds: result
+        const self = this;
+        var url = `/api/projects/${self.props.match.params.project_id || self.props.project_id}/builds`;
+        self.buildsRequest = fetch(url)
+            .then(response => response.json())
+            .then(result => {
+                self.setState({
+                    builds: result
+                });
             });
-        });
     }
 
     componentWillUnmount() {
-        this.buildsRequest.abort();
+        // this.buildsRequest.abort();
     }
 
     render() {
