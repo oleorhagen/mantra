@@ -9,16 +9,8 @@ services:
       - db
     command: |
       bash -c "export PYTHONUNBUFFERED=1 && gunicorn --reload -t 120 --bind 0.0.0.0:7374 --access-logfile - tetra.app:application"
-    labels:
-      - "traefik.enable=true"
-      # password hashed according to https://docs.traefik.io/middlewares/basicauth/#general
-      # so: `htpasswd -nb -B <username> <password>` and escaped `$` signs (as `$$`)
-      - "traefik.http.middlewares.auth.basicauth.users=test:$$apr1$$H6uskkkW$$IgXLP6ewTrSuBkTrqE8wj/"
-      - "traefik.http.middlewares.api-stripprefix.stripprefix.prefixes=/api/"
-      - "traefik.http.routers.backend.entrypoints=web"
-      - "traefik.http.routers.backend.rule=PathPrefix(`/api/`)"
-      - "traefik.http.routers.backend.middlewares=api-stripprefix,auth"
-      - "traefik.http.services.backend.loadbalancer.server.port=7374"
+    ports:
+      - "7374:7374"
   worker:
     image: tetra-api
     container_name: tetra-worker
@@ -51,27 +43,38 @@ services:
   ui:
     image: tetra-ui
     container_name: tetra-ui
+    ports:
+      - "8080:80"
     depends_on:
       - api
-    labels:
-      - "traefik.enable=true"
-      - "traefik.http.routers.frontend.entrypoints=web"
-      - "traefik.http.routers.frontend.rule=PathPrefix(`/`)"
-      - "traefik.http.routers.frontend.middlewares=auth"
   gateway:
-    image: traefik:v2.0
+    image: nginx:stable-alpine
     container_name: tetra-gateway
-    # Enables the web UI and tells Traefik to listen to docker
-    command:
-      - "--providers.docker=true"
-      - "--providers.docker.exposedbydefault=false"
-      - "--entrypoints.web.address=:80"
+    entrypoint: >
+      /bin/sh -c 'echo "
+      events {}
+      http {
+        server {
+          listen 80;
+          location / {
+            proxy_max_temp_file_size 128m;
+            proxy_buffers 16 16k;
+            proxy_buffer_size 16k;
+            proxy_pass http://localhost:8080;
+          }
+          location ~* /api/(.*) {
+            proxy_max_temp_file_size 128m;
+            proxy_buffers 16 16k;
+            proxy_buffer_size 16k;
+            rewrite ^/api(.*)$$ $$1 break;
+            proxy_pass http://localhost:7374;
+          }
+        }
+      }" > /etc/nginx/nginx.conf && nginx -g "daemon off;"
+      '
     ports:
       # The HTTP port
       - "80:80"
-    volumes:
-      # So that Traefik can listen to the Docker events
-      - "/var/run/docker.sock:/var/run/docker.sock:ro"
     depends_on:
       - ui
       - api
