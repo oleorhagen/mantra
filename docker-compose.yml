@@ -31,7 +31,7 @@ services:
     command: |
       su -m tetra-worker -c "celery --app=tetra.worker.app worker --loglevel=INFO"
   db:
-    image: postgres:9.5
+    image: bitnami/postgresql:12.2.0
     container_name: tetra-db
     ports:
       # note: exposing port 5432 here causes issues in travis builds
@@ -40,7 +40,7 @@ services:
       POSTGRES_PASSWORD: password
       POSTGRES_DB: tetra-db
   queue:
-    image: rabbitmq:3.6-management
+    image: bitnami/rabbitmq:3.8.2-debian-10-r25
     container_name: tetra-queue
     ports:
       - "5672:5672"
