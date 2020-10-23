@@ -71,8 +71,8 @@ MENDER_QA_TEST_SUITES = [
     },
 ]
 
-_TETRA_API_HOST = "localhost"
-_TETRA_API_BASE_URL = "http://{}/api/".format(_TETRA_API_HOST)
+_TETRA_API_HOST = os.getenv("TETRA_API_HOST", "https://qastatus.mender.io")
+_TETRA_API_BASE_URL = "{}/api/".format(_TETRA_API_HOST)
 
 TETRA_API_PROJECTS_URL = _TETRA_API_BASE_URL + "projects"
 TETRA_API_BUILDS_URL_FMT = _TETRA_API_BASE_URL + "projects/{project_id}/builds"
