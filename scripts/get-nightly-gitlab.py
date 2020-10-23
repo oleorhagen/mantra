@@ -2,7 +2,7 @@
 
 """Get integration test results for recent nightlies
 
-For the last 10 days, get the xml results available in GitLab"""
+For the last 14 days, get the xml results available in GitLab"""
 
 import requests
 import os
@@ -63,7 +63,7 @@ def iterate_nightlies(start_date, total_days):
             logger.error("Could not find nightly for " + single_date_str)
 
 
-def fetch_and_save_nightlies(start_date=date.today(), total_days=-5):
+def fetch_and_save_nightlies(start_date=date.today(), total_days=-14):
     for date_str, nightly_id in iterate_nightlies(start_date, total_days):
         url = pipelines_api + str(nightly_id) + "/jobs"
         logger.debug("Fetching URL: " + url)
