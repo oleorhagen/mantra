@@ -68,6 +68,10 @@ def fetch_and_save_nightlies(start_date=date.today(), total_days=-14):
         url = pipelines_api + str(nightly_id) + "/jobs"
         logger.debug("Fetching URL: " + url)
         r = requests.get(url, headers={"PRIVATE-TOKEN": token})
+        if r.status_code == 404:
+            logger.error("Error fetching %s. Skipping" % url)
+            continue
+
         j = r.json()
         logger.debug("Got JSON: " + str(j))
 
@@ -90,7 +94,7 @@ def fetch_and_save_nightlies(start_date=date.today(), total_days=-14):
             logger.debug("Fetching URL: " + url)
             r = requests.get(url, headers={"PRIVATE-TOKEN": token})
 
-            if not r.ok:
+            if r.status_code == 404:
                 # BBB and RPi are not tested
                 if project["job"] in [
                     "test_accep_beagleboneblack",
@@ -113,7 +117,7 @@ def fetch_and_save_nightlies(start_date=date.today(), total_days=-14):
                 with open(filename, "wb") as fd:
                     fd.write(r.content)
             else:
-                logger.warning("Report " + filename + " already exists, skipping")
+                logger.warning("Report " + os.path.basename(filename) + " already exists, skipping")
 
 
 if __name__ == "__main__":

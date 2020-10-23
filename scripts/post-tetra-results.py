@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 
-"""Creates a project for every test suite in Mender QA"""
+"""Post results into tetra projects from local files"""
 
 import requests
 from requests.auth import HTTPBasicAuth
