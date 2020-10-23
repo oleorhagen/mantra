@@ -46,28 +46,18 @@ MENDER_QA_TEST_SUITES = [
         "results_file": "results_accep_vexpress_qemu_flash",
     },
     {
-        "name": "test_accep_beagleboneblack",
-        "id": 7,
-        "results_file": "results_accep_beagleboneblack",
-    },
-    {
-        "name": "test_accep_raspberrypi3",
-        "id": 8,
-        "results_file": "results_accep_raspberrypi3",
-    },
-    {
         "name": "test_backend_integration",
-        "id": 9,
+        "id": 7,
         "results_file": "results_backend_integration_open",
     },
     {
         "name": "test_backend_integration",
-        "id": 10,
+        "id": 8,
         "results_file": "results_backend_integration_enterprise",
     },
     {
         "name": "test_full_integration",
-        "id": 11,
+        "id": 9,
         "results_file": "results_full_integration",
     },
 ]
