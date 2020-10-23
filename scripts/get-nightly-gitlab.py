@@ -72,18 +72,18 @@ def fetch_and_save_nightlies(start_date=date.today(), total_days=-14):
         logger.debug("Got JSON: " + str(j))
 
         for project in MENDER_QA_TEST_SUITES:
-            test_job = [jj["id"] for jj in j if jj["name"] == project["name"]]
+            test_job = [jj["id"] for jj in j if jj["name"] == project["job"]]
             if len(test_job) == 0:
                 # RPi is not build by default
-                if project["name"] == "test_accep_raspberrypi3":
+                if project["job"] == "test_accep_raspberrypi3":
                     logger_func = logger.warning
                 else:
                     logger_func = logger.error
-                logger_func("Cannot find %s in job list" % project["name"])
+                logger_func("Cannot find %s in job list" % project["job"])
                 continue
 
             test_job = test_job[0]
-            logger.info("Fetching XML results for %s" % project["name"])
+            logger.info("Fetching XML results for %s" % project["job"])
             url = artifacts_api_fmt.format(
                 job_id=test_job, artifact_filename=project["results_file"] + ".xml"
             )
@@ -92,7 +92,7 @@ def fetch_and_save_nightlies(start_date=date.today(), total_days=-14):
 
             if not r.ok:
                 # BBB and RPi are not tested
-                if project["name"] in [
+                if project["job"] in [
                     "test_accep_beagleboneblack",
                     "test_accep_raspberrypi3",
                 ]:
@@ -101,7 +101,7 @@ def fetch_and_save_nightlies(start_date=date.today(), total_days=-14):
                     logger_func = logger.error
                 logger_func(
                     "Cannot get results file %s from %s "
-                    % (project["results_file"], project["name"])
+                    % (project["results_file"], project["job"])
                 )
                 continue
 

@@ -16,48 +16,57 @@ TEST_RESULTS_DIR = os.path.join(
 
 MENDER_QA_TEST_SUITES = [
     {
-        "name": "test_accep_qemux86_64_uefi_grub",
         "id": 1,
+        "name": "test_accep_qemux86_64_uefi_grub",
+        "job": "test_accep_qemux86_64_uefi_grub",
         "results_file": "results_accep_qemux86_64_uefi_grub",
     },
     {
-        "name": "test_accep_vexpress_qemu",
         "id": 2,
+        "name": "test_accep_vexpress_qemu",
+        "job": "test_accep_vexpress_qemu",
         "results_file": "results_accep_vexpress_qemu",
     },
     {
-        "name": "test_accep_qemux86_64_bios_grub",
         "id": 3,
+        "name": "test_accep_qemux86_64_bios_grub",
+        "job": "test_accep_qemux86_64_bios_grub",
         "results_file": "results_accep_qemux86_64_bios_grub",
     },
     {
-        "name": "test_accep_qemux86_64_bios_grub_gpt",
         "id": 4,
+        "name": "test_accep_qemux86_64_bios_grub_gpt",
+        "job": "test_accep_qemux86_64_bios_grub_gpt",
         "results_file": "results_accep_qemux86_64_bios_grub_gpt",
     },
     {
-        "name": "test_accep_vexpress_qemu_uboot_uefi_grub",
         "id": 5,
+        "name": "test_accep_vexpress_qemu_uboot_uefi_grub",
+        "job": "test_accep_vexpress_qemu_uboot_uefi_grub",
         "results_file": "results_accep_vexpress_qemu_uboot_uefi_grub",
     },
     {
-        "name": "test_accep_vexpress_qemu_flash",
         "id": 6,
+        "name": "test_accep_vexpress_qemu_flash",
+        "job": "test_accep_vexpress_qemu_flash",
         "results_file": "results_accep_vexpress_qemu_flash",
     },
     {
-        "name": "test_backend_integration",
         "id": 7,
+        "name": "test_backend_integration_open",
+        "job": "test_backend_integration",
         "results_file": "results_backend_integration_open",
     },
     {
-        "name": "test_backend_integration",
         "id": 8,
+        "name": "test_backend_integration_enterprise",
+        "job": "test_backend_integration",
         "results_file": "results_backend_integration_enterprise",
     },
     {
-        "name": "test_full_integration",
         "id": 9,
+        "name": "test_full_integration",
+        "job": "test_full_integration",
         "results_file": "results_full_integration",
     },
 ]
