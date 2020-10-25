@@ -2,7 +2,7 @@
 
 """Get integration test results for recent nightlies
 
-For the last 10 days, get the xml results available in GitLab"""
+For the last 14 days, get the xml results available in GitLab"""
 
 import requests
 import os
@@ -63,36 +63,40 @@ def iterate_nightlies(start_date, total_days):
             logger.error("Could not find nightly for " + single_date_str)
 
 
-def fetch_and_save_nightlies(start_date=date.today(), total_days=-5):
+def fetch_and_save_nightlies(start_date=date.today(), total_days=-14):
     for date_str, nightly_id in iterate_nightlies(start_date, total_days):
         url = pipelines_api + str(nightly_id) + "/jobs"
         logger.debug("Fetching URL: " + url)
         r = requests.get(url, headers={"PRIVATE-TOKEN": token})
+        if r.status_code == 404:
+            logger.error("Error fetching %s. Skipping" % url)
+            continue
+
         j = r.json()
         logger.debug("Got JSON: " + str(j))
 
         for project in MENDER_QA_TEST_SUITES:
-            test_job = [jj["id"] for jj in j if jj["name"] == project["name"]]
+            test_job = [jj["id"] for jj in j if jj["name"] == project["job"]]
             if len(test_job) == 0:
                 # RPi is not build by default
-                if project["name"] == "test_accep_raspberrypi3":
+                if project["job"] == "test_accep_raspberrypi3":
                     logger_func = logger.warning
                 else:
                     logger_func = logger.error
-                logger_func("Cannot find %s in job list" % project["name"])
+                logger_func("Cannot find %s in job list" % project["job"])
                 continue
 
             test_job = test_job[0]
-            logger.info("Fetching XML results for %s" % project["name"])
+            logger.info("Fetching XML results for %s" % project["job"])
             url = artifacts_api_fmt.format(
                 job_id=test_job, artifact_filename=project["results_file"] + ".xml"
             )
             logger.debug("Fetching URL: " + url)
             r = requests.get(url, headers={"PRIVATE-TOKEN": token})
 
-            if not r.ok:
+            if r.status_code == 404:
                 # BBB and RPi are not tested
-                if project["name"] in [
+                if project["job"] in [
                     "test_accep_beagleboneblack",
                     "test_accep_raspberrypi3",
                 ]:
@@ -101,7 +105,7 @@ def fetch_and_save_nightlies(start_date=date.today(), total_days=-5):
                     logger_func = logger.error
                 logger_func(
                     "Cannot get results file %s from %s "
-                    % (project["results_file"], project["name"])
+                    % (project["results_file"], project["job"])
                 )
                 continue
 
@@ -113,7 +117,7 @@ def fetch_and_save_nightlies(start_date=date.today(), total_days=-5):
                 with open(filename, "wb") as fd:
                     fd.write(r.content)
             else:
-                logger.warning("Report " + filename + " already exists, skipping")
+                logger.warning("Report " + os.path.basename(filename) + " already exists, skipping")
 
 
 if __name__ == "__main__":

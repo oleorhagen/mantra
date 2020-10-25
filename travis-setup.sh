@@ -19,7 +19,7 @@ EOF
 
 cat <<EOF > tetra-test.conf
 [api]
-base_url = http://test:test@localhost/api
+base_url = http://localhost/api
 EOF
 
 if [ "$TOXENV" = "functional" ]; then

@@ -16,6 +16,9 @@ from common import get_tetra_credentials
 user, password = get_tetra_credentials()
 
 r = requests.get(TETRA_API_PROJECTS_URL, auth=HTTPBasicAuth(user, password))
+if not r.ok:
+    logger.error("Error(%d) %s" % (r.status_code, r.text))
+    sys.exit(1)
 j = r.json()
 if len(j) > 0:
     logger.warning("The following projects already exist:")
