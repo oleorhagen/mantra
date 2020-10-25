@@ -85,6 +85,5 @@ def get_tetra_credentials():
     user = os.getenv("TETRA_USER")
     password = os.getenv("TETRA_PASSWORD")
     if user is None or password is None:
-        logger.error("TETRA_USER or TETRA_PASSWORD not found in user environment")
-        sys.exit(1)
+        logger.warning("TETRA_USER or TETRA_PASSWORD not found in user environment")
     return user, password
