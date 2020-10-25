@@ -38,8 +38,8 @@ services:
       - "5672:5672"
       - "15672:15672"
     environment:
-      RABBITMQ_DEFAULT_USER: tetra
-      RABBITMQ_DEFAULT_PASS: password
+      RABBITMQ_USERNAME: tetra
+      RABBITMQ_PASSWORD: password
   ui:
     image: tetra-ui
     container_name: tetra-ui
