@@ -6,3 +6,12 @@ include:
     file: '.gitlab-ci-check-commits-signoffs.yml'
   - project: 'Northern.tech/Mender/mendertesting'
     file: '.gitlab-ci-github-status-updates.yml'
+
+test:check-python3-formatting:
+  stage: test
+  needs: []
+  image: python:3
+  before_script:
+    - pip install tox
+  script:
+    - TOXENV=flake8 tox

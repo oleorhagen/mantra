@@ -9,7 +9,6 @@ python:
     - "3.6"
 
 env:
-    - TOXENV=flake8
     - TOXENV=functional
 
 install: "pip install tox"
