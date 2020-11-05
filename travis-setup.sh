@@ -4,17 +4,17 @@ set -x
 cat <<EOF > tetra.conf
 [sqlalchemy]
 engine = postgres
-host = tetra-db
+host = mantra-db
 port = 5432
 username = postgres
 password = password
-database = tetra-db
+database = mantra-db
 
 [api]
 default_limit = 25
 
 [queue]
-broker_url = amqp://tetra:password@tetra-queue:5672//
+broker_url = amqp://tetra:password@mantra-queue:5672//
 EOF
 
 cat <<EOF > tetra-test.conf

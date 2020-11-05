@@ -7,15 +7,15 @@ UNAME := $(shell uname)
 OPEN := open
 
 # the image and container are both named this
-DOCKER_TAG := tetra-api
-DOCKER_WORKER_TAG := tetra-worker
-DOCKER_DB_TAG := tetra-db
-DOCKER_QUEUE_TAG := tetra-queue
-DOCKER_UI_TAG := tetra-ui
+DOCKER_TAG := mantra-api
+DOCKER_WORKER_TAG := mantra-worker
+DOCKER_DB_TAG := mantra-db
+DOCKER_QUEUE_TAG := mantra-queue
+DOCKER_UI_TAG := mantra-ui
 
 help:
 	@echo 'Commands:'
-	@echo '  start                      - start the tetra api, running locally'
+	@echo '  start                      - start $(DOCKER_TAG), running locally'
 	@echo '  test                       - run tests (you must first write tetra-test.conf)'
 	@echo '  rabbitmq-admin-ui          - open the rabbitmq management interface in a browser'
 	@echo '  docs                       - build the docs and start a local server to view them'

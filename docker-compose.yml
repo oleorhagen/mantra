@@ -1,8 +1,8 @@
 version: '2'
 services:
   api:
-    image: tetra-api
-    container_name: tetra-api
+    image: mantra-api
+    container_name: mantra-api
     depends_on:
       - db
     links:
@@ -12,8 +12,8 @@ services:
     ports:
       - "7374:7374"
   worker:
-    image: tetra-api
-    container_name: tetra-worker
+    image: mantra-api
+    container_name: mantra-worker
     depends_on:
       - queue
     links:
@@ -24,16 +24,16 @@ services:
       su -m tetra-worker -c "celery --app=tetra.worker.app worker --loglevel=INFO"
   db:
     image: bitnami/postgresql:12.2.0
-    container_name: tetra-db
+    container_name: mantra-db
     ports:
       # note: exposing port 5432 here causes issues in travis builds
       - "5432"
     environment:
       POSTGRES_PASSWORD: password
-      POSTGRES_DB: tetra-db
+      POSTGRES_DB: mantra-db
   queue:
     image: bitnami/rabbitmq:3.8.2-debian-10-r25
-    container_name: tetra-queue
+    container_name: mantra-queue
     ports:
       - "5672:5672"
       - "15672:15672"
@@ -41,15 +41,15 @@ services:
       RABBITMQ_USERNAME: tetra
       RABBITMQ_PASSWORD: password
   ui:
-    image: tetra-ui
-    container_name: tetra-ui
+    image: mantra-ui
+    container_name: mantra-ui
     ports:
       - "8080:80"
     depends_on:
       - api
   gateway:
     image: nginx:stable-alpine
-    container_name: tetra-gateway
+    container_name: mantra-gateway
     entrypoint: >
       /bin/sh -c 'echo "
       events {}
