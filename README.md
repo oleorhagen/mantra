@@ -1,4 +1,13 @@
-[![Build Status](https://travis-ci.org/rackerlabs/tetra.svg?branch=master)](https://travis-ci.org/rackerlabs/tetra)
+[![Build Status](https://travis-ci.org/mendersoftware/mantra.svg?branch=master)](https://travis-ci.org/mendersoftware/mantra)
+
+# mantra
+
+`mantra` is a fork of [tetra](https://github.com/rackerlabs/tetra), an Open
+Source project from [rackerlabs](https://developer.rackspace.com).
+
+It has been extended and is maintained by Mender for internal use. While the
+actual source code still refers to `tetra`, the Docker images and other user
+facing aspects have been renamed.
 
 # tetra
 

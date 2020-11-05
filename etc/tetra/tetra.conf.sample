@@ -1,13 +1,13 @@
 [sqlalchemy]
 engine = postgres
-host = localhost
+host = mantra-db
 port = 5432
 username = postgres
 password = password
-database = tetra-db
+database = mantra-db
 
 [api]
 default_limit = 25
 
 [queue]
-broker_url = amqp://tetra:password@localhost:5672//
+broker_url = amqp://tetra:password@mantra-queue:5672//
