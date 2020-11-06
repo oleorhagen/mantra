@@ -2,6 +2,7 @@ version: '2'
 services:
   api:
     image: mantra-api
+    build: .
     container_name: mantra-api
     depends_on:
       - db
@@ -13,6 +14,7 @@ services:
       - "7374:7374"
   worker:
     image: mantra-api
+    build: .
     container_name: mantra-worker
     depends_on:
       - queue
@@ -42,6 +44,7 @@ services:
       RABBITMQ_PASSWORD: password
   ui:
     image: mantra-ui
+    build: ui
     container_name: mantra-ui
     ports:
       - "8080:80"
