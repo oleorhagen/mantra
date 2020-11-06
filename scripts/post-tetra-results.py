@@ -17,6 +17,18 @@ from common import get_tetra_credentials
 
 user, password = get_tetra_credentials()
 
+# Pre-fetch all builds for all suites
+builds = {}
+for suite_id in [s["id"] for s in MENDER_QA_TEST_SUITES]:
+    r = requests.get(
+        TETRA_API_BUILDS_URL_FMT.format(project_id=suite_id),
+        auth=HTTPBasicAuth(user, password),
+    )
+    if not r.ok:
+        logger.error("Error(%d) %s" % (r.status_code, r.text))
+        sys.exit(1)
+    builds[suite_id] = r.json()
+
 for root, _, files in os.walk(TEST_RESULTS_DIR):
     for name in sorted(files):
         logger.info("Uploading file " + name)
@@ -31,6 +43,12 @@ for root, _, files in os.walk(TEST_RESULTS_DIR):
         logger.debug("Project ID %d" % project_id)
 
         build_name = "nightly-" + run_date
+
+        found = [b for b in builds[project_id] if b["name"] == build_name]
+        if len(found) > 0:
+            logger.info("Project %d, build: %s already uploaded. Skipping" % (project_id, build_name))
+            continue
+
         r = requests.post(
             TETRA_API_BUILDS_URL_FMT.format(project_id=project_id),
             auth=HTTPBasicAuth(user, password),
