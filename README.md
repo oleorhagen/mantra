@@ -1,3 +1,4 @@
+[![Build Status](https://gitlab.com/Northern.tech/Mender/mantra/badges/master/pipeline.svg)](https://gitlab.com/Northern.tech/Mender/mantra/pipelines)
 [![Build Status](https://travis-ci.org/mendersoftware/mantra.svg?branch=master)](https://travis-ci.org/mendersoftware/mantra)
 
 # mantra
@@ -114,12 +115,9 @@ options is in `tetra/config.py`. Here's an example `tetra.conf` file:
     [queue]
     broker_url = amqp://tetra:password@localhost:5672//
 
-Tip: When using the docker dev environment, you can use the names of the
-services in the `docker-compose.yml` as hostnames:
-
-    host = db
-    ...
-    broker_url = amqp://tetra:password@queue:5672//
+The sample configuration from etc/tetra/tetra.conf.sample reflects the setup
+from the docker-compose.yml composition and is installed into the Docker image.
+For different infrastructure, changes might need to be made.
 
 # Running `tetra`'s tests
 
