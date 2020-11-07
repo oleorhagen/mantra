@@ -1,4 +1,3 @@
-.PHONY: docs deploy-docs test start
 SHELL := /bin/bash
 
 # used to check what platform we're on, to see if we should use a vm for docker
@@ -22,14 +21,12 @@ help:
 	@echo '  deploy-docs                - build and deploy docs to github pages'
 	@echo 'Docker commands:'
 	@echo '  docker-build               - build all docker images for a dev environment'
-	@echo '  docker-build-production    - build all docker images for a production environment'
-	@echo '  docker-dev                 - build/run all images/containers for a dev environment'
+	@echo '  docker-deploy              - deploy docker composition locally'
+	@echo '  docker-deploy-development  - deploy docker composition locally for a dev environment'
 	@echo '  docker-restart-worker      - restart the worker container'
 	@echo '  docker-db                  - run the postgres docker container in background ($(DOCKER_DB_TAG))'
 	@echo '  docker-queue               - run the rabbitmq docker container in background ($(DOCKER_QUEUE_TAG))'
 	@echo '  docker-logs                - follow the logs from all containers'
-	@echo '  docker-ps                  - list running docker containers'
-	@echo '  docker-stop                - stop the containers'
 	@echo '  docker-down                - stop and remove the containers'
 	@echo '  docker-port                - display the real <ip>:<port> for different containers'
 	@echo '  docker-postgres-shell      - start the postgres shell in your container'
@@ -48,37 +45,30 @@ deploy-docs:
 	mkdocs gh-deploy -c
 
 docker-build:
-	docker-compose -f docker-compose.yml -f development.yml build
+	docker-compose -f docker-compose.yml build
 
-docker-build-production:
-	docker-compose -f docker-compose.yml -f production.yml build
+docker-deploy: docker-db docker-queue
+	sleep 5
+	docker-compose -f docker-compose.yml up --no-recreate -d api worker ui gateway
 
-docker-dev:
-	docker-compose -f docker-compose.yml -f development.yml up -d
-
-docker-deploy-development:
-	docker-compose -f docker-compose.yml -f development.yml up -d db
-	docker-compose -f docker-compose.yml -f development.yml up -d queue
+docker-deploy-development: docker-db docker-queue
 	sleep 5
 	docker-compose -f docker-compose.yml -f development.yml up --no-recreate -d api worker ui gateway
 
-docker-deploy-production:
-	docker-compose -f docker-compose.yml -f production.yml up -d db
-	docker-compose -f docker-compose.yml -f production.yml up -d queue
-	sleep 5
-	docker-compose -f docker-compose.yml -f production.yml up --no-recreate -d api worker ui gateway
-
 docker-restart-worker:
-	docker-compose -f docker-compose.yml -f development.yml restart worker
+	docker-compose -f docker-compose.yml restart worker
 
 docker-db:
-	docker-compose -f docker-compose.yml -f development.yml up -d db
+	docker-compose -f docker-compose.yml up -d db
 
 docker-queue:
-	docker-compose -f docker-compose.yml -f development.yml up -d queue
+	docker-compose -f docker-compose.yml up -d queue
 
 docker-logs:
-	docker-compose -f docker-compose.yml -f development.yml logs -f
+	docker-compose -f docker-compose.yml logs -f
+
+docker-down:
+	docker-compose -f docker-compose.yml down
 
 docker-port:
 	@echo API=$(shell docker port $(DOCKER_TAG) 7374)
@@ -95,3 +85,18 @@ rabbitmq-admin-ui:
 	open http://`docker-machine ip $(DOCKER_MACHINE_NAME)`:$(shell \
 		docker port $(DOCKER_QUEUE_TAG) 15672 | cut -d':' -f 2 \
 	)
+
+.PHONY: start
+.PHONY: test
+.PHONY: rabbitmq-admin-ui
+.PHONY: docs
+.PHONY: deploy-docs
+.PHONY: docker-build
+.PHONY: docker-deploy
+.PHONY: docker-deploy-development
+.PHONY: docker-restart-worker
+.PHONY: docker-db
+.PHONY: docker-queue
+.PHONY: docker-logs
+.PHONY: docker-port
+.PHONY: docker-postgres-shell

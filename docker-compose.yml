@@ -1,7 +1,8 @@
 version: '2'
 services:
   api:
-    image: mantra-api
+    image: mendersoftware/mantra-api:master
+    build: .
     container_name: mantra-api
     depends_on:
       - db
@@ -12,7 +13,8 @@ services:
     ports:
       - "7374:7374"
   worker:
-    image: mantra-api
+    image: mendersoftware/mantra-api:master
+    build: .
     container_name: mantra-worker
     depends_on:
       - queue
@@ -41,7 +43,8 @@ services:
       RABBITMQ_USERNAME: tetra
       RABBITMQ_PASSWORD: password
   ui:
-    image: mantra-ui
+    image: mendersoftware/mantra-ui:master
+    build: ui
     container_name: mantra-ui
     ports:
       - "8080:80"
