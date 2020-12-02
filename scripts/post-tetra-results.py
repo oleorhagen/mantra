@@ -32,16 +32,14 @@ for suite_id in [s["id"] for s in MENDER_QA_TEST_SUITES]:
 for root, _, files in os.walk(TEST_RESULTS_DIR):
     for name in sorted(files):
         logger.info("Uploading file " + name)
-        suite_results, run_date = re.match(
-            r"([\w]+)@([0-9]{4}-[0-9]{2}-[0-9]{2}).xml", name
+        project_id, suite_results, run_date = re.match(
+            r"([0-9]+)-([\w]+)@([0-9]{4}-[0-9]{2}-[0-9]{2}).xml", name
         ).groups()
+        logger.debug("Found project id " + suite_results)
         logger.debug("Found suite results " + suite_results)
         logger.debug("Found suite date " + run_date)
-        project_id = [
-            p["id"] for p in MENDER_QA_TEST_SUITES if p["results_file"] == suite_results
-        ][0]
-        logger.debug("Project ID %d" % project_id)
 
+        project_id = int(project_id)
         build_name = "nightly-" + run_date
 
         found = [b for b in builds[project_id] if b["name"] == build_name]

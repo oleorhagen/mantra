@@ -8,6 +8,3 @@ database = mantra-db
 
 [api]
 default_limit = 25
-
-[queue]
-broker_url = amqp://tetra:password@mantra-queue:5672//
