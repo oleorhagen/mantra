@@ -42,18 +42,16 @@ To build the containers:
 
     $ make docker-build
 
-Start the database and queue first:
+Start the database first:
 
     $ make docker-db
-    $ make docker-queue
 
-To start the api and worker nodes:
+To start the rest of the nodes:
 
-    $ make docker-dev
+    $ make docker-deploy-development
 
-_Note: The db and queue take several seconds to start up. You may get errors in
-the api and worker on the first start up becuase of this. Restarting the api
-and worker should fix this._
+_Note: The db takes several seconds to start up. You may get errors in on the
+first start up because of this. Restarting the api should fix this._
 
 To see the `<ip>:<port>` of different services:
 
@@ -111,9 +109,6 @@ options is in `tetra/config.py`. Here's an example `tetra.conf` file:
 
     [api]
     default_limit = 25
-
-    [queue]
-    broker_url = amqp://tetra:password@localhost:5672//
 
 The sample configuration from etc/tetra/tetra.conf.sample reflects the setup
 from the docker-compose.yml composition and is installed into the Docker image.

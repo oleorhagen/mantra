@@ -1,5 +1,9 @@
 # Tetra
 
+**NOTE:** This is the documentation of the [original tetra
+project](https://github.com/rackerlabs/tetra), not maintained any more in
+`mantra`.
+
 `tetra` is a test result aggregator designed to make test result analysis
 faster, easier, and more automated.
 

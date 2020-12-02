@@ -27,9 +27,6 @@ from api.resources import (
     ProjectsResource,
     ProjectResource,
 )
-from worker.resources import (
-    WorkerPingResource,
-)
 
 
 class VersionResource(object):
@@ -61,7 +58,6 @@ class TetraAPI(falcon.API):
         ProjectsResource(),
         ProjectResource(),
         VersionResource(),
-        WorkerPingResource(),
     ]
 
     def __init__(self):

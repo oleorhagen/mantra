@@ -3,9 +3,6 @@ services:
   api:
     volumes:
       - .:/tetra
-  worker:
-    volumes:
-      - .:/tetra
   ui:
     build:
       context: ./ui

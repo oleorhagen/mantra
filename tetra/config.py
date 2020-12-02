@@ -24,7 +24,6 @@ _LOCATIONS = (
 
 cfg.CONF.register_group(cfg.OptGroup('sqlalchemy'))
 cfg.CONF.register_group(cfg.OptGroup('api'))
-cfg.CONF.register_group(cfg.OptGroup('queue'))
 
 cfg.CONF.register_opts([
     cfg.StrOpt('engine', default='postgres'),
@@ -38,11 +37,6 @@ cfg.CONF.register_opts([
 cfg.CONF.register_opts([
     cfg.IntOpt('default_limit', default=25),
 ], group='api')
-
-cfg.CONF.register_opts([
-    cfg.StrOpt('broker_url', default='amqp://tetra@localhost:5672//',
-               help='The location of RabbitMQ for celery'),
-], group='queue')
 
 
 def _find_config_file(locations):

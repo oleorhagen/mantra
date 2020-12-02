@@ -7,9 +7,7 @@ OPEN := open
 
 # the image and container are both named this
 DOCKER_TAG := mantra-api
-DOCKER_WORKER_TAG := mantra-worker
 DOCKER_DB_TAG := mantra-db
-DOCKER_QUEUE_TAG := mantra-queue
 DOCKER_UI_TAG := mantra-ui
 
 help:
@@ -23,9 +21,7 @@ help:
 	@echo '  docker-build               - build all docker images for a dev environment'
 	@echo '  docker-deploy              - deploy docker composition locally'
 	@echo '  docker-deploy-development  - deploy docker composition locally for a dev environment'
-	@echo '  docker-restart-worker      - restart the worker container'
 	@echo '  docker-db                  - run the postgres docker container in background ($(DOCKER_DB_TAG))'
-	@echo '  docker-queue               - run the rabbitmq docker container in background ($(DOCKER_QUEUE_TAG))'
 	@echo '  docker-logs                - follow the logs from all containers'
 	@echo '  docker-down                - stop and remove the containers'
 	@echo '  docker-port                - display the real <ip>:<port> for different containers'
@@ -47,22 +43,16 @@ deploy-docs:
 docker-build:
 	docker-compose -f docker-compose.yml build
 
-docker-deploy: docker-db docker-queue
+docker-deploy: docker-db
 	sleep 5
-	docker-compose -f docker-compose.yml up --no-recreate -d api worker ui gateway
+	docker-compose -f docker-compose.yml up --no-recreate -d api ui gateway
 
-docker-deploy-development: docker-db docker-queue
+docker-deploy-development: docker-db
 	sleep 5
-	docker-compose -f docker-compose.yml -f development.yml up --no-recreate -d api worker ui gateway
-
-docker-restart-worker:
-	docker-compose -f docker-compose.yml restart worker
+	docker-compose -f docker-compose.yml -f development.yml up --no-recreate -d api ui gateway
 
 docker-db:
 	docker-compose -f docker-compose.yml up -d db
-
-docker-queue:
-	docker-compose -f docker-compose.yml up -d queue
 
 docker-logs:
 	docker-compose -f docker-compose.yml logs -f
@@ -73,18 +63,11 @@ docker-down:
 docker-port:
 	@echo API=$(shell docker port $(DOCKER_TAG) 7374)
 	@echo DB=$(shell docker port $(DOCKER_DB_TAG) 5432)
-	@echo QUEUE=$(shell docker port $(DOCKER_QUEUE_TAG) 5672)
 	@echo UI=$(shell docker port $(DOCKER_UI_TAG) 80)
 
 docker-postgres-shell:
 	docker exec -it $(DOCKER_DB_TAG) \
 		bash -c 'PGPASSWORD=password psql -U postgres'
-
-rabbitmq-admin-ui:
-	@echo "To login, check docker-compose.yml for RABBITMQ_DEFAULT_USER and RABBITMQ_DEFAULT_PASS"
-	open http://`docker-machine ip $(DOCKER_MACHINE_NAME)`:$(shell \
-		docker port $(DOCKER_QUEUE_TAG) 15672 | cut -d':' -f 2 \
-	)
 
 .PHONY: start
 .PHONY: test
@@ -94,9 +77,7 @@ rabbitmq-admin-ui:
 .PHONY: docker-build
 .PHONY: docker-deploy
 .PHONY: docker-deploy-development
-.PHONY: docker-restart-worker
 .PHONY: docker-db
-.PHONY: docker-queue
 .PHONY: docker-logs
 .PHONY: docker-port
 .PHONY: docker-postgres-shell
