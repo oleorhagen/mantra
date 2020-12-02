@@ -54,19 +54,25 @@ MENDER_QA_TEST_SUITES = [
     {
         "id": 7,
         "name": "test_backend_integration_open",
-        "job": "test_backend_integration",
+        "job": "test_backend_integration_open_source",
         "results_file": "results_backend_integration_open",
     },
     {
         "id": 8,
         "name": "test_backend_integration_enterprise",
-        "job": "test_backend_integration",
+        "job": "test_backend_integration_enterprise",
         "results_file": "results_backend_integration_enterprise",
     },
     {
         "id": 9,
         "name": "test_full_integration",
-        "job": "test_full_integration",
+        "job": "test_full_integration_open_source",
+        "results_file": "results_full_integration",
+    },
+    {
+        "id": 10,
+        "name": "test_full_integration_enterprise",
+        "job": "test_full_integration_enterprise",
         "results_file": "results_full_integration",
     },
 ]

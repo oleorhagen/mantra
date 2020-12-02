@@ -110,7 +110,7 @@ def fetch_and_save_nightlies(start_date=date.today(), total_days=-14):
                 continue
 
             filename = os.path.join(
-                TEST_RESULTS_DIR, project["results_file"] + "@" + date_str + ".xml"
+                TEST_RESULTS_DIR,  str(project["id"]) + "-" + project["results_file"] + "@" + date_str + ".xml"
             )
             if not os.path.exists(filename):
                 logger.info("Saving report in " + filename)
