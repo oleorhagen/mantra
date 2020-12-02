@@ -14,7 +14,6 @@ help:
 	@echo 'Commands:'
 	@echo '  start                      - start $(DOCKER_TAG), running locally'
 	@echo '  test                       - run tests (you must first write tetra-test.conf)'
-	@echo '  rabbitmq-admin-ui          - open the rabbitmq management interface in a browser'
 	@echo '  docs                       - build the docs and start a local server to view them'
 	@echo '  deploy-docs                - build and deploy docs to github pages'
 	@echo 'Docker commands:'
@@ -71,7 +70,6 @@ docker-postgres-shell:
 
 .PHONY: start
 .PHONY: test
-.PHONY: rabbitmq-admin-ui
 .PHONY: docs
 .PHONY: deploy-docs
 .PHONY: docker-build
