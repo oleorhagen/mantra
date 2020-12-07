@@ -46,7 +46,7 @@ publish:image:
 sync:image:
   variables:
     DOCKER_REPOSITORY: mendersoftware/mantra-api
-    TARGET_MANIFEST_FILE: "kubernetes/qastatus/api-deployment.yaml"
+    TARGET_MANIFEST_FILE: "kubernetes/mender-qastatus/api-deployment.yaml"
   only:
     changes:
       - tetra/**/*
@@ -80,7 +80,7 @@ sync:image:ui:
     - publish:image:ui
   variables:
     DOCKER_REPOSITORY: mendersoftware/mantra-ui
-    TARGET_MANIFEST_FILE: kubernetes/qastatus/ui-deployment.yaml
+    TARGET_MANIFEST_FILE: kubernetes/mender-qastatus/ui-deployment.yaml
   only:
     changes:
       - ui/**/*
