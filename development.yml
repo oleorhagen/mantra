@@ -3,6 +3,8 @@ services:
   api:
     volumes:
       - .:/tetra
+    command: |
+      bash -c "export PYTHONUNBUFFERED=1 && gunicorn --reload -t 120 --bind 0.0.0.0:7374 --access-logfile - tetra.app:application"
   ui:
     build:
       context: ./ui
