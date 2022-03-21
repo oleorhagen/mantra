@@ -2,7 +2,9 @@ version: '2'
 services:
   api:
     image: mendersoftware/mantra-api:master
-    build: .
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
     container_name: mantra-api
     depends_on:
       - db

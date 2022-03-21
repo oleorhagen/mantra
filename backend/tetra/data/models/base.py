@@ -59,7 +59,7 @@ class BaseModel(DictSerializer):
 
     @classmethod
     def _and_clause(cls, **kwargs):
-        kwargs = dict((k, v) for k, v in kwargs.iteritems() if v)
+        kwargs = dict((k, v) for k, v in kwargs.items() if v)
         and_clause = None
         for key, value in kwargs.items():
             if and_clause is None:
