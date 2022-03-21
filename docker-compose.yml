@@ -20,6 +20,23 @@ services:
     environment:
       POSTGRES_PASSWORD: password
       POSTGRES_DB: mantra-db
+  postgraphile:
+    image: graphile/postgraphile
+    container_name: postgraphile
+    depends_on:
+      - db
+    ports:
+      - "5433:5433"
+    command:
+      [
+        '--connection',
+        'postgres://postgres:password@db:5432/mantra-db',
+        '--port',
+        '5433',
+        '--schema',
+        'public',
+        '--enhance-graphiql'
+      ]
   ui:
     image: mendersoftware/mantra-ui:master
     build:
