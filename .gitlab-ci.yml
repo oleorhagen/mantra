@@ -28,34 +28,28 @@ build:docker:
   variables:
     DOCKER_REPOSITORY: mendersoftware/mantra-api
     DOCKER_DIR: backend
-  only:
-    changes:
-      - tetra/**/*
+  rules:
+    - changes:
+        - tetra/**/*
 
 publish:image:
   variables:
     DOCKER_REPOSITORY: mendersoftware/mantra-api
     DOCKER_DIR: backend
-  only:
-    changes:
-      - tetra/**/*
 
 sync:image:
   variables:
     DOCKER_REPOSITORY: mendersoftware/mantra-api
     TARGET_MANIFEST_FILE: kubernetes/mender-qastatus/api-deployment.yaml
-  only:
-    changes:
-      - tetra/**/*
 
 build:docker:ui:
   extends: build:docker
   variables:
     DOCKER_REPOSITORY: mendersoftware/mantra-ui
     DOCKER_DIR: ui
-  only:
-    changes:
-      - ui/**/*
+  rules:
+    - changes:
+        - ui/**/*
 
 publish:image:ui:
   extends: publish:image
@@ -64,9 +58,6 @@ publish:image:ui:
   variables:
     DOCKER_REPOSITORY: mendersoftware/mantra-ui
     DOCKER_DIR: ui
-  only:
-    changes:
-      - ui/**/*
 
 sync:image:ui:
   extends: sync:image
@@ -75,6 +66,3 @@ sync:image:ui:
   variables:
     DOCKER_REPOSITORY: mendersoftware/mantra-ui
     TARGET_MANIFEST_FILE: kubernetes/mender-qastatus/ui-deployment.yaml
-  only:
-    changes:
-      - ui/**/*
