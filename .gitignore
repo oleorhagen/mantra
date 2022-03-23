@@ -3,9 +3,10 @@
 *.pyc
 .venv
 .cache/
-tetra-test.conf
 .tox/
 npm-debug.log
+dbData
+venv
 site/
 .pytest_cache/
 

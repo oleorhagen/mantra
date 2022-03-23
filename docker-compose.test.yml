@@ -1,0 +1,6 @@
+version: '2'
+services:
+  api:
+    image: mendersoftware/mantra-api:pr
+  ui:
+    image: mendersoftware/mantra-ui:pr
