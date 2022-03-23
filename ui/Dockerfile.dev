@@ -1,8 +1,7 @@
-FROM node:12.14.0-alpine AS builder
+FROM node:16.14-alpine AS builder
 WORKDIR /work
 ENV NODE_ENV development
-COPY package.json ./
+COPY package.json package-lock.json webpack.config.js index.html ./
 RUN npm install
-COPY webpack.config.js ./
 COPY app ./app
 CMD npm run autobuild

@@ -25,7 +25,9 @@ services:
       POSTGRES_DB: mantra-db
   ui:
     image: mendersoftware/mantra-ui:master
-    build: ui
+    build:
+      context: ./ui
+      dockerfile: Dockerfile
     container_name: mantra-ui
     ports:
       - "8080:80"

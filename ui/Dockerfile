@@ -1,8 +1,7 @@
-FROM node:12.14.0-alpine AS builder
+FROM node:16.14-alpine AS builder
 WORKDIR /work
-COPY package.json ./
-RUN npm install
-COPY webpack.config.js index.html ./
+COPY package.json package-lock.json webpack.config.js index.html ./
+RUN npm ci
 COPY app ./app
 RUN npm run build
 
