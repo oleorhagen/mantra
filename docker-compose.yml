@@ -8,10 +8,6 @@ services:
     container_name: mantra-api
     depends_on:
       - db
-    links:
-      - db
-    command: |
-      bash -c "export PYTHONUNBUFFERED=1 && gunicorn -t 120 --bind 0.0.0.0:7374 --access-logfile - tetra.app:application"
     ports:
       - "7374:7374"
   db:
