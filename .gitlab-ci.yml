@@ -20,39 +20,33 @@ test:check-python3-formatting:
   image: python:3
   before_script:
     - pip install tox
+    - cd backend
   script:
     - TOXENV=flake8 tox
 
 build:docker:
   variables:
     DOCKER_REPOSITORY: mendersoftware/mantra-api
+    DOCKER_DIR: backend
   only:
     changes:
       - tetra/**/*
-      - setup.py
-      - etc/tetra/tetra.conf.sample
-      - Dockerfile
 
 publish:image:
   variables:
     DOCKER_REPOSITORY: mendersoftware/mantra-api
+    DOCKER_DIR: backend
   only:
     changes:
       - tetra/**/*
-      - setup.py
-      - etc/tetra/tetra.conf.sample
-      - Dockerfile
 
 sync:image:
   variables:
     DOCKER_REPOSITORY: mendersoftware/mantra-api
-    TARGET_MANIFEST_FILE: "kubernetes/mender-qastatus/api-deployment.yaml"
+    TARGET_MANIFEST_FILE: kubernetes/mender-qastatus/api-deployment.yaml
   only:
     changes:
       - tetra/**/*
-      - setup.py
-      - etc/tetra/tetra.conf.sample
-      - Dockerfile
 
 build:docker:ui:
   extends: build:docker
