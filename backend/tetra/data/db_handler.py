@@ -22,7 +22,7 @@ LOG = logging.getLogger(__name__)
 conf = cfg.CONF
 
 handlers = {
-    'postgres': PostgresClient()
+    'postgresql': PostgresClient()
 }
 
 _db_handler = handlers.get(conf.sqlalchemy.engine)
