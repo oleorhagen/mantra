@@ -20,6 +20,23 @@ services:
     environment:
       POSTGRES_PASSWORD: password
       POSTGRES_DB: mantra-db
+  postgraphile:
+    image: graphile/postgraphile
+    container_name: postgraphile
+    depends_on:
+      - db
+    ports:
+      - "5433:5433"
+    command:
+      [
+        '--connection',
+        'postgres://postgres:password@db:5432/mantra-db',
+        '--port',
+        '5433',
+        '--schema',
+        'public',
+        '--enhance-graphiql'
+      ]
   ui:
     image: mendersoftware/mantra-ui:master
     build:
@@ -34,9 +51,7 @@ services:
     image: nginx:stable-alpine
     container_name: mantra-gateway
     entrypoint: >
-      /bin/sh -c 'echo "
-      events {}
-      http {
+      /bin/sh -c 'echo " events {} http {
         server {
           location / {
             proxy_max_temp_file_size 128m;
@@ -51,9 +66,14 @@ services:
             rewrite ^/api(.*)$$ \$$1 break;
             proxy_pass http://api:7374;
           }
+          location ~* /graph(i?)ql(.*) {
+            proxy_max_temp_file_size 128m;
+            proxy_buffers 16 16k;
+            proxy_buffer_size 16k;
+            proxy_pass http://postgraphile:5433;
+          }
         }
-      }" > /etc/nginx/nginx.conf && nginx -g "daemon off;"
-      '
+      }" > /etc/nginx/nginx.conf && nginx -g "daemon off;" '
     ports:
       # The HTTP port
       - "80:80"
