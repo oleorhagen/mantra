@@ -16,7 +16,7 @@ limitations under the License.
 import falcon
 import json
 
-from api.resources import (
+from .api.resources import (
     BuildResource,
     LastCountByStatusResultsResource,
     LastCountByTestNameResultsResource,
@@ -35,35 +35,28 @@ class VersionResource(object):
     def on_get(self, req, resp):
         resp.status = falcon.HTTP_200
         # build a json response based on all ROUTE
-        routes = [cl.ROUTE for cl in
-                  TetraAPI.RESOURCES]
+        routes = [cl.ROUTE for cl in RESOURCES]
 
         version = {
                 'version': 'v1',
                 'resources': routes
                 }
-        resp.body = json.dumps(version)
+        resp.text = json.dumps(version)
 
 
-class TetraAPI(falcon.API):
+application = falcon.App()
 
-    RESOURCES = [
-        BuildResource(),
-        ResultsResource(),
-        ResultResource(),
-        LastCountByStatusResultsResource(),
-        LastCountByTestNameResultsResource(),
-        ProjectResultsResource(),
-        BuildsResource(),
-        ProjectsResource(),
-        ProjectResource(),
-        VersionResource(),
-    ]
-
-    def __init__(self):
-        super(TetraAPI, self).__init__()
-        for resource in self.RESOURCES:
-            self.add_route(resource.ROUTE, resource)
-
-
-application = TetraAPI()
+RESOURCES = [
+    BuildResource(),
+    ResultsResource(),
+    ResultResource(),
+    LastCountByStatusResultsResource(),
+    LastCountByTestNameResultsResource(),
+    ProjectResultsResource(),
+    BuildsResource(),
+    ProjectsResource(),
+    ProjectResource(),
+    VersionResource(),
+]
+for resource in RESOURCES:
+    application.add_route(resource.ROUTE, resource)

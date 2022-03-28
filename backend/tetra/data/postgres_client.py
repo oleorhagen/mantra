@@ -20,7 +20,7 @@ from tetra.data.sql import db_connect
 conf = cfg.CONF
 
 DATABASE = {
-    'drivername': 'postgres',
+    'drivername': 'postgresql',
     'host': conf.sqlalchemy.host,
     'port': conf.sqlalchemy.port,
     'username': conf.sqlalchemy.username,

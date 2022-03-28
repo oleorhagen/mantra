@@ -1,6 +1,7 @@
 stages:
   - test
   - build
+  - acceptance_tests
   - publish
   - sync
 
@@ -20,48 +21,93 @@ test:check-python3-formatting:
   image: python:3
   before_script:
     - pip install tox
+    - cd backend
   script:
     - TOXENV=flake8 tox
+
+test:backend-unit:
+  stage: test
+  needs: []
+  services:
+    - name: bitnami/postgresql:12.2.0
+      alias: db
+  variables:
+    POSTGRES_PASSWORD: password
+    POSTGRES_DB: mantra-db
+  image: python:3.6
+  before_script:
+    - cd backend
+    - pip install -r requirements.txt
+    - pip install tox
+  script:
+    - gunicorn -t 120 --daemon --bind 127.0.0.1:7374 --access-logfile - tetra.app:application
+    - TOXENV=functional tox
 
 build:docker:
   variables:
     DOCKER_REPOSITORY: mendersoftware/mantra-api
-  only:
-    changes:
-      - tetra/**/*
-      - setup.py
-      - etc/tetra/tetra.conf.sample
-      - Dockerfile
+    DOCKER_DIR: backend
+  after_script:
+    - cp image.tar image-api.tar
+  artifacts:
+    expire_in: 2w
+    paths:
+      - image.tar
+      - image-api.tar
+  rules:
+    - changes:
+        - tetra/**/*
 
 publish:image:
   variables:
     DOCKER_REPOSITORY: mendersoftware/mantra-api
-  only:
-    changes:
-      - tetra/**/*
-      - setup.py
-      - etc/tetra/tetra.conf.sample
-      - Dockerfile
+    DOCKER_DIR: backend
 
 sync:image:
   variables:
     DOCKER_REPOSITORY: mendersoftware/mantra-api
-    TARGET_MANIFEST_FILE: "kubernetes/mender-qastatus/api-deployment.yaml"
-  only:
-    changes:
-      - tetra/**/*
-      - setup.py
-      - etc/tetra/tetra.conf.sample
-      - Dockerfile
+    TARGET_MANIFEST_FILE: kubernetes/mender-qastatus/api-deployment.yaml
 
 build:docker:ui:
   extends: build:docker
   variables:
     DOCKER_REPOSITORY: mendersoftware/mantra-ui
     DOCKER_DIR: ui
-  only:
-    changes:
-      - ui/**/*
+  after_script:
+    - cp image.tar image-ui.tar
+  artifacts:
+    expire_in: 2w
+    paths:
+      - image.tar
+      - image-ui.tar
+  rules:
+    - changes:
+        - ui/**/*
+
+test:composition:
+  stage: acceptance_tests
+  image: tiangolo/docker-with-compose
+  needs:
+    - job: build:docker
+      artifacts: true
+    - job: build:docker:ui
+      artifacts: true
+  services:
+    - docker:20.10.8-dind
+  before_script:
+    - docker load -i image-api.tar
+    - docker tag mendersoftware/mantra-api:${CI_COMMIT_REF_SLUG} mendersoftware/mantra-api:pr
+    - docker load -i image-ui.tar
+    - docker tag mendersoftware/mantra-ui:${CI_COMMIT_REF_SLUG} mendersoftware/mantra-ui:pr
+    - apk add --no-cache python3
+    - pip3 install tox
+    - echo $'[api]\nbase_url = http://test:test@docker/api' > backend/tetra-test.conf
+  script:
+    - docker-compose -f docker-compose.yml -f docker-compose.test.yml up -d db
+    - sleep 10
+    - docker-compose -f docker-compose.yml -f docker-compose.test.yml up --no-recreate -d
+    - cd backend
+    - TOXENV=functional tox
 
 publish:image:ui:
   extends: publish:image
@@ -70,9 +116,6 @@ publish:image:ui:
   variables:
     DOCKER_REPOSITORY: mendersoftware/mantra-ui
     DOCKER_DIR: ui
-  only:
-    changes:
-      - ui/**/*
 
 sync:image:ui:
   extends: sync:image
@@ -81,6 +124,3 @@ sync:image:ui:
   variables:
     DOCKER_REPOSITORY: mendersoftware/mantra-ui
     TARGET_MANIFEST_FILE: kubernetes/mender-qastatus/ui-deployment.yaml
-  only:
-    changes:
-      - ui/**/*

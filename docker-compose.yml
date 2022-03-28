@@ -2,16 +2,15 @@ version: '2'
 services:
   api:
     image: mendersoftware/mantra-api:master
-    build: .
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
     container_name: mantra-api
     depends_on:
       - db
-    links:
-      - db
-    command: |
-      bash -c "export PYTHONUNBUFFERED=1 && gunicorn -t 120 --bind 0.0.0.0:7374 --access-logfile - tetra.app:application"
     ports:
       - "7374:7374"
+    restart: unless-stopped
   db:
     image: bitnami/postgresql:12.2.0
     container_name: mantra-db
@@ -23,7 +22,9 @@ services:
       POSTGRES_DB: mantra-db
   ui:
     image: mendersoftware/mantra-ui:master
-    build: ui
+    build:
+      context: ./ui
+      dockerfile: Dockerfile
     container_name: mantra-ui
     ports:
       - "8080:80"
