@@ -56,7 +56,7 @@ build:docker:
       - image-api.tar
   rules:
     - changes:
-        - tetra/**/*
+        - backend/**/*
 
 publish:image:
   variables:

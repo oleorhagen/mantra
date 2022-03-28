@@ -2,7 +2,7 @@ version: '2'
 services:
   api:
     volumes:
-      - .:/tetra
+      - ./backend:/tetra
     command: gunicorn --reload -t 120 --bind 0.0.0.0:7374 --access-logfile - tetra.app:application
   ui:
     build:
