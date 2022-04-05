@@ -1,42 +1,29 @@
-import React from 'react';
-import ResultsTable from './results-table';
+import React, { useEffect, useState } from 'react';
 
-class HistoryView extends React.Component {
-    state = {
-        results: []
+import ResourceTable from './resource-table';
+
+const HistoryView = ({ count, match, project_id, test_name }) => {
+  const [results, setResults] = useState([]);
+
+  const testName = () => encodeURIComponent(match.params.test_name || test_name);
+
+  useEffect(() => {
+    const url = `/api/projects/${match.params.project_id || project_id}/test_name/${testName()}/count/${match.params.count || count}`;
+    const historyResultsRequest = fetch(url)
+      .then((response) => response.json())
+      .then((result) => setResults(result));
+    return () => {
+      historyResultsRequest.abort();
     };
+  }, []);
 
-    testName() {
-        const result = this.props.match.params.test_name || this.props.test_name;
-        return encodeURIComponent(result);
-    }
-
-    componentDidMount() {
-        const self = this;
-        var url = `/api/projects/${self.props.match.params.project_id || self.props.project_id}/test_name/${self.testName()}/count/${self.props.match.params
-            .count || self.props.count}`;
-        self.historyResultsRequest = fetch(url)
-            .then(response => response.json())
-            .then(result => {
-                self.setState({
-                    results: result
-                });
-            });
-    }
-
-    componentWillUnmount() {
-        // this.historyResultsRequest.abort();
-    }
-
-    render() {
-        return (
-            <div>
-                <h2 className="rs-page-title">Test History</h2>
-                <h3>Test Case {this.testName()}</h3>
-                <ResultsTable results={this.state.results} />
-            </div>
-        );
-    }
-}
+  return (
+    <div>
+      <h2 className="rs-page-title">Test History</h2>
+      <h3>Test Case {testName()}</h3>
+      <ResourceTable resources={results} type="results" />
+    </div>
+  );
+};
 
 export default HistoryView;

@@ -1,35 +1,26 @@
-import React from 'react';
-import BuildsTable from './builds-table';
+import React, { useEffect, useState } from 'react';
 
-class BuildsView extends React.Component {
-    state = {
-        builds: []
+import ResourceTable from './resource-table';
+
+const BuildsView = ({ match, project_id }) => {
+  const [builds, setBuilds] = useState([]);
+
+  useEffect(() => {
+    var url = `/api/projects/${match.params.project_id || project_id}/builds`;
+    const buildsRequest = fetch(url)
+      .then((response) => response.json())
+      .then((result) => setBuilds(result));
+    return () => {
+      buildsRequest.abort();
     };
+  }, []);
 
-    componentDidMount() {
-        const self = this;
-        var url = `/api/projects/${self.props.match.params.project_id || self.props.project_id}/builds`;
-        self.buildsRequest = fetch(url)
-            .then(response => response.json())
-            .then(result => {
-                self.setState({
-                    builds: result
-                });
-            });
-    }
-
-    componentWillUnmount() {
-        // this.buildsRequest.abort();
-    }
-
-    render() {
-        return (
-            <div>
-                <h2 className="rs-page-title">Builds</h2>
-                <BuildsTable builds={this.state.builds} />
-            </div>
-        );
-    }
-}
+  return (
+    <div>
+      <h2 className="rs-page-title">Builds</h2>
+      <ResourceTable builds={builds} type="builds" />
+    </div>
+  );
+};
 
 export default BuildsView;

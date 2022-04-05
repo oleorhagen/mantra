@@ -1,29 +1,14 @@
 import React from 'react';
 
-class ResultsMetadata extends React.PureComponent {
-
-    render() {
-        return (
-            <ul className="rs-detail-list">
-                {this.items()}
-            </ul>
-        );
-    }
-
-    items() {
-        var metadata = this.props.metadata;
-        var items = [];
-        for (var key in metadata) {
-            items.push(
-                <li key={items.length} className="rs-detail-item">
-                    <div className="rs-detail-key">{key}</div>
-                    <div className="rs-detail-value">{metadata[key]}</div>
-                </li>
-            )
-        }
-        return items;
-    }
-
-}
+const ResultsMetadata = ({ metadata }) => (
+  <ul className="rs-detail-list">
+    {Object.entries(metadata).map(([key, value], index) => (
+      <li key={index} className="rs-detail-item">
+        <div className="rs-detail-key">{key}</div>
+        <div className="rs-detail-value">{value}</div>
+      </li>
+    ))}
+  </ul>
+);
 
 export default ResultsMetadata;

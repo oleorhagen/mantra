@@ -1,48 +1,63 @@
 import React from 'react';
+
 import ResourceTableEntry from './resource-table-entry';
 
-class ResourceTable extends React.PureComponent {
-    render() {
-        var headers = this.tableHeaders(this.props.columnTitles);
-        var entries = this.tableEntries(this.props.resources, this.props.columnKeys);
-        return (
-            <table className="rs-list-table rs-embedded-list-table">
-                {headers}
-                {entries}
-            </table>
-        );
+const tableTypes = {
+  projects: {
+    titles: ['Id', 'Name'],
+    keys: ['id', 'name'],
+    links: {
+      name: (project) => `/projects/${project.id}/builds`,
+      id: (project) => `/projects/${project.id}/builds`
     }
+  },
+  builds: {
+    titles: ['Id', 'Project Id', 'Name', 'Build Url', 'Region', 'Environment', 'Show Failed'],
+    keys: ['id', 'project_id', 'name', 'build_url', 'region', 'environment', 'show_failed'],
+    links: {
+      name: (build) => `/projects/${build.project_id}/builds/${build.id}/results`,
+      id: (build) => `/projects/${build.project_id}/builds/${build.id}/results`,
+      show_failed: (build) => `/projects/${build.project_id}/builds/${encodeURIComponent(build.name)}/last_failed/10`
+    }
+  },
+  results: {
+    titles: ['Id', 'Build Id', 'Project Id', 'Result', 'Result Message', 'Test Name', 'Timestamp'],
+    keys: ['id', 'build_id', 'project_id', 'result', 'result_message', 'test_name', 'timestamp'],
+    links: {
+      project_id: (r) => `/projects/${r.project_id}/builds`,
+      test_name: (r) => `/projects/${r.project_id}/tests/${encodeURIComponent(r.test_name)}/history/10`
+    }
+  }
+};
 
-    tableHeaders(headerNames) {
-        return (
-            <thead>
-                <tr>
-                    <th className="rs-table-status"></th>
-                    {headerNames.map(this.tableHeader)}
-                </tr>
-            </thead>
-        );
-    }
+const TableHeader = ({ headerName }) => (
+  <th>
+    <a href="#list-table" className="rs-table-sort">
+      <span className="rs-table-sort-text">{headerName}</span>
+      <span className="rs-table-sort-indicator"></span>
+    </a>
+  </th>
+);
 
-    /* TODO: "At this time Canon does not provide javascript for handling sorting" */
-    tableHeader(headerName, i) {
-        return (
-            <th key={i}>
-                <a href="#list-table" className="rs-table-sort">
-                    <span className="rs-table-sort-text">{headerName}</span>
-                    <span className="rs-table-sort-indicator"></span>
-                </a>
-            </th>
-        );
-    }
-
-    tableEntries(resources, columnKeys) {
-        var columnLinks = this.props.columnLinks;
-        var entries = resources.map(function(resource, i) {
-            return <ResourceTableEntry key={i} resource={resource} columnKeys={columnKeys} columnLinks={columnLinks} />;
-        });
-        return <tbody>{entries}</tbody>;
-    }
-}
+const ResourceTable = ({ resources, type }) => {
+  const { titles: columnTitles, keys: columnKeys, links: columnLinks } = tableTypes[type];
+  return (
+    <table className="rs-list-table rs-embedded-list-table">
+      <thead>
+        <tr>
+          <th className="rs-table-status"></th>
+          {columnTitles.map((title, index) => (
+            <TableHeader key={index} headerName={title} />
+          ))}
+        </tr>
+      </thead>
+      <tbody>
+        {resources.map((resource, i) => (
+          <ResourceTableEntry key={i} resource={resource} columnKeys={columnKeys} columnLinks={columnLinks} />
+        ))}
+      </tbody>
+    </table>
+  );
+};
 
 export default ResourceTable;
