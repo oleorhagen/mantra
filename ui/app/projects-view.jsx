@@ -1,32 +1,25 @@
-import React from 'react';
-import ProjectsTable from './projects-table';
+import React, { useEffect, useState } from 'react';
 
-class ProjectsView extends React.Component {
-    state = {
-        projects: []
+import ResourceTable from './resource-table';
+
+const ProjectsView = () => {
+  const [projects, setProjects] = useState([]);
+
+  useEffect(() => {
+    const projectsRequest = fetch('/api/projects')
+      .then((response) => response.json())
+      .then((result) => setProjects(result));
+    return () => {
+      projectsRequest.abort();
     };
+  }, []);
 
-    componentDidMount() {
-        const self = this;
-        self.projectsRequest = fetch('/api/projects').then(response => response.json()).then(result => {
-            self.setState({
-                projects: result
-            });
-        });
-    }
-
-    componentWillUnmount() {
-        // this.projectsRequest.abort();
-    }
-
-    render() {
-        return (
-            <div>
-                <h2 className="rs-page-title">Projects</h2>
-                <ProjectsTable projects={this.state.projects} />
-            </div>
-        );
-    }
-}
+  return (
+    <div>
+      <h2 className="rs-page-title">Projects</h2>
+      <ResourceTable resources={projects} type="projects" />
+    </div>
+  );
+};
 
 export default ProjectsView;
