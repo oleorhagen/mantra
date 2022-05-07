@@ -1,11 +1,11 @@
-FROM node:16.14-alpine AS builder
+FROM node:18-alpine AS builder
 WORKDIR /work
-COPY package.json package-lock.json webpack.config.js index.html favicon.ico ./
+COPY package.json package-lock.json ./
 RUN npm ci
-COPY app ./app
+COPY . ./
 RUN npm run build
 
 FROM nginx:stable-alpine
-COPY --from=builder /work/dist /usr/share/nginx/html
+COPY --from=builder /work/out /usr/share/nginx/html
 COPY nginx.conf /etc/nginx/conf.d/default.conf
 RUN chown nginx:nginx -R /usr/share/nginx/html
