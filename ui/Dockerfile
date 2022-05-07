@@ -3,6 +3,9 @@ WORKDIR /work
 COPY package.json package-lock.json ./
 RUN npm ci
 COPY . ./
+ARG AWS_ACCESS_KEY_ID
+ARG AWS_SECRET_ACCESS_KEY
+ARG GITLAB_TOKEN
 RUN npm run build
 
 FROM nginx:stable-alpine
