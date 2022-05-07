@@ -1,7 +1,6 @@
 #!/usr/bin/env python3
 
 import os
-import sys
 import logging
 
 
@@ -17,62 +16,62 @@ TEST_RESULTS_DIR = os.path.join(
 MENDER_QA_TEST_SUITES = [
     {
         "id": 1,
-        "name": "test_accep_qemux86_64_uefi_grub",
-        "job": "test_accep_qemux86_64_uefi_grub",
+        "name": "test:acceptance:qemux86_64:uefi_grub",
+        "job": "test:acceptance:qemux86_64:uefi_grub",
         "results_file": "results_accep_qemux86_64_uefi_grub",
     },
     {
         "id": 2,
-        "name": "test_accep_vexpress_qemu",
-        "job": "test_accep_vexpress_qemu",
+        "name": "test:acceptance:vexpress_qemu",
+        "job": "test:acceptance:vexpress_qemu",
         "results_file": "results_accep_vexpress_qemu",
     },
     {
         "id": 3,
-        "name": "test_accep_qemux86_64_bios_grub",
-        "job": "test_accep_qemux86_64_bios_grub",
+        "name": "test:acceptance:qemux86_64:bios_grub",
+        "job": "test:acceptance:qemux86_64:bios_grub",
         "results_file": "results_accep_qemux86_64_bios_grub",
     },
     {
         "id": 4,
-        "name": "test_accep_qemux86_64_bios_grub_gpt",
-        "job": "test_accep_qemux86_64_bios_grub_gpt",
+        "name": "test:acceptance:qemux86_64:bios_grub_gpt",
+        "job": "test:acceptance:qemux86_64:bios_grub_gpt",
         "results_file": "results_accep_qemux86_64_bios_grub_gpt",
     },
     {
         "id": 5,
-        "name": "test_accep_vexpress_qemu_uboot_uefi_grub",
-        "job": "test_accep_vexpress_qemu_uboot_uefi_grub",
+        "name": "test:acceptance:vexpress_qemu:uboot_uefi_grub",
+        "job": "test:acceptance:vexpress_qemu:uboot_uefi_grub",
         "results_file": "results_accep_vexpress_qemu_uboot_uefi_grub",
     },
     {
         "id": 6,
-        "name": "test_accep_vexpress_qemu_flash",
-        "job": "test_accep_vexpress_qemu_flash",
+        "name": "test:acceptance:vexpress_qemu_flash",
+        "job": "test:acceptance:vexpress_qemu_flash",
         "results_file": "results_accep_vexpress_qemu_flash",
     },
     {
         "id": 7,
-        "name": "test_backend_integration_open",
-        "job": "test_backend_integration_open_source",
+        "name": "test:backend-integration:open",
+        "job": "test:backend-integration:open_source",
         "results_file": "results_backend_integration_open",
     },
     {
         "id": 8,
-        "name": "test_backend_integration_enterprise",
-        "job": "test_backend_integration_enterprise",
+        "name": "test:backend-integration:enterprise",
+        "job": "test:backend-integration:enterprise",
         "results_file": "results_backend_integration_enterprise",
     },
     {
         "id": 9,
-        "name": "test_full_integration",
-        "job": "test_full_integration_open_source",
+        "name": "test:integration:source_client",
+        "job": "test:integration:source_client:open_source",
         "results_file": "results_full_integration",
     },
     {
         "id": 10,
-        "name": "test_full_integration_enterprise",
-        "job": "test_full_integration_enterprise",
+        "name": "test:integration:source_client:enterprise",
+        "job": "test:integration:source_client:enterprise",
         "results_file": "results_full_integration",
     },
 ]
