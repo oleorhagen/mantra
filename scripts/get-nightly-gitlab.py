@@ -65,7 +65,7 @@ def iterate_nightlies(start_date, total_days):
 
 def fetch_and_save_nightlies(start_date=date.today(), total_days=-14):
     for date_str, nightly_id in iterate_nightlies(start_date, total_days):
-        url = pipelines_api + str(nightly_id) + "/jobs"
+        url = pipelines_api + str(nightly_id) + "/jobs?per_page=100"
         logger.debug("Fetching URL: " + url)
         r = requests.get(url, headers={"PRIVATE-TOKEN": token})
         if r.status_code == 404:
@@ -110,14 +110,22 @@ def fetch_and_save_nightlies(start_date=date.today(), total_days=-14):
                 continue
 
             filename = os.path.join(
-                TEST_RESULTS_DIR,  str(project["id"]) + "-" + project["results_file"] + "@" + date_str + ".xml"
+                TEST_RESULTS_DIR,
+                str(project["id"])
+                + "-"
+                + project["results_file"]
+                + "@"
+                + date_str
+                + ".xml",
             )
             if not os.path.exists(filename):
                 logger.info("Saving report in " + filename)
                 with open(filename, "wb") as fd:
                     fd.write(r.content)
             else:
-                logger.warning("Report " + os.path.basename(filename) + " already exists, skipping")
+                logger.warning(
+                    "Report " + os.path.basename(filename) + " already exists, skipping"
+                )
 
 
 if __name__ == "__main__":
