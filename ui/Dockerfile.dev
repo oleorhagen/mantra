@@ -1,7 +1,11 @@
-FROM node:16.14-alpine AS builder
+FROM node:18-alpine AS builder
 WORKDIR /work
 ENV NODE_ENV development
-COPY package.json package-lock.json webpack.config.js index.html ./
-RUN npm install
-COPY app ./app
+COPY package.json package-lock.json ./
+COPY . ./
+ARG AWS_ACCESS_KEY_ID
+ARG AWS_SECRET_ACCESS_KEY
+ARG GITLAB_TOKEN
+ENV PORT=80
+EXPOSE 80
 CMD npm run autobuild

@@ -43,6 +43,10 @@ services:
       context: ./ui
       dockerfile: Dockerfile
     container_name: mantra-ui
+    environment:
+      - AWS_ACCESS_KEY_ID=$AWS_ACCESS_KEY_ID
+      - AWS_SECRET_ACCESS_KEY=$AWS_SECRET_ACCESS_KEY
+      - GITLAB_TOKEN=$GITLAB_TOKEN
     ports:
       - "8080:80"
     depends_on:
