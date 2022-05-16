@@ -67,7 +67,7 @@ const repos = [
   { repo: 'workflows', staging: false, isExecutable: false, isProduct: true, area: areas.backend }
 ];
 
-const CoverageDisplay = ({ coverage }) => coverage && coverage !== 'unknown' && <Typography color="text.disabled">Coverage: {coverage}%</Typography>;
+const CoverageDisplay = ({ coverage }) => !!coverage && coverage !== 'unknown' && <Typography color="text.disabled">Coverage: {coverage}%</Typography>;
 
 const RepoStatusItem = ({ repo, organization = 'Mender', branch = 'master', coverage }) => (
   <Stack direction="row" justifyContent="space-between">
@@ -186,15 +186,19 @@ const extractReleaseInfo = releaseInfo =>
     { firstReleaseDate: '', releaseDate: '', repos: [] }
   );
 
+const findRepoInRepoInfo = (repos, repoName) => repos.find(repoInfo => repoName === repoInfo.repo);
+
 const collectStagingInfo = (result, repos, clientRepos, stagingRepos, executableRepos) => {
   if (result) {
     return result;
   }
   return repos.reduce((accu, repo) => {
-    if (!stagingRepos.includes(repo.name)) {
+    const repoInfo = findRepoInRepoInfo(stagingRepos, repo.name);
+    if (!repoInfo) {
       return accu;
     }
-    accu.push({ ...repo, version: clientRepos.includes(repo.name) || executableRepos.includes(repo.name) ? repo.version : 'staging' });
+    const shouldShowVersion = findRepoInRepoInfo(clientRepos, repo.name) || findRepoInRepoInfo(executableRepos, repo.name);
+    accu.push({ ...repoInfo, ...repo, version: shouldShowVersion ? repo.version : 'staging' });
     return accu;
   }, []);
 };
