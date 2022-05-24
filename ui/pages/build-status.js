@@ -88,6 +88,17 @@ const RepoStatusItem = ({ repo, organization = 'Mender', branch = 'master', cove
   </Stack>
 );
 
+const buildStatusColorMap = {
+  FAILED: 'error',
+  RUNNING: 'warning',
+  SUCCESS: 'success',
+  default: 'warning.dark' // WTF is going on colour!
+};
+
+const buildStatusColor = status => {
+  return buildStatusColorMap[status] || buildStatusColorMap.default;
+};
+
 const BuildStatus = ({ componentsByArea, latestNightly, ltsReleases, versions }) => {
   const openNightlyClick = () => window.open(`https://gitlab.com${latestNightly.path}`, '_newtab');
 
@@ -102,7 +113,7 @@ const BuildStatus = ({ componentsByArea, latestNightly, ltsReleases, versions })
             variant="outlined"
             title={latestNightly.startedAt}
             onClick={openNightlyClick}
-            endIcon={<Circle color={latestNightly.status === 'FAILED' ? 'error' : 'success'} />}
+            endIcon={<Circle color={buildStatusColor(latestNightly.status)} />}
           >
             latest Nightly
           </Button>
