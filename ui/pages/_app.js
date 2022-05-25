@@ -25,7 +25,7 @@ const App = ({ Component, emotionCache = clientSideEmotionCache, pageProps }) =>
   return (
     <CacheProvider value={emotionCache}>
       <Head>
-        <title>Mantra</title>
+        <title>QA-Portal</title>
         <meta charSet="utf-8" name="viewport" content="initial-scale=1, width=device-width" />
       </Head>
       <ThemeProvider theme={theme}>
