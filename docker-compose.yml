@@ -20,6 +20,11 @@ services:
     environment:
       POSTGRES_PASSWORD: password
       POSTGRES_DB: mantra-db
+    healthcheck:
+      test: pg_isready --user=postgres --dbname=mantra-db || exit 1
+      interval: 10s
+      timeout: 5s
+      retries: 10
   postgraphile:
     image: graphile/postgraphile
     container_name: postgraphile
