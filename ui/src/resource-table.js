@@ -27,6 +27,36 @@ const tableTypes = {
 };
 
 const tableColumnDefinitions = {
+  builds: [
+    {
+      field: 'id',
+      headerName: 'ID',
+    },
+    {
+      field: 'project_id',
+      headerName: 'Project ID',
+    },
+    {
+      field: 'name',
+      headerName: 'Name',
+    },
+    {
+      field: 'build_url',
+      headerName: 'Build URL',
+    },
+    {
+      field: 'region',
+      headerName: 'Region',
+    },
+    {
+      field: 'environment',
+      headerName: 'Environment',
+    },
+    {
+      field: 'show_failed',
+      headerName: 'Failed?',
+    },
+  ],
   projects: [
     {
       field: 'id',
@@ -111,7 +141,6 @@ const tableColumnDefinitions = {
       minWidth: 200,
     },
   ],
-  builds: {},
 };
 
 const ResourceTable = ({ resources, type }) => {
@@ -127,7 +156,14 @@ const ResourceTable = ({ resources, type }) => {
   return (
     <DataGrid
       autoHeight
-      showQuickFilter Adds a general search text input field
+      showQuickFilter
+      Adds
+      a
+      general
+      search
+      text
+      input
+      field
       initialState={{
         sorting: {
           sortModel: [{ field: 'result', sort: 'asc' }],
