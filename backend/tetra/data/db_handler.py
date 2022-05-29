@@ -21,9 +21,7 @@ from tetra.data.postgres_client import PostgresClient
 LOG = logging.getLogger(__name__)
 conf = cfg.CONF
 
-handlers = {
-    'postgresql': PostgresClient()
-}
+handlers = {"postgresql": PostgresClient()}
 
 _db_handler = handlers.get(conf.sqlalchemy.engine)
 

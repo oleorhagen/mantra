@@ -20,17 +20,16 @@ from tetra.data.sql import db_connect
 conf = cfg.CONF
 
 DATABASE = {
-    'drivername': 'postgresql',
-    'host': conf.sqlalchemy.host,
-    'port': conf.sqlalchemy.port,
-    'username': conf.sqlalchemy.username,
-    'password': conf.sqlalchemy.password,
-    'database': conf.sqlalchemy.database
+    "drivername": "postgresql",
+    "host": conf.sqlalchemy.host,
+    "port": conf.sqlalchemy.port,
+    "username": conf.sqlalchemy.username,
+    "password": conf.sqlalchemy.password,
+    "database": conf.sqlalchemy.database,
 }
 
 
 class PostgresClient(DatabaseClient):
-
     def __init__(self):
         self.engine = None
 
@@ -48,8 +47,7 @@ class PostgresClient(DatabaseClient):
         if not resources:
             return
         table = resources[0].TABLE
-        result = self.engine.execute(table.insert(),
-                                     [r.to_dict() for r in resources])
+        result = self.engine.execute(table.insert(), [r.to_dict() for r in resources])
         result.close()
 
     def update(self, resource_id, resource):

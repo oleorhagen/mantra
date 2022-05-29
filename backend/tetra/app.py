@@ -37,10 +37,7 @@ class VersionResource(object):
         # build a json response based on all ROUTE
         routes = [cl.ROUTE for cl in RESOURCES]
 
-        version = {
-                'version': 'v1',
-                'resources': routes
-                }
+        version = {"version": "v1", "resources": routes}
         resp.text = json.dumps(version)
 
 

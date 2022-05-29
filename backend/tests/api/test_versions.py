@@ -2,7 +2,6 @@ from tests.base import BaseTetraTest
 
 
 class TestVersion(BaseTetraTest):
-
     def setUp(self):
         super(TestVersion, self).setUp()
 
