@@ -9,6 +9,7 @@ import json
 
 from common import logger
 from common import MENDER_QA_TEST_SUITES
+from common import MENDER_QA_PROJECTS
 from common import TETRA_API_PROJECTS_URL
 from common import get_tetra_credentials
 
@@ -25,7 +26,7 @@ if len(j) > 0:
     logger.warning("Exiting")
     sys.exit(0)
 
-for project in MENDER_QA_TEST_SUITES:
+for project in MENDER_QA_PROJECTS:
     logger.debug("Creating project %s" % project["name"])
     r = requests.post(
         TETRA_API_PROJECTS_URL,

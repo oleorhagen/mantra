@@ -13,6 +13,8 @@ TEST_RESULTS_DIR = os.path.join(
     os.path.dirname(os.path.abspath(__file__)), "test_results"
 )
 
+MENDER_QA_PROJECTS = [{"id": 1, "name": "mender-qa",}]
+
 MENDER_QA_TEST_SUITES = [
     {
         "id": 1,
