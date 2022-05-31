@@ -34,22 +34,39 @@ projects_table = Table(
     Column("name", String(256), nullable=False),
 )
 
+# TODO - maybe add a timestamp here as well (?)
+# TODO - rename to pipelines (?)
 builds_table = Table(
     "builds",
     metadata,
-    Column("id", Integer, nullable=False, primary_key=True, autoincrement=True),
+    Column("build_id", Integer, nullable=False, primary_key=True), # CI_PIPELINE_ID
     Column(
         "project_id",
         ForeignKey(projects_table.c.id, ondelete="CASCADE"),
         nullable=False,
     ),
     Column("name", String(256), nullable=False),
-    Column("build_url", String(256), nullable=True),
-    Column("region", String(256), nullable=True),
-    Column("environment", String(256), nullable=True),
+    Column("build_url", String(256), nullable=True), # TODO - add to post from CI
     Column("status", String(256), nullable=True),
     Column("tags", JSONB, nullable=False),
-    Index("build_index", "project_id", "id"),
+    Index("build_index", "project_id", "build_id"),
+    Index("build_tags_index", "tags", postgresql_using="gin"),
+)
+
+jobs_table = Table(
+    "jobs",
+    metadata,
+    Column("job_id", Integer, nullable=False, primary_key=True), # CI_CONCURRENT_PROJECT_ID
+    Column(
+        "build_id",
+        ForeignKey(builds_table.c.build_id, ondelete="CASCADE"),
+        nullable=False,
+    ),
+    Column("name", String(256), nullable=False),
+    Column("build_url", String(256), nullable=True),
+    Column("status", String(256), nullable=True),
+    Column("tags", JSONB, nullable=False),
+    Index("build_index", "build_id", "job_id"),
     Index("build_tags_index", "tags", postgresql_using="gin"),
 )
 
@@ -58,12 +75,7 @@ results_table = Table(
     metadata,
     Column("id", Integer, nullable=False, primary_key=True, autoincrement=True),
     Column(
-        "project_id",
-        ForeignKey(projects_table.c.id, ondelete="CASCADE"),
-        nullable=False,
-    ),
-    Column(
-        "build_id", ForeignKey(builds_table.c.id, ondelete="CASCADE"), nullable=False
+        "job_id", ForeignKey(jobs_table.c.job_id, ondelete="CASCADE"), nullable=False
     ),
     Column("test_name", String(256), nullable=False),
     Column("timestamp", Integer, nullable=False),

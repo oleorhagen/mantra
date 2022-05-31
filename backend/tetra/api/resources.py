@@ -102,6 +102,17 @@ class BuildResource(Resource):
     RESOURCE_ID_KEY = "build_id"
 
 
+class JobsResource(Resources):
+    ROUTE = "/projects/{project_id}/builds/{build_id}/jobs"
+    RESOURCE_CLASS = Jobs
+
+
+class JobResource(Resource):
+    ROUTE = "/projects/{project_id}/builds/{build_id}/jobs/{job_id}"
+    RESOURCE_CLASS = Jobs
+    RESOURCE_ID_KEY = "job_id"
+
+
 class LastCountByStatusResultsResource(Resources):
     ROUTE = "/projects/{project_id}/status/{status}/count/{count}"
     RESOURCE_CLASS = Result
