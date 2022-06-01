@@ -19,6 +19,7 @@ import json
 import xunitparser
 
 from tetra.data.models.pipeline import Pipeline
+from tetra.data.models.pipeline import Job
 from tetra.data.models.result import Result
 
 
@@ -90,15 +91,15 @@ class PipelineResource(Resource):
     RESOURCE_ID_KEY = "pipeline_id"
 
 
-# class JobsResource(Resources):
-#     ROUTE = "/builds/{build_id}/jobs"
-#     RESOURCE_CLASS = Jobs
+class JobsResource(Resources):
+    ROUTE = "/builds/{build_id}/jobs"
+    RESOURCE_CLASS = Job
 
 
-# class JobResource(Resource):
-#     ROUTE = "/builds/{build_id}/jobs/{job_id}"
-#     RESOURCE_CLASS = Jobs
-#     RESOURCE_ID_KEY = "job_id"
+class JobResource(Resource):
+    ROUTE = "/builds/{build_id}/jobs/{job_id}"
+    RESOURCE_CLASS = Job
+    RESOURCE_ID_KEY = "job_id"
 
 
 class LastCountByStatusResultsResource(Resources):
