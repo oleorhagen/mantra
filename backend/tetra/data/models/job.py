@@ -57,10 +57,7 @@ class Job(BaseModel):
     ):
         handler = handler or get_handler()
         and_clause = cls._and_clause(
-            name=name,
-            build_url=build_url,
-            region=region,
-            environment=environment,
+            name=name, build_url=build_url, region=region, environment=environment,
         )
 
         query = cls._get_all_query(and_clause=and_clause, limit=limit, offset=offset,)

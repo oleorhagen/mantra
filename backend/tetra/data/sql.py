@@ -27,6 +27,7 @@ from sqlalchemy.dialects.postgresql import JSONB
 metadata = MetaData()
 
 # TODO - maybe add a timestamp here as well (?)
+# TODO - maybe adda time (spent) here as well (?)
 # TODO - rename to pipelines (?)
 pipelines_table = Table(
     "pipelines",

@@ -52,9 +52,7 @@ class Pipeline(BaseModel):
     ):
         handler = handler or get_handler()
         and_clause = cls._and_clause(
-            name=name,
-            build_url=build_url,
-            environment=environment,
+            name=name, build_url=build_url, environment=environment,
         )
 
         # match the build if its tags are a superset of the filters
