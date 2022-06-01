@@ -28,22 +28,22 @@ class VersionClientMixin(BaseClient):
 
 class ProjectClientMixin(BaseClient):
     @log_response
-    def list_projects(self, params=None):
-        return requests.get(self.url("/projects"), params=params)
+    def list_pipelines(self, params=None):
+        return requests.get(self.url("/pipelines"), params=params)
 
     @log_response
-    def create_project(self, data, params=None):
-        url = self.url("/projects")
+    def create_pipeline(self, data, params=None):
+        url = self.url("/pipelines")
         return requests.post(url, data=json.dumps(data), params=params)
 
     @log_response
-    def get_project(self, project_id, params=None):
-        url = self.url("/projects", project_id)
+    def get_pipeline(self, pipeline_id, params=None):
+        url = self.url("/pipelines", pipeline_id)
         return requests.get(url, params=params)
 
     @log_response
-    def delete_project(self, project_id, params=None):
-        url = self.url("/projects", project_id)
+    def delete_pipeline(self, pipeline_id, params=None):
+        url = self.url("/pipelines", pipeline_id)
         return requests.delete(url, params=params)
 
 

@@ -9,19 +9,9 @@ class BaseTetraTest(unittest.TestCase):
         super(BaseTetraTest, self).setUp()
         self.client = TetraClient.get()
 
-    def _create_project(self, name=None):
-        data = {
-            "name": name or "test-project",
-        }
-        resp = self.client.create_project(data)
-        self.assertEqual(resp.status_code, 201)
-
-        self.addCleanup(self.client.delete_project, resp.json()["id"])
-        return resp
-
-    def _create_build(
+    def _create_pipeline(
         self,
-        project_id,
+        pipeline_id,
         name=None,
         build_url=None,
         region=None,
@@ -40,11 +30,11 @@ class BaseTetraTest(unittest.TestCase):
         if tags is not None:
             data["tags"] = tags
 
-        resp = self.client.create_build(project_id, data)
+        resp = self.client.create_build(pipeline_id, data)
         self.assertEqual(resp.status_code, 201)
-        self.addCleanup(self.client.delete_build, project_id, resp.json()["id"])
+        self.addCleanup(self.client.delete_build, pipeline_id, resp.json()["id"])
 
-        self.assertEqual(resp.json()["project_id"], project_id)
+        self.assertEqual(resp.json()["pipeline_id"], pipeline_id)
         return resp
 
     def _create_result(

@@ -4,6 +4,7 @@ from tests.base import BaseTetraTest
 class BasePipelinesTest(BaseTetraTest):
     def setUp(self):
         super(BasePipelinesTest, self).setUp()
+        resp = self._create_pipeline("1234", "nightly-12.1.12")
         self.project_id = resp.json()["id"]
 
 

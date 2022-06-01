@@ -1,8 +1,8 @@
-from tests.api.test_builds import BaseBuildsTest
+from tests.api.test_pipelines import BasePipelinesTest
 from tests.api.test_results import BaseResultTest
 
 
-class BuildTagsTest(BaseBuildsTest):
+class BuildTagsTest(BasePipelinesTest):
     def setUp(self):
         super(BuildTagsTest, self).setUp()
         self.tags = {
