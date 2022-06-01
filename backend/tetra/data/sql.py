@@ -26,47 +26,36 @@ from sqlalchemy.dialects.postgresql import JSONB
 
 metadata = MetaData()
 
-
-projects_table = Table(
-    "projects",
-    metadata,
-    Column("id", Integer, nullable=False, primary_key=True, autoincrement=True),
-    Column("name", String(256), nullable=False),
-)
-
 # TODO - maybe add a timestamp here as well (?)
 # TODO - rename to pipelines (?)
-builds_table = Table(
-    "builds",
+pipelines_table = Table(
+    "pipelines",
     metadata,
-    Column("build_id", Integer, nullable=False, primary_key=True), # CI_PIPELINE_ID
-    Column(
-        "project_id",
-        ForeignKey(projects_table.c.id, ondelete="CASCADE"),
-        nullable=False,
-    ),
+    Column("pipeline_id", Integer, nullable=False, primary_key=True),  # CI_PIPELINE_ID
     Column("name", String(256), nullable=False),
-    Column("build_url", String(256), nullable=True), # TODO - add to post from CI
+    Column("build_url", String(256), nullable=True),  # TODO - add to post from CI
     Column("status", String(256), nullable=True),
     Column("tags", JSONB, nullable=False),
-    Index("build_index", "project_id", "build_id"),
+    Index("build_index", "pipeline_id"),
     Index("build_tags_index", "tags", postgresql_using="gin"),
 )
 
 jobs_table = Table(
     "jobs",
     metadata,
-    Column("job_id", Integer, nullable=False, primary_key=True), # CI_CONCURRENT_PROJECT_ID
     Column(
-        "build_id",
-        ForeignKey(builds_table.c.build_id, ondelete="CASCADE"),
+        "job_id", Integer, nullable=False, primary_key=True
+    ),  # CI_CONCURRENT_PROJECT_ID
+    Column(
+        "pipeline_id",
+        ForeignKey(pipelines_table.c.pipeline_id, ondelete="CASCADE"),
         nullable=False,
     ),
     Column("name", String(256), nullable=False),
     Column("build_url", String(256), nullable=True),
     Column("status", String(256), nullable=True),
     Column("tags", JSONB, nullable=False),
-    Index("build_index", "build_id", "job_id"),
+    Index("build_index", "pipeline_id", "job_id"),
     Index("build_tags_index", "tags", postgresql_using="gin"),
 )
 
@@ -82,7 +71,7 @@ results_table = Table(
     Column("result", String(256), nullable=False),
     Column("result_message", Text, nullable=True),
     Column("tags", JSONB, nullable=False),
-    Index("result_index", "project_id", "build_id", "result"),
+    Index("result_index", "job_id", "result"),
     Index("result_tags_index", "tags", postgresql_using="gin"),
 )
 

@@ -18,8 +18,7 @@ import json
 
 import xunitparser
 
-from tetra.data.models.build import Build
-from tetra.data.models.project import Project
+from tetra.data.models.pipeline import Pipeline
 from tetra.data.models.result import Result
 
 
@@ -69,20 +68,9 @@ class Resource(object):
         self.RESOURCE_CLASS.delete(resource_id=resource_id)
 
 
-class ProjectsResource(Resources):
-    ROUTE = "/projects"
-    RESOURCE_CLASS = Project
-
-
-class ProjectResource(Resource):
-    ROUTE = "/projects/{project_id}"
-    RESOURCE_CLASS = Project
-    RESOURCE_ID_KEY = "project_id"
-
-
-class BuildsResource(Resources):
-    ROUTE = "/projects/{project_id}/builds"
-    RESOURCE_CLASS = Build
+class PipelineResource(Resources):
+    ROUTE = "/pipelines"
+    RESOURCE_CLASS = Pipeline
 
     def on_post(self, req, resp, **kwargs):
         resp.status = falcon.HTTP_201
@@ -96,25 +84,25 @@ class BuildsResource(Resources):
         resp.body = json.dumps(created_dict)
 
 
-class BuildResource(Resource):
-    ROUTE = "/projects/{project_id}/builds/{build_id}"
-    RESOURCE_CLASS = Build
-    RESOURCE_ID_KEY = "build_id"
+class PipelineResource(Resource):
+    ROUTE = "/pipelines/{pipeline_id}"
+    RESOURCE_CLASS = Pipeline
+    RESOURCE_ID_KEY = "pipeline_id"
 
 
-class JobsResource(Resources):
-    ROUTE = "/projects/{project_id}/builds/{build_id}/jobs"
-    RESOURCE_CLASS = Jobs
+# class JobsResource(Resources):
+#     ROUTE = "/builds/{build_id}/jobs"
+#     RESOURCE_CLASS = Jobs
 
 
-class JobResource(Resource):
-    ROUTE = "/projects/{project_id}/builds/{build_id}/jobs/{job_id}"
-    RESOURCE_CLASS = Jobs
-    RESOURCE_ID_KEY = "job_id"
+# class JobResource(Resource):
+#     ROUTE = "/builds/{build_id}/jobs/{job_id}"
+#     RESOURCE_CLASS = Jobs
+#     RESOURCE_ID_KEY = "job_id"
 
 
 class LastCountByStatusResultsResource(Resources):
-    ROUTE = "/projects/{project_id}/status/{status}/count/{count}"
+    ROUTE = "/status/{status}/count/{count}"
     RESOURCE_CLASS = Result
 
     def on_get(self, req, resp, **kwargs):
@@ -125,7 +113,7 @@ class LastCountByStatusResultsResource(Resources):
 
 
 class LastCountByTestNameResultsResource(Resources):
-    ROUTE = "/projects/{project_id}/test_name/{test_name}/count/{count}"
+    ROUTE = "/test_name/{test_name}/count/{count}"
     RESOURCE_CLASS = Result
 
     def on_get(self, req, resp, **kwargs):
@@ -136,12 +124,12 @@ class LastCountByTestNameResultsResource(Resources):
 
 
 class ProjectResultsResource(Resources):
-    ROUTE = "/projects/{project_id}/results"
+    ROUTE = "/results"
     RESOURCE_CLASS = Result
 
 
 class ResultsResource(Resources):
-    ROUTE = "/projects/{project_id}/builds/{build_id}/results"
+    ROUTE = "/builds/{build_id}/results"
     RESOURCE_CLASS = Result
 
     def on_post(self, req, resp, **kwargs):
@@ -162,6 +150,6 @@ class ResultsResource(Resources):
 
 
 class ResultResource(Resource):
-    ROUTE = "/projects/{project_id}/builds/{build_id}/results/{result_id}"
+    ROUTE = "/builds/{build_id}/results/{result_id}"
     RESOURCE_CLASS = Result
     RESOURCE_ID_KEY = "result_id"

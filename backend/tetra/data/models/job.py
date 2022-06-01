@@ -20,12 +20,12 @@ from tetra.data.models.base import BaseModel, truncate
 
 class Job(BaseModel):
 
-    TABLE = sql.builds_table
+    TABLE = sql.jobs_table
 
     def __init__(
         self,
         job_id,
-        build_id,
+        pipeline_id,
         name,
         build_url=None,
         region=None,
@@ -33,8 +33,8 @@ class Job(BaseModel):
         status=None,
         tags=None,
     ):
-        self.build_id = int(build_id)
-        self.project_id = int(project_id)
+        self.job_id = int(job_id)
+        self.pipeline_id = int(pipeline_id)
         self.name = truncate(name, self.TABLE.c.name.type.length)
         self.build_url = truncate(build_url, self.TABLE.c.build_url.type.length)
         self.region = truncate(region, self.TABLE.c.region.type.length)
@@ -48,7 +48,6 @@ class Job(BaseModel):
         handler=None,
         limit=None,
         offset=None,
-        project_id=None,
         name=None,
         build_url=None,
         region=None,
@@ -58,7 +57,6 @@ class Job(BaseModel):
     ):
         handler = handler or get_handler()
         and_clause = cls._and_clause(
-            project_id=project_id,
             name=name,
             build_url=build_url,
             region=region,
