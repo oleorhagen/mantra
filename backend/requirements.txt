@@ -1,6 +1,6 @@
 amqp==5.1.1
 Babel==2.10.1
-billiard==4.0.0
+billiard==3.6.4
 celery==5.2.7
 debtcollector==2.5.0
 enum34==1.1.10
