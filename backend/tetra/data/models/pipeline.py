@@ -20,23 +20,17 @@ from tetra.data.models.base import BaseModel, truncate
 
 class Pipeline(BaseModel):
 
-    TABLE = sql.builds_table
+    TABLE = sql.pipelines_table
 
     def __init__(
-        self,
-        pipeline_id,
-        name,
-        build_url=None,
-        environment=None,
-        status=None,
-        tags=None,
+            self, **kwargs,
     ):
-        self.pipeline_id = int(pipeline_id)
-        self.name = truncate(name, self.TABLE.c.name.type.length)
-        self.build_url = truncate(build_url, self.TABLE.c.build_url.type.length)
-        self.environment = truncate(environment, self.TABLE.c.environment.type.length)
-        self.status = truncate(status, self.TABLE.c.status.type.length)
-        self.tags = tags or {}
+        self.id = int(kwargs["pipeline_id"])
+        # TODO - do we really need to truncate (?)
+        self.name = truncate(kwargs["pipeline_name"], self.TABLE.c.name.type.length)
+        self.build_url = truncate(kwargs.get("build_url"), self.TABLE.c.build_url.type.length)
+        self.status = truncate(kwargs.get("status"), self.TABLE.c.status.type.length)
+        self.tags = kwargs.get("tags") or {}
 
     @classmethod
     def get_all(
@@ -46,20 +40,24 @@ class Pipeline(BaseModel):
         offset=None,
         name=None,
         build_url=None,
-        environment=None,
         status=None,
         **tag_filters
     ):
         handler = handler or get_handler()
-        and_clause = cls._and_clause(
-            name=name, build_url=build_url, environment=environment,
-        )
+        and_clause = cls._and_clause(name=name, build_url=build_url,)
 
         # match the build if its tags are a superset of the filters
-        if tag_filters:
-            and_clause &= cls.TABLE.c.tags.contains(tag_filters)
+        # TODO - re-enable when needed
+        # if tag_filters:
+        #     and_clause &= cls.TABLE.c.tags.contains(tag_filters)
 
         query = cls._get_all_query(and_clause=and_clause, limit=limit, offset=offset,)
         builds = handler.get_all(resource_class=cls, query=query)
 
         return builds
+
+    @classmethod
+    def delete(cls, resource_id, handler=None):
+        print("Deleting pipeline......----------")
+        handler = handler or get_handler()
+        return handler.delete(resource_id=resource_id, resource_class=cls)

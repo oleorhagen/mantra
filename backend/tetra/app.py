@@ -17,15 +17,15 @@ import falcon
 import json
 
 from .api.resources import (
-    BuildResource,
-    LastCountByStatusResultsResource,
-    LastCountByTestNameResultsResource,
-    ResultResource,
+    # LastCountByStatusResultsResource,
+    # LastCountByTestNameResultsResource,
+    # ResultResource,
     ResultsResource,
-    ProjectResultsResource,
-    BuildsResource,
-    ProjectsResource,
-    ProjectResource,
+    # # PipelineResultsResource,
+    # JobsResource,
+    # JobResource,
+    # PipelinesResource,
+    # PipelineResource,
 )
 
 
@@ -44,15 +44,15 @@ class VersionResource(object):
 application = falcon.App()
 
 RESOURCES = [
-    BuildResource(),
     ResultsResource(),
-    ResultResource(),
-    LastCountByStatusResultsResource(),
-    LastCountByTestNameResultsResource(),
-    ProjectResultsResource(),
-    BuildsResource(),
-    ProjectsResource(),
-    ProjectResource(),
+    # ResultResource(),
+    # LastCountByStatusResultsResource(),
+    # LastCountByTestNameResultsResource(),
+    # # ProjectResultsResource(),
+    # JobResource(),
+    # JobsResource(),
+    # PipelinesResource(),
+    # PipelineResource(),
     VersionResource(),
 ]
 for resource in RESOURCES:

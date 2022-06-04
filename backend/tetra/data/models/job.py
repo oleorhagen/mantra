@@ -23,24 +23,16 @@ class Job(BaseModel):
     TABLE = sql.jobs_table
 
     def __init__(
-        self,
-        job_id,
-        pipeline_id,
-        name,
-        build_url=None,
-        region=None,
-        environment=None,
-        status=None,
-        tags=None,
+        self, **kwargs,
     ):
-        self.job_id = int(job_id)
-        self.pipeline_id = int(pipeline_id)
-        self.name = truncate(name, self.TABLE.c.name.type.length)
-        self.build_url = truncate(build_url, self.TABLE.c.build_url.type.length)
-        self.region = truncate(region, self.TABLE.c.region.type.length)
-        self.environment = truncate(environment, self.TABLE.c.environment.type.length)
-        self.status = truncate(status, self.TABLE.c.status.type.length)
-        self.tags = tags or {}
+        self.id = int(kwargs["job_id"])
+        self.pipeline_id = int(kwargs["pipeline_id"])
+        self.name = truncate(kwargs["job_name"], self.TABLE.c.name.type.length)
+        self.build_url = truncate(
+            kwargs.get("build_url"), self.TABLE.c.build_url.type.length
+        )
+        self.status = truncate(kwargs.get("status"), self.TABLE.c.status.type.length)
+        self.tags = kwargs.get("tags", {})
 
     @classmethod
     def get_all(
@@ -53,7 +45,7 @@ class Job(BaseModel):
         region=None,
         environment=None,
         status=None,
-        **tag_filters
+        **tag_filters,
     ):
         handler = handler or get_handler()
         and_clause = cls._and_clause(

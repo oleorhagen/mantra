@@ -6,35 +6,17 @@ from tests.client import TetraClient
 
 class BaseTetraTest(unittest.TestCase):
     def setUp(self):
-        super(BaseTetraTest, self).setUp()
+        # super(BaseTetraTest, self).setUp()
         self.client = TetraClient.get()
 
     def _create_pipeline(
-        self,
-        pipeline_id,
-        name=None,
-        build_url=None,
-        region=None,
-        environment=None,
-        status=None,
-        tags=None,
+        self, **data,
     ):
-        data = {
-            "name": name or "test-build",
-            "build_url": build_url or "test-url",
-            "region": region or "test-region",
-            "environment": environment or "test-env",
-            "status": status,
-        }
 
-        if tags is not None:
-            data["tags"] = tags
-
-        resp = self.client.create_build(pipeline_id, data)
+        resp = self.client.create_pipeline(data)
         self.assertEqual(resp.status_code, 201)
-        self.addCleanup(self.client.delete_build, pipeline_id, resp.json()["id"])
 
-        self.assertEqual(resp.json()["pipeline_id"], pipeline_id)
+        self.assertEqual(resp.json()["id"], data["pipeline_id"])
         return resp
 
     def _create_result(

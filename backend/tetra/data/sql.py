@@ -32,32 +32,32 @@ metadata = MetaData()
 pipelines_table = Table(
     "pipelines",
     metadata,
-    Column("pipeline_id", Integer, nullable=False, primary_key=True),  # CI_PIPELINE_ID
+    Column("id", Integer, nullable=False, primary_key=True),  # CI_PIPELINE_ID
     Column("name", String(256), nullable=False),
-    Column("build_url", String(256), nullable=True),  # TODO - add to post from CI
+    Column("build_url", String(256), nullable=True),  # TODO - add to post from CI script in the QA-pipeline
     Column("status", String(256), nullable=True),
     Column("tags", JSONB, nullable=False),
-    Index("build_index", "pipeline_id"),
-    Index("build_tags_index", "tags", postgresql_using="gin"),
+    Index("pipeline_index", "id"),
+    Index("pipeline_tags_index", "tags", postgresql_using="gin"),
 )
 
 jobs_table = Table(
     "jobs",
     metadata,
     Column(
-        "job_id", Integer, nullable=False, primary_key=True
+        "id", Integer, nullable=False, primary_key=True
     ),  # CI_CONCURRENT_PROJECT_ID
     Column(
         "pipeline_id",
-        ForeignKey(pipelines_table.c.pipeline_id, ondelete="CASCADE"),
+        ForeignKey(pipelines_table.c.id, ondelete="CASCADE"),
         nullable=False,
     ),
     Column("name", String(256), nullable=False),
     Column("build_url", String(256), nullable=True),
     Column("status", String(256), nullable=True),
     Column("tags", JSONB, nullable=False),
-    Index("build_index", "pipeline_id", "job_id"),
-    Index("build_tags_index", "tags", postgresql_using="gin"),
+    Index("job_index", "pipeline_id", "id"),
+    Index("job_tags_index", "tags", postgresql_using="gin"),
 )
 
 results_table = Table(
@@ -65,7 +65,7 @@ results_table = Table(
     metadata,
     Column("id", Integer, nullable=False, primary_key=True, autoincrement=True),
     Column(
-        "job_id", ForeignKey(jobs_table.c.job_id, ondelete="CASCADE"), nullable=False
+        "job_id", ForeignKey(jobs_table.c.id, ondelete="CASCADE"), nullable=False
     ),
     Column("test_name", String(256), nullable=False),
     Column("timestamp", Integer, nullable=False),
@@ -78,6 +78,7 @@ results_table = Table(
 
 
 def db_connect(database_dict):
-    engine = create_engine(URL(**database_dict))
+    engine = create_engine(URL(**database_dict), echo=True)
+    # TODO - future next! engine = create_engine(URL(**database_dict), echo=True, future=True)
     metadata.create_all(engine)
     return engine

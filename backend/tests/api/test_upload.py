@@ -1,9 +1,10 @@
 from tests.base import BaseTetraTest
 
+# WIP
 
-class BasePipelinesTest(BaseTetraTest):
+class BaseUploadTest(BaseTetraTest):
     def setUp(self):
-        super(BasePipelinesTest, self).setUp()
+        super(BaseUploadTest, self).setUp()
         import random
         self.pipeline = {
             "pipeline_id": 1234,
@@ -17,7 +18,7 @@ class BasePipelinesTest(BaseTetraTest):
         self.client.delete_pipeline(self.pipeline["pipeline_id"])
 
 
-class TestPipelines(BasePipelinesTest):
+class TestPipelines(BaseUploadTest):
 
     def test_create_pipeline(self):  #
         print("Testing create")
@@ -28,9 +29,3 @@ class TestPipelines(BasePipelinesTest):
         # self.assertEqual(self.pipeline["status"], "passed")                     #
         # self.assertEqual(self.pipeline["tags"], {})                             #
 
-    #                                                                              #
-    # def test_delete_pipeline(self):  #
-    #     print("Testing delete")
-    #     resp = self.client.delete_pipeline(self.pipeline["pipeline_id"])  #
-    #     self.assertEqual(resp.status_code, 204)  #
-    #     self.assertEqual(resp.text.strip(), "")  #

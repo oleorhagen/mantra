@@ -11,23 +11,10 @@ import json
 
 from common import logger
 from common import TEST_RESULTS_DIR
-from common import MENDER_QA_TEST_SUITES
-from common import TETRA_API_BUILDS_URL_FMT, TETRA_API_RESULTS_URL_FMT
+from common import _TETRA_API_HOST, _TETRA_API_BASE_URL
 from common import get_tetra_credentials
 
 user, password = get_tetra_credentials()
-
-# Pre-fetch all builds for all suites
-builds = {}
-for suite_id in [s["id"] for s in MENDER_QA_TEST_SUITES]:
-    r = requests.get(
-        TETRA_API_BUILDS_URL_FMT.format(project_id=suite_id),
-        auth=HTTPBasicAuth(user, password),
-    )
-    if not r.ok:
-        logger.error("Error(%d) %s" % (r.status_code, r.text))
-        sys.exit(1)
-    builds[suite_id] = r.json()
 
 for root, _, files in os.walk(TEST_RESULTS_DIR):
     for name in sorted(files):
@@ -39,44 +26,27 @@ for root, _, files in os.walk(TEST_RESULTS_DIR):
         logger.debug("Found suite results " + suite_results)
         logger.debug("Found suite date " + run_date)
 
-        project_id = 1 # FIXME - now we hardcode everything to 1 (mender-qa)
-        build_name = "nightly-" + run_date
-
-        found = [b for b in builds[project_id] if b["name"] == build_name]
-        if len(found) > 0:
-            logger.info(
-                "Project %d, build: %s already uploaded. Skipping"
-                % (project_id, build_name)
-            )
-            continue
-
-        r = requests.post(
-            TETRA_API_BUILDS_URL_FMT.format(project_id=project_id),
-            auth=HTTPBasicAuth(user, password),
-            data=json.dumps({"name": build_name}),
-        )
-        if not r.ok:
-            logger.error("Error(%d) %s" % (r.status_code, r.text))
-            sys.exit(1)
-        j = r.json()
-        logger.info("Created build: %s" % j)
-
-        build_id = j["id"]
-        url = TETRA_API_RESULTS_URL_FMT.format(project_id=project_id, build_id=build_id)
+        pipeline_name = "nightly-" + run_date
 
         with open(os.path.join(root, name)) as fd:
-            content = fd.read()
+            xml_result = fd.read()
 
-        logger.debug("POST " + url)
         r = requests.post(
-            url,
+            _TETRA_API_BASE_URL + "results",
+            headers={"Content-type": "application/json"},
             auth=HTTPBasicAuth(user, password),
-            data=content,
-            headers={"Content-type": "application/xml"},
+            data=json.dumps(
+                {
+                    "pipeline_id": 1234,  # TODO
+                    "pipeline_name": pipeline_name,
+                    "job_id": 4321,  # TODO
+                    "job_name": "integration",  # TODO
+                    "result": xml_result,
+                }
+            ),
         )
-
         if not r.ok:
             logger.error("Error(%d) %s" % (r.status_code, r.text))
             sys.exit(1)
-        j = r.json()
-        logger.info("Created build: %s" % j)
+        # j = r.json()
+        # logger.info("Created build: %s" % j)

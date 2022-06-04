@@ -19,7 +19,7 @@ import json
 import xunitparser
 
 from tetra.data.models.pipeline import Pipeline
-from tetra.data.models.pipeline import Job
+from tetra.data.models.job import Job
 from tetra.data.models.result import Result
 
 
@@ -33,6 +33,7 @@ class Resources(object):
     def on_get(self, req, resp, **kwargs):
         resp.status = falcon.HTTP_200
         kwargs.update(req.params)
+        print(f"on_get: args: {kwargs}")
         results = self.RESOURCE_CLASS.get_all(**kwargs)
         resp.body = json.dumps(results)
 
@@ -46,111 +47,51 @@ class Resources(object):
         resp.body = json.dumps(created_resource.to_dict())
 
 
-class Resource(object):
-    RESOURCE_CLASS = None
-    RESOURCE_ID_KEY = ""
-
-    def on_get(self, req, resp, **kwargs):
-        resp.status = falcon.HTTP_200
-        resource_id = kwargs.get(self.RESOURCE_ID_KEY)
-        result = self.RESOURCE_CLASS.get(resource_id=resource_id)
-        resp.content_type = "application/json"
-        if result:
-            resp.body = json.dumps(result.to_dict())
-        else:
-            resp.status = falcon.HTTP_404
-            resp.body = make_error_body(
-                "{0} {1} not found.".format(self.RESOURCE_CLASS.__name__, resource_id)
-            )
-
-    def on_delete(self, req, resp, **kwargs):
-        resp.status = falcon.HTTP_204
-        resource_id = kwargs.get(self.RESOURCE_ID_KEY)
-        self.RESOURCE_CLASS.delete(resource_id=resource_id)
-
-
-class PipelineResource(Resources):
-    ROUTE = "/pipelines"
-    RESOURCE_CLASS = Pipeline
-
-    def on_post(self, req, resp, **kwargs):
-        resp.status = falcon.HTTP_201
-        data = req.stream.read()
-        data_dict = json.loads(data)
-        data_dict.update(kwargs)
-
-        resource = self.RESOURCE_CLASS.from_dict(data_dict)
-        created_resource = self.RESOURCE_CLASS.create(resource=resource)
-        created_dict = created_resource.to_dict()
-        resp.body = json.dumps(created_dict)
-
-
-class PipelineResource(Resource):
-    ROUTE = "/pipelines/{pipeline_id}"
-    RESOURCE_CLASS = Pipeline
-    RESOURCE_ID_KEY = "pipeline_id"
-
-
-class JobsResource(Resources):
-    ROUTE = "/builds/{build_id}/jobs"
-    RESOURCE_CLASS = Job
-
-
-class JobResource(Resource):
-    ROUTE = "/builds/{build_id}/jobs/{job_id}"
-    RESOURCE_CLASS = Job
-    RESOURCE_ID_KEY = "job_id"
-
-
-class LastCountByStatusResultsResource(Resources):
-    ROUTE = "/status/{status}/count/{count}"
-    RESOURCE_CLASS = Result
-
-    def on_get(self, req, resp, **kwargs):
-        resp.status = falcon.HTTP_200
-        kwargs.update(req.params)
-        results = self.RESOURCE_CLASS.get_last_count_by_status(**kwargs)
-        resp.body = json.dumps(results)
-
-
-class LastCountByTestNameResultsResource(Resources):
-    ROUTE = "/test_name/{test_name}/count/{count}"
-    RESOURCE_CLASS = Result
-
-    def on_get(self, req, resp, **kwargs):
-        resp.status = falcon.HTTP_200
-        kwargs.update(req.params)
-        results = self.RESOURCE_CLASS.get_last_count_by_test_name(**kwargs)
-        resp.body = json.dumps(results)
-
-
-class ProjectResultsResource(Resources):
+class ResultsResource(Resources):
     ROUTE = "/results"
     RESOURCE_CLASS = Result
 
-
-class ResultsResource(Resources):
-    ROUTE = "/builds/{build_id}/results"
-    RESOURCE_CLASS = Result
-
     def on_post(self, req, resp, **kwargs):
-        if self._is_junit_xml_request(req):
-            return self._on_post_junitxml(req, resp, **kwargs)
-        return super(ResultsResource, self).on_post(req, resp, **kwargs)
+        # TODO - Check if JSON (parse response)
+        resp.status = falcon.HTTP_500  # Standard is 500, unless we get 201 success
+        try:
+            data = json.load(req.stream)
+            print(f"data received: {data}")
+            # Create the Pipeline
+            pipeline = Pipeline.from_dict(data)
+            created_pipeline = Pipeline.create(resource=pipeline)
+            # Create the Job
+            job = Job.from_dict(data)
+            created_job = Job.create(resource=job)
+            # Create the Result
+            try:
+                test_suites = self._parse_xunitXML(data["result"])
 
-    def _is_junit_xml_request(self, req):
-        return req.content_type and "application/xml" in req.content_type
+                results = [
+                    Result.from_junit_xml_test_case(
+                        case, data["pipeline_id"], data["job_id"]
+                    )
+                    for case in test_suites
+                ]
+                resp.status = falcon.HTTP_201
+                response_data = Result.create_many(results, **data)
+                # TODO - is this needed (?)
+                # resp.body = json.dumps(response_data)
+            except Exception as e:
+                print(f"Error parsing result XML: {e}")
+                raise Exception(f"Error parsing result XML: {e}")
+            # return super(ResultsResource, self).on_post(req, resp, **kwargs)
+            # SUCCESS!
+        except Exception as e:
+            print(f"caught Exception: {e}")
+            # TODO - use make_error_body perhaps (?)
+            raise Exception(f"caught Exception: {e}")
 
-    def _on_post_junitxml(self, req, resp, **kwargs):
-        resp.status = falcon.HTTP_201
+    def _parse_xunitXML(self, results_xml_string):
+        from io import StringIO
 
-        suite, _ = xunitparser.parse(req.stream)
-        results = [Result.from_junit_xml_test_case(case, **kwargs) for case in suite]
-        response_data = Result.create_many(results, **kwargs)
-        resp.body = json.dumps(response_data)
-
-
-class ResultResource(Resource):
-    ROUTE = "/builds/{build_id}/results/{result_id}"
-    RESOURCE_CLASS = Result
-    RESOURCE_ID_KEY = "result_id"
+        result_stream = StringIO(results_xml_string)
+        ts, tr = xunitparser.parse(result_stream)  # TODO - why ignore the test result?
+        print(f"TestSuites: {ts}")
+        print(f"TestResult: {tr}")
+        return ts
