@@ -46,7 +46,7 @@ class Result(BaseModel):
         self.tags = kwargs.get("tags", {})
 
     @classmethod
-    def from_junit_xml_test_case(cls, case, pipeline_id, job_id):
+    def from_junit_xml_test_case(cls, case, job_id):
         if case.success:
             result_type = "passed"
         elif case.skipped:
@@ -61,7 +61,6 @@ class Result(BaseModel):
         return Result(
             test_name=case.id(),
             result=result_type,
-            pipeline_id=pipeline_id,
             job_id=job_id,
             result_message=case.trace,
         )

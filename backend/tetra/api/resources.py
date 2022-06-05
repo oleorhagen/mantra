@@ -60,17 +60,18 @@ class ResultsResource(Resources):
             # Create the Pipeline
             pipeline = Pipeline.from_dict(data)
             created_pipeline = Pipeline.create(resource=pipeline)
-            # Create the Job
-            job = Job.from_dict(data)
-            created_job = Job.create(resource=job)
-            # Create the Result
             try:
                 test_suites = self._parse_xunitXML(data["result"])
 
+                # data["job_name"] = test_suites["test_name"]
+
+                # Create the Job
+                job = Job.from_dict(data)
+                created_job = Job.create(resource=job)
+                # Create the Result
+
                 results = [
-                    Result.from_junit_xml_test_case(
-                        case, data["pipeline_id"], data["job_id"]
-                    )
+                    Result.from_junit_xml_test_case(case, data["job_id"])
                     for case in test_suites
                 ]
                 resp.status = falcon.HTTP_201
