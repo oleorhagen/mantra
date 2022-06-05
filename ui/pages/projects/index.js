@@ -16,16 +16,16 @@ import ResourceTable from '../../src/resource-table';
 
 // TODO - Rename to PipelinesView...
 const ProjectsView = () => {
-    const [projects, setProjects] = useState([]);
+    const [pipelines, setPipelines] = useState([]);
 
     useEffect(() => {
         (async () => {
-            const nightlies = await getNightlies();
-            setProjects(nightlies);
+            const pipelines = await getPipelines();
+            setPipelines(pipelines);
         })();
     }, []);
 
-    const getNightlies = async () => {
+    const getPipelines = async () => {
         const query = gql`
                     query MyQuery {
                     allPipelines {
@@ -40,7 +40,7 @@ const ProjectsView = () => {
                     `;
 
         // const today = new Date().toISOString().split('T')[0];
-        const latestNightly = await request({
+        const latestPipelines = await request({
             url: 'http://localhost/graphql',
             // variables: {
             //     date: today
@@ -50,13 +50,13 @@ const ProjectsView = () => {
             //     Authorization: `Bearer ${process.env.GITLAB_TOKEN}`
             // }
         });
-        console.log(`latestNightly: ${latestNightly}`);
+        console.log(`latestPipelines: ${latestPipelines}`);
         // TODO - figure out the difference between the nodes and the edges query...
         const {
             allPipelines: {
                 nodes
             }
-        } = latestNightly;
+        } = latestPipelines;
         console.log(`edges: ${nodes}`);
         return nodes;
     };
@@ -71,9 +71,9 @@ const ProjectsView = () => {
         Pipelines <
         /Typography> <
         ResourceTable resources = {
-            projects
+            pipelines
         }
-        type = "projects" / >
+        type = "pipelines" / >
         <
         />
     );

@@ -67,16 +67,23 @@ const tableColumnDefinitions = {
             headerName: 'Failed?',
         },
     ],
-    projects: [{
+    pipelines: [{
             field: 'id',
-            headerName: 'ID',
+            headerName: 'GitLab Pipeline ID',
+            // TODO - Link to the GitLab pipelineID here
             minWidth: 100,
+            renderCell: params => < Link href = {
+                `https://gitlab.com/Northern.tech/Mender/mender-api-docs/-/pipelines/${params.row.id}`
+            } > {
+                params.row.id
+            } < /Link>,
         },
         {
             field: 'name',
             headerName: 'Name',
             minWidth: 250,
             renderCell: params => < Link href = {
+                // TODO - Link to the builds page here on the QA-Portal
                 `/projects/${params.row.id}/builds`
             } > {
                 params.row.name
