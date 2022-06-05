@@ -90,7 +90,6 @@ class ResultsResource(Resources):
 
     def _parse_xunitXML(self, results_xml_string):
         from io import StringIO
-
         result_stream = StringIO(results_xml_string)
         ts, tr = xunitparser.parse(result_stream)  # TODO - why ignore the test result?
         print(f"TestSuites: {ts}")
