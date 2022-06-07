@@ -18,9 +18,9 @@ import json
 
 import xunitparser
 
-from tetra.data.models.pipeline import Pipeline
-from tetra.data.models.job import Job
-from tetra.data.models.result import Result
+from qaportal.data.models.pipeline import Pipeline
+from qaportal.data.models.job import Job
+from qaportal.data.models.result import Result
 
 
 def make_error_body(msg):

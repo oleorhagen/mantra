@@ -1,10 +1,10 @@
 from setuptools import setup
 
 setup_params = dict(
-    name="tetra",
+    name="qaportal",
     version="0.0.1",
-    url="https://github.com/rackerlabs/tetra",
-    packages=["tetra"],
+    url="https://github.com/mendersoftware/mantra",
+    packages=["qaportal"],
     install_requires=[
         "celery",
         "falcon",

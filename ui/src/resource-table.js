@@ -7,6 +7,11 @@ import {
     CustomNoRowsOverlay
 } from '@mui/x-data-grid';
 
+
+import {
+    useRouter
+} from 'next/router';
+
 import ResourceTableEntry from './resource-table-entry';
 
 import Link from '../components/link';
