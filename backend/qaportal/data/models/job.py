@@ -13,9 +13,9 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 """
-from tetra.data import sql
-from tetra.data.db_handler import get_handler
-from tetra.data.models.base import BaseModel, truncate
+from qaportal.data import sql
+from qaportal.data.db_handler import get_handler
+from qaportal.data.models.base import BaseModel, truncate
 
 
 class Job(BaseModel):

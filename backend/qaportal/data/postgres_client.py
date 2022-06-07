@@ -13,9 +13,9 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 """
-from tetra.config import cfg
-from tetra.data.database_client import DatabaseClient
-from tetra.data.sql import db_connect
+from qaportal.config import cfg
+from qaportal.data.database_client import DatabaseClient
+from qaportal.data.sql import db_connect
 
 conf = cfg.CONF
 

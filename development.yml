@@ -2,8 +2,8 @@ version: '2'
 services:
   api:
     volumes:
-      - ./backend:/tetra
-    command: gunicorn --reload -t 120 --bind 0.0.0.0:7374 --access-logfile - tetra.app:application
+      - ./backend:/qaportal
+    command: gunicorn --reload -t 120 --bind 0.0.0.0:7374 --access-logfile - qaportal.app:application
   ui:
     build:
       context: ./ui

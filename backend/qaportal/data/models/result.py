@@ -18,11 +18,11 @@ import time
 from sqlalchemy import desc
 from sqlalchemy.sql import func, select, and_
 
-from tetra.data import sql
-from tetra.data.db_handler import get_handler
-from tetra.data.models.base import BaseModel, truncate
-from tetra.data.models.job import Job
-from tetra.data.models.result_metadata import ResultMetadata
+from qaportal.data import sql
+from qaportal.data.db_handler import get_handler
+from qaportal.data.models.base import BaseModel, truncate
+from qaportal.data.models.job import Job
+from qaportal.data.models.result_metadata import ResultMetadata
 
 
 class Result(BaseModel):
