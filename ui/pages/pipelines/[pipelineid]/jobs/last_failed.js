@@ -20,6 +20,7 @@ const LastFailedView = () => {
     if (!(projectid && name)) {
       return;
     }
+    // TODO - Move to GraphQL
     fetch(`/api/projects/${projectid}/status/failed/count/${count}?build_name=${name}`)
       .then(response => response.json())
       .then(result => setResults(result));
