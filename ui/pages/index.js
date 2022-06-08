@@ -5,13 +5,13 @@ import {
 } from 'next/router';
 
 import BuildStatus from './build-status';
-import ProjectsView from './projects';
+import PipelinesView from './pipelines';
 import SecurityStatus from './security-status';
 
 export const paths = [{
         title: 'Pipelines',
         location: '/pipelines',
-        component: ProjectsView
+        component: PipelinesView
     },
     {
         title: 'Build Status',

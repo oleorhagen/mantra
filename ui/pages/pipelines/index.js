@@ -14,8 +14,7 @@ import React, {
 
 import ResourceTable from '../../src/resource-table';
 
-// TODO - Rename to PipelinesView...
-const ProjectsView = () => {
+const PipelinesView = () => {
     const [pipelines, setPipelines] = useState([]);
 
     useEffect(() => {
@@ -79,4 +78,4 @@ const ProjectsView = () => {
     );
 };
 
-export default ProjectsView;
+export default PipelinesView;
