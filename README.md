@@ -96,8 +96,8 @@ https://rackerlabs.github.io/tetra/.
 
 # Configuring `tetra`
 
-Tetra reads all of its config from a `tetra.conf` file. The complete list of
-options is in `tetra/config.py`. Here's an example `tetra.conf` file:
+Tetra reads all of its config from a `qaportal.conf` file. The complete list of
+options is in `qaportal.config.py`. Here's an example `tetra.conf` file:
 
     [sqlalchemy]
     engine = postgres
@@ -110,7 +110,7 @@ options is in `tetra/config.py`. Here's an example `tetra.conf` file:
     [api]
     default_limit = 25
 
-The sample configuration from etc/tetra/tetra.conf.sample reflects the setup
+The sample configuration from etc/tetra/qaportal.conf.sample reflects the setup
 from the docker-compose.yml composition and is installed into the Docker image.
 For different infrastructure, changes might need to be made.
 

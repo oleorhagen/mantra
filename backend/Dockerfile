@@ -3,7 +3,7 @@ ENV PYTHONUNBUFFERED 1
 WORKDIR /qaportal
 RUN apk add --no-cache postgresql-libs && \
   apk add --no-cache --virtual .build-deps gcc musl-dev postgresql-dev
-COPY requirements.txt setup.py tetra.conf ./
+COPY requirements.txt setup.py qaportal.conf ./
 RUN pip install -r requirements.txt --no-cache-dir && \
   apk --purge del .build-deps
 COPY ./qaportal ./qaportal/

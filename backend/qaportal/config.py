@@ -17,9 +17,9 @@ from oslo_config import cfg
 import os.path
 
 _LOCATIONS = (
-    os.path.realpath("tetra.conf"),
-    os.path.realpath("etc/tetra/tetra.conf"),
-    "/etc/tetra/tetra.conf",
+    os.path.realpath("qaportal.conf"),
+    os.path.realpath("etc/qaportal/qaportal.conf"),
+    "/etc/qaportal/qaportal.conf",
 )
 
 cfg.CONF.register_group(cfg.OptGroup("sqlalchemy"))
