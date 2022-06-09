@@ -2,6 +2,8 @@ import React, { useEffect, useState } from 'react';
 
 import { useRouter } from 'next/router';
 
+import { request, gql } from 'graphql-request';
+
 import { Typography } from '@mui/material';
 
 import ResourceTable from '../../../../src/resource-table';
@@ -18,13 +20,13 @@ const BuildsView = () => {
     }
     (async () => {
       const pipelines = await getPipelines(pipelineid);
-      setPipelines(pipelines);
+      setJobs(pipelines);
     })();
   }, [pipelineid]);
 
   const getPipelines = async pipelineid => {
     const query = gql`
-query MyQuery {
+query GetJobsForPipeline {
   pipelineById(id: ${pipelineid}) {
     jobsByPipelineId {
       nodes {
@@ -52,7 +54,9 @@ query MyQuery {
     console.log(`getPipelines: pipelineJobs: ${pipelineJobs}`);
     // TODO - figure out the difference between the nodes and the edges query...
     const {
-      allPipelines: { nodes },
+      pipelineById: {
+        jobsByPipelineId: { nodes },
+      },
     } = pipelineJobs;
     console.log(`getPipelines: nodes: ${nodes}`);
     return nodes;

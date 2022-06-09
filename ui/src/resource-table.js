@@ -9,7 +9,7 @@ import ResourceTableEntry from './resource-table-entry';
 import Link from '../components/link';
 
 const tableColumnDefinitions = {
-  builds: [
+  jobs: [
     {
       field: 'id',
       headerName: 'Build ID',
@@ -38,7 +38,7 @@ const tableColumnDefinitions = {
     },
     {
       field: 'show_failed',
-      headerName: 'Failed?',
+      headerName: 'Failed',
     },
   ],
   pipelines: [

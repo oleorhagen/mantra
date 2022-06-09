@@ -8,9 +8,9 @@ import { DarkMode as DarkModeIcon, LightMode as LightModeIcon } from '@mui/icons
 import Link from './link';
 
 const paths = [
-  { title: 'Projects', location: '/projects' },
+  { title: 'Pipelines', location: '/pipelines' },
   { title: 'Build Status', location: '/build-status' },
-  { title: 'Security Status', location: '/security-status' }
+  { title: 'Security Status', location: '/security-status' },
 ];
 
 export const Navbar = () => {
@@ -39,7 +39,7 @@ export const Navbar = () => {
       <Toolbar>
         <Stack direction="row" alignItems="center" justifyContent="space-between" flexGrow={1}>
           <Typography variant="h6" component={Link} href="/" color="inherit">
-            Mantra
+            QA-Portal
           </Typography>
           <Tabs value={tabValue} onChange={handleTabChange} color="inherit" textColor="inherit">
             {paths.map(({ location, title }) => (

@@ -68,19 +68,6 @@ const ResultsView = () => {
     return nodes;
   };
 
-  // const getResults = useCallback(
-  //   offset =>
-  //     // TODO - Replace with GraphQL
-  //     fetch(`/api/projects/${pipelineid}/builds/${jobid}/results?offset=${offset}`)
-  //       .then(response => response.json())
-  //       .then(result => {
-  //         setResults(result.results);
-  //         setMetadata(result.metadata);
-  //         setOffset(offset);
-  //       }),
-  //   [pipelineid, jobid]
-  // );
-
   useEffect(() => {
     (async () => {
       const result = await getResultsForJob(jobid);
