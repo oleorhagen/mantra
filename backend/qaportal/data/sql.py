@@ -18,17 +18,10 @@ from sqlalchemy import Table, Column, MetaData, ForeignKey, Index, Integer, Stri
 from sqlalchemy import create_engine
 from sqlalchemy.engine.url import URL
 
-# plain JSON is inferior to JSONB in postgres.
-# JSONB supports indexing and is stored as binary.
-# TODO: other database support?
 from sqlalchemy.dialects.postgresql import JSONB
-
 
 metadata = MetaData()
 
-# TODO - maybe add a timestamp here as well (?)
-# TODO - maybe adda time (spent) here as well (?)
-# TODO - rename to pipelines (?)
 pipelines_table = Table(
     "pipelines",
     metadata,
@@ -44,9 +37,7 @@ pipelines_table = Table(
 jobs_table = Table(
     "jobs",
     metadata,
-    Column(
-        "id", Integer, nullable=False, primary_key=True
-    ),  # CI_CONCURRENT_PROJECT_ID
+    Column("id", Integer, nullable=False, primary_key=True),  # CI_CONCURRENT_PROJECT_ID
     Column(
         "pipeline_id",
         ForeignKey(pipelines_table.c.id, ondelete="CASCADE"),
@@ -64,9 +55,7 @@ results_table = Table(
     "results",
     metadata,
     Column("id", Integer, nullable=False, primary_key=True, autoincrement=True),
-    Column(
-        "job_id", ForeignKey(jobs_table.c.id, ondelete="CASCADE"), nullable=False
-    ),
+    Column("job_id", ForeignKey(jobs_table.c.id, ondelete="CASCADE"), nullable=False),
     Column("test_name", String(256), nullable=False),
     Column("timestamp", Integer, nullable=False),
     Column("result", String(256), nullable=False),
@@ -79,6 +68,5 @@ results_table = Table(
 
 def db_connect(database_dict):
     engine = create_engine(URL(**database_dict), echo=True)
-    # TODO - future next! engine = create_engine(URL(**database_dict), echo=True, future=True)
     metadata.create_all(engine)
     return engine

@@ -58,6 +58,5 @@ class Pipeline(BaseModel):
 
     @classmethod
     def delete(cls, resource_id, handler=None):
-        print("Deleting pipeline......----------")
         handler = handler or get_handler()
         return handler.delete(resource_id=resource_id, resource_class=cls)

@@ -4,8 +4,6 @@ import { DataGrid, GridToolbar, LinearProgress, CustomNoRowsOverlay } from '@mui
 
 import { useRouter } from 'next/router';
 
-import ResourceTableEntry from './resource-table-entry';
-
 import Link from '../components/link';
 
 const tableColumnDefinitions = {
@@ -85,7 +83,7 @@ const tableColumnDefinitions = {
         return (
           <div
             style={{
-              color: color,
+              color,
             }}
           >
             {' '}
