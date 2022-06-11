@@ -59,16 +59,21 @@ const tableColumnDefinitions = {
       headerName: 'Build ID',
       minWidth: 150,
       sortable: false,
-      renderCell: params => <Link href={`/projects/${params.row.project_id}/builds/${params.row.id}`}> {params.row.id} </Link>,
+      renderCell: params => (
+        <Link href={`https://gitlab.com/Northern.tech/Mender/mender-api-docs/-/pipelines/${params.row.pipeline_id}/jobs/${params.row.id}`}>
+          {' '}
+          {params.row.id}{' '}
+        </Link>
+      ),
       editable: false,
     },
     {
-      field: 'project_id',
-      headerName: 'Project ID',
+      field: 'jobId',
+      headerName: 'Job ID',
       minWidth: 150,
       sortable: false,
       filterable: false,
-      renderCell: params => <Link href={`/projects/${params.row.project_id}/builds`}> {params.row.project_id} </Link>,
+      renderCell: params => <Link href={`/pipelines/${params.row.id}/jobs/${params.row.jobId}/builds`}> {params.row.project_id} </Link>,
       editable: false,
     },
     {
@@ -107,12 +112,9 @@ const tableColumnDefinitions = {
       minMinWidth: 260,
       flex: 1,
       // valueGetter: params => `/projects/${params.row.project_id}/tests/history?name=${encodeURIComponent(params.row.test_name)}&count=10`,
-      // renderCell: params => (
-      //   <Link href={`/projects/${params.row.project_id}/tests/history?name=${encodeURIComponent(params.row.test_name)}&count=10`}>
-      //     {' '}
-      //     {params.row.test_name}{' '}
-      //   </Link>
-      // ),
+      renderCell: params => (
+        <Link href={`/pipelines/${params.row.jobId}/tests/history?name=${encodeURIComponent(params.row.testName)}&count=10`}> {params.row.testName} </Link>
+      ),
     },
     {
       field: 'tags',
