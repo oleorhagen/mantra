@@ -86,7 +86,7 @@ class ResultMetadata(DictSerializer):
     def from_database_counts(cls, count_results):
         """Create a ResultMetadata from any list of dicts that looks like:
 
-            [{"result": "passed", "count": 123}, ...]
+        [{"result": "passed", "count": 123}, ...]
         """
         total_failures = 0
         total_errors = 0

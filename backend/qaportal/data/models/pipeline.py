@@ -23,7 +23,8 @@ class Pipeline(BaseModel):
     TABLE = sql.pipelines_table
 
     def __init__(
-        self, **kwargs,
+        self,
+        **kwargs,
     ):
         self.id = int(kwargs["pipeline_id"])
         # TODO - do we really need to truncate (?)
@@ -68,14 +69,21 @@ class Pipeline(BaseModel):
         **tag_filters,
     ):
         handler = handler or get_handler()
-        and_clause = cls._and_clause(name=name, build_url=build_url,)
+        and_clause = cls._and_clause(
+            name=name,
+            build_url=build_url,
+        )
 
         # match the build if its tags are a superset of the filters
         # TODO - re-enable when needed
         # if tag_filters:
         #     and_clause &= cls.TABLE.c.tags.contains(tag_filters)
 
-        query = cls._get_all_query(and_clause=and_clause, limit=limit, offset=offset,)
+        query = cls._get_all_query(
+            and_clause=and_clause,
+            limit=limit,
+            offset=offset,
+        )
         builds = handler.get_all(resource_class=cls, query=query)
 
         return builds

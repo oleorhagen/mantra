@@ -37,7 +37,12 @@ cfg.CONF.register_opts(
     group="sqlalchemy",
 )
 
-cfg.CONF.register_opts([cfg.IntOpt("default_limit", default=25),], group="api")
+cfg.CONF.register_opts(
+    [
+        cfg.IntOpt("default_limit", default=25),
+    ],
+    group="api",
+)
 
 
 def _find_config_file(locations):

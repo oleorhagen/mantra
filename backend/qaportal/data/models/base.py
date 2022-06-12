@@ -86,7 +86,11 @@ class BaseModel(DictSerializer):
         handler = handler or get_handler()
 
         and_clause = cls._and_clause(**kwargs)
-        query = cls._get_all_query(and_clause=and_clause, limit=limit, offset=offset,)
+        query = cls._get_all_query(
+            and_clause=and_clause,
+            limit=limit,
+            offset=offset,
+        )
 
         return handler.get_all(
             resource_class=cls, query=query, limit=limit, offset=offset

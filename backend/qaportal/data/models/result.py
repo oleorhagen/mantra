@@ -30,7 +30,8 @@ class Result(BaseModel):
     TABLE = sql.results_table
 
     def __init__(
-        self, **kwargs,
+        self,
+        **kwargs,
     ):
         print(f"Result received kwargs: {kwargs}")
         # if kwargs.get("id"):

@@ -9,7 +9,12 @@ _LOCATIONS = (
 
 cfg.CONF.register_group(cfg.OptGroup("api"))
 
-cfg.CONF.register_opts([cfg.StrOpt("base_url"),], group="api")
+cfg.CONF.register_opts(
+    [
+        cfg.StrOpt("base_url"),
+    ],
+    group="api",
+)
 
 
 def _find_config_file(locations):

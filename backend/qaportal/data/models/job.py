@@ -23,7 +23,8 @@ class Job(BaseModel):
     TABLE = sql.jobs_table
 
     def __init__(
-        self, **kwargs,
+        self,
+        **kwargs,
     ):
         self.id = int(kwargs["job_id"])
         self.pipeline_id = int(kwargs["pipeline_id"])
@@ -49,10 +50,17 @@ class Job(BaseModel):
     ):
         handler = handler or get_handler()
         and_clause = cls._and_clause(
-            name=name, build_url=build_url, region=region, environment=environment,
+            name=name,
+            build_url=build_url,
+            region=region,
+            environment=environment,
         )
 
-        query = cls._get_all_query(and_clause=and_clause, limit=limit, offset=offset,)
+        query = cls._get_all_query(
+            and_clause=and_clause,
+            limit=limit,
+            offset=offset,
+        )
         jobs = handler.get_all(resource_class=cls, query=query)
 
         return jobs
