@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="utf-8"?><testsuites><testsuite name="pytest" errors="0" failures="2" skipped="1" tests="82" time="9198.146" timestamp="2022-05-17T02:11:57.501881" hostname="runner-brnxxjxm-project-12501706-concurrent-0"><testcase classname="tests.test_basic_integration.TestBasicIntegrationOpenSource" name="test_update_jwt_expired" file="tests/test_basic_integration.py" line="382" time="274.982" /><testcase classname="tests.test_access.TestAccess" name="test_ok" file="tests/test_access.py" line="170" time="342.274" /><testcase classname="tests.test_basic_integration.TestBasicIntegrationOpenSource" name="test_double_update_rofs" file="tests/test_basic_integration.py" line="371" time="571.222" /><testcase classname="tests.test_basic_integration.TestBasicIntegrationOpenSource" name="test_update_failover_server" file="tests/test_basic_integration.py" line="309" time="432.359" /><testcase classname="tests.test_basic_integration.TestBasicIntegrationOpenSource" name="test_forced_inventory_update_from_client" file="tests/test_basic_integration.py" line="412" time="225.258" /><testcase classname="tests.test_basic_integration.TestBasicIntegrationOpenSource" name="test_failed_updated_and_valid_update" file="tests/test_basic_integration.py" line="390" time="434.967" /><testcase classname="tests.test_basic_integration.TestBasicIntegrationOpenSource" name="test_update_no_compression" file="tests/test_basic_integration.py" line="398" time="275.058" /><testcase classname="tests.test_configuration.TestConfiguration" name="test_configuration" file="tests/test_configuration.py" line="42" time="138.240" /><testcase classname="tests.test_basic_integration.TestBasicIntegrationOpenSource" name="test_forced_update_check_from_client" file="tests/test_basic_integration.py" line="405" time="273.757" /><testcase classname="tests.test_deployment_aborting.TestDeploymentAbortingOpenSource" name="test_deployment_abortion_instantly" file="tests/test_deployment_aborting.py" line="85" time="462.956" /><testcase classname="tests.test_bootstrapping.TestBootstrappingOpenSource" name="test_reject_bootstrap" file="tests/test_bootstrapping.py" line="115" time="388.104" /><testcase classname="tests.test_bootstrapping.TestBootstrappingOpenSource" name="test_bootstrap" file="tests/test_bootstrapping.py" line="111" time="321.290" /><testcase classname="tests.test_compat.TestClientCompatibilityOpenSource" name="test_compatibility" file="tests/test_compat.py" line="310" time="403.842" /><testcase classname="tests.test_db_migration.TestDBMigrationOpenSource" name="test_migrate_from_legacy_mender_v1_success" file="tests/test_db_migration.py" line="185" time="415.572" /><testcase classname="tests.test_demo_artifact.TestDemoArtifact" name="test_demo_artifact" file="tests/test_demo_artifact.py" line="105" time="539.996" /><testcase classname="tests.test_fault_tolerance.TestFaultToleranceOpenSource" name="test_deployed_during_network_outage" file="tests/test_fault_tolerance.py" line="392" time="480.984" /><testcase classname="tests.test_deployment_aborting.TestDeploymentAbortingOpenSource" name="test_deployment_abortion_rebooting" file="tests/test_deployment_aborting.py" line="99" time="211.055" /><testcase classname="tests.test_fault_tolerance.TestFaultToleranceOpenSource" name="test_image_download_retry_timeout[test_set0]" file="tests/test_fault_tolerance.py" line="400" time="362.083" /><testcase classname="tests.test_db_migration.TestDBMigrationOpenSource" name="test_migrate_from_legacy_mender_v1_failure" file="tests/test_db_migration.py" line="178" time="1028.789" /><testcase classname="tests.test_filetransfer.TestFileTransfer" name="test_filetransfer_limits_upload" file="tests/test_filetransfer.py" line="668" time="332.280" /><testcase classname="tests.test_fault_tolerance.TestFaultToleranceOpenSource" name="test_update_image_breaks_networking" file="tests/test_fault_tolerance.py" line="381" time="335.798" /><testcase classname="tests.test_fault_tolerance.TestFaultToleranceOpenSource" name="test_image_download_retry_timeout[test_set1]" file="tests/test_fault_tolerance.py" line="400" time="419.057" /><testcase classname="tests.test_filetransfer.TestFileTransfer" name="test_filetransfer_limits_download" file="tests/test_filetransfer.py" line="677" time="311.775" /><testcase classname="tests.test_image_update_failures.TestFailuresOpenSource" name="test_large_update_image" file="tests/test_image_update_failures.py" line="92" time="170.303" /><testcase classname="tests.test_deployment_aborting.TestDeploymentAbortingOpenSource" name="test_deployment_abortion_downloading" file="tests/test_deployment_aborting.py" line="91" time="374.286" /><testcase classname="tests.test_inventory.TestInventoryOpenSource" name="test_inventory" file="tests/test_inventory.py" line="274" time="203.728" /><testcase classname="tests.test_filetransfer_cli.TestFileTransferCLI" name="test_filetransfer_cli" file="tests/test_filetransfer_cli.py" line="189" time="266.567" /><testcase classname="tests.test_fault_tolerance.TestFaultToleranceOpenSource" name="test_image_download_retry_hosts_broken" file="tests/test_fault_tolerance.py" line="414" time="571.666" /><testcase classname="tests.test_mender_connect.TestRemoteTerminal" name="test_bogus_proto_message" file="tests/test_mender_connect.py" line="260" time="103.957" /><testcase classname="tests.test_mender_connect.TestRemoteTerminal" name="test_regular_protocol_commands" file="tests/test_mender_connect.py" line="44" time="14.265" /><testcase classname="tests.test_mender_connect.TestRemoteTerminal" name="test_dbus_reconnect" file="tests/test_mender_connect.py" line="115" time="25.408" /><testcase classname="tests.test_mender_connect.TestRemoteTerminal" name="test_websocket_reconnect" file="tests/test_mender_connect.py" line="145" time="69.624" /><testcase classname="tests.test_inventory.TestInventoryOpenSource" name="test_inventory_update_after_successful_deployment" file="tests/test_inventory.py" line="278" time="203.844" /><testcase classname="tests.test_mender_connect.TestRemoteTerminal" name="test_bogus_shell_message" file="tests/test_mender_connect.py" line="164" time="5.198" /><testcase classname="tests.test_grouping.TestGroupingOpenSource" name="test_basic_groups" file="tests/test_grouping.py" line="176" time="166.949" /><testcase classname="tests.test_mender_connect.TestRemoteTerminal" name="test_session_recording" file="tests/test_mender_connect.py" line="181" time="82.346" /><testcase classname="tests.test_keepalive.TestMenderClientKeepAlive" name="test_keepalive_idle_connections" file="tests/test_keepalive.py" line="126" time="304.176" /><testcase classname="tests.test_grouping.TestGroupingOpenSource" name="test_update_device_group" file="tests/test_grouping.py" line="179" time="572.325" /><testcase classname="tests.test_mender_connect.TestRemoteTerminal_1_0" name="test_regular_protocol_commands" file="tests/test_mender_connect.py" line="44" time="216.940" /><testcase classname="tests.test_mender_connect.TestRemoteTerminal_1_0" name="test_dbus_reconnect" file="tests/test_mender_connect.py" line="115" time="55.688" /><testcase classname="tests.test_fault_tolerance.TestFaultToleranceOpenSource" name="test_rootfs_conf_missing_from_new_update" file="tests/test_fault_tolerance.py" line="422" time="351.680" /><testcase classname="tests.test_keepalive.TestMenderClientKeepAlive" name="test_keepalive_disable" file="tests/test_keepalive.py" line="156" time="204.248" /><testcase classname="tests.test_mender_gateway.TestMenderGatewayOpenSource" name="test_deployment_one_device" file="tests/test_mender_gateway.py" line="421" time="294.151" /><testcase classname="tests.test_mender_connect.TestRemoteTerminal_1_0" name="test_websocket_reconnect" file="tests/test_mender_connect.py" line="145" time="286.008" /><testcase classname="tests.test_filetransfer.TestFileTransfer" name="test_filetransfer" file="tests/test_filetransfer.py" line="635" time="562.849" /><testcase classname="tests.test_mender_connect.TestRemoteTerminal_1_0" name="test_bogus_shell_message" file="tests/test_mender_connect.py" line="164" time="5.190" /><testcase classname="tests.test_mender_connect.TestRemoteTerminal_1_0" name="test_session_recording" file="tests/test_mender_connect.py" line="181" time="117.150"><failure message="assert b'# Invisible comment' not in b'echo \'now you see me\'\r\nstty -echo\r\necho &quot;now you don\'t&quot; &gt; /dev/null\r\n# Invisible comment\r\nstty echo\r\necho \'and now echo is back on\'\r\n'">self = &lt;tests.tests.test_mender_connect.TestRemoteTerminal_1_0 object at 0x7f5078048430&gt;
+docker_env = &lt;testutils.infra.container_manager.docker_compose_manager.DockerComposeMenderClient_2_5 object at 0x7f50781cd790&gt;
+
+    def test_session_recording(self, docker_env):
+        self.assert_env(docker_env)
+    
+        def get_cmd(ws, timeout=1):
+            pmsg = protomsg.ProtoMsg(proto_shell.PROTO_TYPE_SHELL)
+            body = b""
+            try:
+                while True:
+                    msg = ws.recv(timeout)
+                    b = pmsg.decode(msg)
+                    if pmsg.typ == proto_shell.MSG_TYPE_SHELL_COMMAND:
+                        body += b
+            except TimeoutError:
+                return body
+    
+        session_id = ""
+        session_bytes = b""
+        with docker_env.devconnect.get_websocket() as ws:
+            # Start shell.
+            shell = proto_shell.ProtoShell(ws)
+            body = shell.startShell()
+            assert shell.protomsg.props["status"] == protomsg.PROP_STATUS_NORMAL
+            assert body == proto_shell.MSG_BODY_SHELL_STARTED
+    
+            assert shell.sid is not None
+            session_id = shell.sid
+    
+            """ Record a series of commands """
+            shell.sendInput("echo 'now you see me'\n".encode())
+            session_bytes += get_cmd(ws)
+            # Disable echo
+            shell.sendInput("stty -echo\n".encode())
+            session_bytes += get_cmd(ws)
+            shell.sendInput('echo "now you don\'t" &gt; /dev/null\n'.encode())
+            session_bytes += get_cmd(ws)
+            shell.sendInput("# Invisible comment\n".encode())
+            session_bytes += get_cmd(ws)
+            # Turn echo back on
+            shell.sendInput("stty echo\n".encode())
+            session_bytes += get_cmd(ws)
+            shell.sendInput("echo 'and now echo is back on'\n".encode())
+            session_bytes += get_cmd(ws)
+    
+            body = shell.stopShell()
+            assert shell.protomsg.props["status"] == protomsg.PROP_STATUS_NORMAL
+            assert body is None
+    
+        # Sleep for a second to make sure the session log propagate to the DB.
+        time.sleep(1)
+    
+        playback_bytes = b""
+        with docker_env.devconnect.get_playback_websocket(session_id, sleep_ms=0) as ws:
+            playback_bytes = get_cmd(ws)
+    
+        assert playback_bytes == session_bytes
+    
+        assert b"now you see me" in playback_bytes
+        assert b"echo 'now you see me'" in playback_bytes
+    
+        # Check that the commands after echo was disabled is not present in the log
+&gt;       assert b"# Invisible comment" not in playback_bytes
+E       assert b'# Invisible comment' not in b'echo \'now you see me\'\r\nstty -echo\r\necho "now you don\'t" &gt; /dev/null\r\n# Invisible comment\r\nstty echo\r\necho \'and now echo is back on\'\r\n'
+
+tests/test_mender_connect.py:242: AssertionError</failure></testcase><testcase classname="tests.test_mender_gateway.TestMenderGatewayOpenSource" name="test_deployment_gateway_and_one_device" file="tests/test_mender_gateway.py" line="432" time="926.185" /><testcase classname="tests.test_image_update_failures.TestFailuresOpenSource" name="test_update_image_id_already_installed" file="tests/test_image_update_failures.py" line="84" time="559.121" /><testcase classname="tests.test_mender_gateway.TestMenderGatewayOpenSource" name="test_deployment_two_devices_parallel_updates_one_failure" file="tests/test_mender_gateway.py" line="478" time="470.988"><skipped type="pytest.skip" message="Disabled due to MEN-5567.">/builds/Northern.tech/Mender/integration/tests/tests/test_mender_gateway.py:263: Disabled due to MEN-5567.</skipped></testcase><testcase classname="tests.test_filetransfer.TestFileTransfer" name="test_filetransfer_not_implemented" file="tests/test_filetransfer.py" line="658" time="454.338" /><testcase classname="tests.test_mender_gateway.TestMenderGatewayOpenSource" name="test_deployment_two_devices_update_one" file="tests/test_mender_gateway.py" line="456" time="786.893" /><testcase classname="tests.test_mender_gateway.TestMenderGatewayOpenSource" name="test_deployment_two_devices_parallel_updates_one_aborted" file="tests/test_mender_gateway.py" line="489" time="893.346" /><testcase classname="tests.test_mender_gateway.TestMenderGatewayOpenSource" name="test_deployment_two_devices_update_both" file="tests/test_mender_gateway.py" line="445" time="807.700" /><testcase classname="tests.test_mender_gateway.TestMenderGatewayOpenSource" name="test_deployment_two_devices_parallel_updates_multiple_deployments" file="tests/test_mender_gateway.py" line="500" time="1129.632" /><testcase classname="tests.test_mender_gateway.TestMenderGatewayOpenSource" name="test_deployment_two_devices_parallel_updates" file="tests/test_mender_gateway.py" line="467" time="4036.202"><failure message="RuntimeError: Device never rebooted">self = &lt;tests.tests.test_mender_gateway.TestMenderGatewayOpenSource object at 0x7ff74f85faf0&gt;
+standard_setup_two_clients_bootstrapped_with_gateway = &lt;testutils.infra.container_manager.docker_compose_manager.DockerComposeStandardSetupWithGateway object at 0x7ff74f629a30&gt;
+valid_image_with_mender_conf = &lt;function valid_image_with_mender_conf.&lt;locals&gt;.&lt;lambda&gt; at 0x7ff74f5b5700&gt;
+
+    @MenderTesting.fast
+    def test_deployment_two_devices_parallel_updates(
+        self,
+        standard_setup_two_clients_bootstrapped_with_gateway,
+        valid_image_with_mender_conf,
+    ):
+&gt;       self.do_test_deployment_two_devices_parallel_updates(
+            standard_setup_two_clients_bootstrapped_with_gateway,
+            valid_image_with_mender_conf,
+        )
+
+tests/test_mender_gateway.py:474: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+tests/test_mender_gateway.py:245: in do_test_deployment_two_devices_parallel_updates
+    reboot[mender_device_1].verify_reboot_performed()
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = &lt;testutils.infra.device.RebootDetector object at 0x7ff74f3b0ee0&gt;
+max_wait = 3600, number_of_reboots = 1
+
+    def verify_reboot_performed(self, max_wait=60 * 60, number_of_reboots=1):
+        if self.server is None:
+            raise RuntimeError(
+                "verify_reboot_performed() used outside of 'with' scope."
+            )
+    
+        logger.info("Waiting for client to reboot %d time(s)", number_of_reboots)
+        if not self.verify_reboot_performed_impl(
+            max_wait=max_wait, number_of_reboots=number_of_reboots
+        ):
+&gt;           raise RuntimeError("Device never rebooted")
+E           RuntimeError: Device never rebooted
+
+../testutils/infra/device.py:237: RuntimeError</failure></testcase><testcase classname="tests.test_preauth.TestPreauth" name="test_ok_preauth_and_bootstrap" file="tests/test_preauth.py" line="157" time="194.196" /><testcase classname="tests.test_preauth.TestPreauth" name="test_fail_preauth_existing" file="tests/test_preauth.py" line="163" time="148.086" /><testcase classname="tests.test_security.TestSecurityOpenSource" name="test_ssl_only" file="tests/test_security.py" line="59" time="84.390" /><testcase classname="tests.test_preauth.TestPreauth" name="test_ok_preauth_and_remove" file="tests/test_preauth.py" line="160" time="88.620" /><testcase classname="tests.test_security.TestSecurityOpenSource" name="test_token_token_expiration" file="tests/test_security.py" line="115" time="276.251" /><testcase classname="tests.test_signed_image_update.TestSignedUpdatesOpenSource" name="test_signed_artifact_success" file="tests/test_signed_image_update.py" line="74" time="327.233" /><testcase classname="tests.test_portforward.TestPortForwardOpenSource" name="test_portforward" file="tests/test_portforward.py" line="167" time="298.739" /><testcase classname="tests.test_signed_image_update.TestSignedUpdatesOpenSource" name="test_unsigned_artifact_fails_deployment[force_new]" file="tests/test_signed_image_update.py" line="81" time="187.475" /><testcase classname="tests.test_state_scripts.TestStateScriptsOpenSource" name="test_reboot_recovery[simulate_powerloss_artifact_install_enter-test_set0]" file="tests/test_state_scripts.py" line="934" time="198.562" /><testcase classname="tests.test_state_scripts.TestStateScriptsOpenSource" name="test_reboot_recovery[simulate_powerloss_in_commit_enter-test_set1]" file="tests/test_state_scripts.py" line="934" time="170.284" /><testcase classname="tests.test_state_scripts.TestStateScriptsOpenSource" name="test_state_scripts[Normal_success-test_set0]" file="tests/test_state_scripts.py" line="947" time="34.180" /><testcase classname="tests.test_state_scripts.TestStateScriptsOpenSource" name="test_reboot_recovery[simulate_powerloss_in_artifact_commit_leave-test_set2]" file="tests/test_state_scripts.py" line="934" time="212.164" /><testcase classname="tests.test_state_scripts.TestStateScriptsOpenSource" name="test_state_scripts[Failure_in_Sync_Enter_script-test_set3]" file="tests/test_state_scripts.py" line="947" time="27.887" /><testcase classname="tests.test_state_scripts.TestStateScriptsOpenSource" name="test_state_scripts[Failure_in_Idle_Enter_script-test_set1]" file="tests/test_state_scripts.py" line="947" time="34.629" /><testcase classname="tests.test_state_scripts.TestStateScriptsOpenSource" name="test_state_scripts[Failure_in_Sync_Leave_script-test_set4]" file="tests/test_state_scripts.py" line="947" time="27.870" /><testcase classname="tests.test_state_scripts.TestStateScriptsOpenSource" name="test_state_scripts[Failure_in_Download_Enter_script-test_set5]" file="tests/test_state_scripts.py" line="947" time="56.307" /><testcase classname="tests.test_state_scripts.TestStateScriptsOpenSource" name="test_state_scripts[Failure_in_Idle_Leave_script-test_set2]" file="tests/test_state_scripts.py" line="947" time="33.986" /><testcase classname="tests.test_state_scripts.TestStateScriptsOpenSource" name="test_state_scripts[Failure_in_Download_Leave_script-test_set6]" file="tests/test_state_scripts.py" line="947" time="32.265" /><testcase classname="tests.test_state_scripts.TestStateScriptsOpenSource" name="test_state_scripts[Failure_in_ArtifactCommit_Enter_script-test_set8]" file="tests/test_state_scripts.py" line="947" time="35.284" /><testcase classname="tests.test_state_scripts.TestStateScriptsOpenSource" name="test_state_scripts[Failure_in_ArtifactCommit_Leave_script-test_set9]" file="tests/test_state_scripts.py" line="947" time="34.089" /><testcase classname="tests.test_state_scripts.TestStateScriptsOpenSource" name="test_state_scripts[Failure_in_ArtifactInstall_Enter_script-test_set7]" file="tests/test_state_scripts.py" line="947" time="41.224" /><testcase classname="tests.test_state_scripts.TestStateScriptsOpenSource" name="test_state_scripts[Corrupted_script_version_in_data-test_set10]" file="tests/test_state_scripts.py" line="947" time="91.004" /><testcase classname="tests.test_state_scripts.TestStateScriptsOpenSource" name="test_state_scripts[Corrupted_script_version_in_etc-test_set11]" file="tests/test_state_scripts.py" line="947" time="87.487" /><testcase classname="tests.test_update_modules.TestUpdateModulesOpenSource" name="test_rootfs_image_rejected" file="tests/test_update_modules.py" line="106" time="141.943" /><testcase classname="tests.test_update_modules.TestUpdateModulesOpenSource" name="test_rootfs_update_module_success" file="tests/test_update_modules.py" line="112" time="187.561" /><testcase classname="tests.test_remote_terminal.TestRemoteTerminalOpenSource" name="test_portforward" file="tests/test_remote_terminal.py" line="77" time="110.762" /></testsuite></testsuites>

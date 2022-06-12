@@ -1,0 +1,241 @@
+<?xml version="1.0" encoding="utf-8"?><testsuites><testsuite errors="0" failures="3" hostname="runner-kzzanpnu-project-12501706-concurrent-0" name="pytest" skipped="18" tests="168" time="12223.161" timestamp="2022-05-18T01:51:06.181538"><testcase classname="test_bootimg.TestBootImg" name="test_bootimg_creation" time="482.438" /><testcase classname="test_build.TestBuild" name="test_default_server_certificate" time="0.026" /><testcase classname="test_build.TestBuild" name="test_certificate_split" time="9.819" /><testcase classname="test_build.TestBuild" name="test_bootloader_embed" time="177.804" /><testcase classname="test_build.TestBuild" name="test_image_rootfs_extra_space" time="149.237" /><testcase classname="test_build.TestBuild" name="test_tenant_token" time="165.944" /><testcase classname="test_build.TestBuild" name="test_artifact_signing_keys" time="189.083" /><testcase classname="test_build.TestBuild" name="test_state_scripts" time="176.524" /><testcase classname="test_build.TestBuild" name="test_preferred_versions[mender-client-3.2.0]" time="63.868" /><testcase classname="test_build.TestBuild" name="test_preferred_versions[mender-client-3.1.0]" time="62.985" /><testcase classname="test_build.TestBuild" name="test_preferred_versions[mender-client-3.2.1]" time="64.017" /><testcase classname="test_build.TestBuild" name="test_preferred_versions[mender-client-None]" time="45.967" /><testcase classname="test_build.TestBuild" name="test_preferred_versions[mender-client-native-3.2.0]" time="21.842" /><testcase classname="test_build.TestBuild" name="test_preferred_versions[mender-client-native-3.1.0]" time="23.275" /><testcase classname="test_build.TestBuild" name="test_preferred_versions[mender-client-native-3.2.1]" time="21.910" /><testcase classname="test_build.TestBuild" name="test_preferred_versions[mender-client-native-None]" time="21.081" /><testcase classname="test_build.TestBuild" name="test_preferred_versions[mender-artifact-native-3.7.0]" time="56.555" /><testcase classname="test_build.TestBuild" name="test_preferred_versions[mender-artifact-native-3.5.0]" time="56.403" /><testcase classname="test_build.TestBuild" name="test_preferred_versions[mender-artifact-native-3.7.1]" time="56.370" /><testcase classname="test_build.TestBuild" name="test_preferred_versions[mender-artifact-native-3.6.0]" time="56.098" /><testcase classname="test_build.TestBuild" name="test_preferred_versions[mender-artifact-native-3.5.1]" time="55.904" /><testcase classname="test_build.TestBuild" name="test_preferred_versions[mender-artifact-native-3.5.2]" time="55.908" /><testcase classname="test_build.TestBuild" name="test_preferred_versions[mender-artifact-native-3.6.1]" time="55.785" /><testcase classname="test_build.TestBuild" name="test_preferred_versions[mender-artifact-native-None]" time="36.147" /><testcase classname="test_build.TestBuild" name="test_preferred_versions[mender-connect-1.0.1]" time="127.843" /><testcase classname="test_build.TestBuild" name="test_preferred_versions[mender-connect-1.0.2]" time="74.883" /><testcase classname="test_build.TestBuild" name="test_preferred_versions[mender-connect-2.0.1]" time="75.991" /><testcase classname="test_build.TestBuild" name="test_preferred_versions[mender-connect-1.1.0]" time="75.731" /><testcase classname="test_build.TestBuild" name="test_preferred_versions[mender-connect-2.0.0]" time="75.309" /><testcase classname="test_build.TestBuild" name="test_preferred_versions[mender-connect-1.2.1]" time="77.883" /><testcase classname="test_build.TestBuild" name="test_preferred_versions[mender-connect-1.0.0]" time="74.274" /><testcase classname="test_build.TestBuild" name="test_preferred_versions[mender-connect-1.2.0]" time="75.821" /><testcase classname="test_build.TestBuild" name="test_preferred_versions[mender-connect-1.0.3]" time="74.342" /><testcase classname="test_build.TestBuild" name="test_preferred_versions[mender-connect-1.1.1]" time="76.179" /><testcase classname="test_build.TestBuild" name="test_preferred_versions[mender-connect-None]" time="45.012" /><testcase classname="test_build.TestBuild" name="test_preferred_versions[mender-configure-1.0.1]" time="71.069" /><testcase classname="test_build.TestBuild" name="test_preferred_versions[mender-configure-1.0.3]" time="66.365" /><testcase classname="test_build.TestBuild" name="test_preferred_versions[mender-configure-1.0.2]" time="70.409" /><testcase classname="test_build.TestBuild" name="test_preferred_versions[mender-configure-1.0.0]" time="70.114" /><testcase classname="test_build.TestBuild" name="test_preferred_versions[mender-configure-None]" time="26.720" /><testcase classname="test_build.TestBuild" name="test_multiple_device_types_compatible" time="167.666" /><testcase classname="test_build.TestBuild" name="test_various_mtd_combinations[Default-test_case0]" time="0.002"><skipped message="incompatible machine vexpress-qemu (required vexpress-qemu-flash)" type="pytest.skip">/builds/Northern.tech/Mender/meta-mender/tests/acceptance/image-tests/tests/utils/fixtures/fixtures.py:550: incompatible machine vexpress-qemu (required vexpress-qemu-flash)</skipped></testcase><testcase classname="test_build.TestBuild" name="test_various_mtd_combinations[custom_mtdids-test_case1]" time="0.001"><skipped message="incompatible machine vexpress-qemu (required vexpress-qemu-flash)" type="pytest.skip">/builds/Northern.tech/Mender/meta-mender/tests/acceptance/image-tests/tests/utils/fixtures/fixtures.py:550: incompatible machine vexpress-qemu (required vexpress-qemu-flash)</skipped></testcase><testcase classname="test_build.TestBuild" name="test_various_mtd_combinations[multiple_mtdids_no_selected_one-test_case2]" time="0.001"><skipped message="incompatible machine vexpress-qemu (required vexpress-qemu-flash)" type="pytest.skip">/builds/Northern.tech/Mender/meta-mender/tests/acceptance/image-tests/tests/utils/fixtures/fixtures.py:550: incompatible machine vexpress-qemu (required vexpress-qemu-flash)</skipped></testcase><testcase classname="test_build.TestBuild" name="test_various_mtd_combinations[multiple_mtdids_and_selected_one-test_case3]" time="0.001"><skipped message="incompatible machine vexpress-qemu (required vexpress-qemu-flash)" type="pytest.skip">/builds/Northern.tech/Mender/meta-mender/tests/acceptance/image-tests/tests/utils/fixtures/fixtures.py:550: incompatible machine vexpress-qemu (required vexpress-qemu-flash)</skipped></testcase><testcase classname="test_build.TestBuild" name="test_various_mtd_combinations[multiple_mtdparts-test_case4]" time="0.001"><skipped message="incompatible machine vexpress-qemu (required vexpress-qemu-flash)" type="pytest.skip">/builds/Northern.tech/Mender/meta-mender/tests/acceptance/image-tests/tests/utils/fixtures/fixtures.py:550: incompatible machine vexpress-qemu (required vexpress-qemu-flash)</skipped></testcase><testcase classname="test_build.TestBuild" name="test_boot_partition_population" time="253.155" /><testcase classname="test_build.TestBuild" name="test_module_install" time="214.226" /><testcase classname="test_build.TestBuild" name="test_correct_partition_types" time="0.029" /><testcase classname="test_build.TestBuild" name="test_build_artifact_depends_and_provides[dependsprovides0]" time="183.007" /><testcase classname="test_build.TestBuild" name="test_build_artifact_depends_and_provides[dependsprovides1]" time="61.778" /><testcase classname="test_build.TestBuild" name="test_build_artifact_depends_and_provides[dependsprovides2]" time="62.991" /><testcase classname="test_build.TestBuild" name="test_build_artifact_depends_and_provides[dependsprovides3]" time="60.826" /><testcase classname="test_build.TestBuild" name="test_build_artifact_depends_and_provides[dependsprovides4]" time="62.150" /><testcase classname="test_build.TestBuild" name="test_extra_parts" time="55.865"><failure message="subprocess.CalledProcessError: Command 'cd /builds/Northern.tech/Mender &amp;&amp; . oe-init-build-env /builds/Northern.tech/Mender/build-vexpress-qemu/test-build-9b3urwr4 &amp;&amp; bitbake core-image-full-cmdline' returned non-zero exit status 1.">self = &lt;test_build.TestBuild object at 0x7f2a2abff940&gt;
+request = &lt;FixtureRequest for &lt;Function test_extra_parts&gt;&gt;
+latest_part_image = '/builds/Northern.tech/Mender/build-vexpress-qemu/tmp/deploy/images/vexpress-qemu/core-image-full-cmdline-vexpress-qemu.sdimg'
+prepared_test_build = {'bitbake_corebase': '/builds/Northern.tech/Mender', 'build_dir': '/builds/Northern.tech/Mender/build-vexpress-qemu/test-build-9b3urwr4'}
+bitbake_image = 'core-image-full-cmdline'
+
+    @pytest.mark.only_with_image("sdimg", "uefiimg", "gptimg", "biosimg")
+    @pytest.mark.min_mender_version("1.0.0")
+    def test_extra_parts(
+        self, request, latest_part_image, prepared_test_build, bitbake_image
+    ):
+        sdimg = latest_part_image.endswith(".sdimg")
+        uefiimg = latest_part_image.endswith(".uefiimg")
+        gptimg = latest_part_image.endswith(".gptimg")
+        biosimg = latest_part_image.endswith(".biosimg")
+    
+        with make_tempdir() as tmpdir1, make_tempdir() as tmpdir2, make_tempdir() as tmpdir3, make_tempdir() as tmpdir4:
+            with open(os.path.join(tmpdir1, "tmpfile1"), "w") as fd:
+                fd.write("Test content1\n")
+            with open(os.path.join(tmpdir2, "tmpfile2"), "w") as fd:
+                fd.write("Test content2\n")
+            with open(os.path.join(tmpdir3, "tmpfile3"), "w") as fd:
+                fd.write("Test content3\n")
+            with open(os.path.join(tmpdir4, "tmpfile4"), "w") as fd:
+                fd.write("Test content4\n")
+    
+            build_image(
+                prepared_test_build["build_dir"],
+                prepared_test_build["bitbake_corebase"],
+                bitbake_image,
+                [
+                    'MENDER_EXTRA_PARTS = "test1 test2 test3 test4"',
+                    'MENDER_EXTRA_PARTS[test1] = "--fixed-size 100M --label=test1 --fstype=ext4 --source rootfs --rootfs-dir %s"'
+                    % tmpdir1,
+                    'MENDER_EXTRA_PARTS[test2] = "--fixed-size 50M --fstype=ext4 --source rootfs --rootfs-dir %s --label=test2"'
+                    % tmpdir2,
+                    'MENDER_EXTRA_PARTS[test3] = "--fixed-size 50M --fstype=ext4 --source rootfs --rootfs-dir %s --label=test3"'
+                    % tmpdir3,
+                    'MENDER_EXTRA_PARTS[test4] = "--fixed-size 50M --fstype=ext4 --source rootfs --rootfs-dir %s --label=test4"'
+                    % tmpdir4,
+                    'MENDER_EXTRA_PARTS_FSTAB[test1] = "auto nouser"',
+                    'MENDER_EXTRA_PARTS_FSTAB[test2] = "ext4 default,ro"',
+                    'MENDER_EXTRA_PARTS_FSTAB[test3] = "ext4 default,ro 1"',
+&gt;                   'MENDER_EXTRA_PARTS_FSTAB[test4] = "ext4 default,ro 1 0"',
+                ],
+            )
+
+test_build.py:1067: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+image-tests/tests/utils/common/common.py:403: in build_image
+    _run_bitbake(bitbake_image, init_env_cmd, capture)
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+target = 'core-image-full-cmdline'
+env_setup_cmd = 'cd /builds/Northern.tech/Mender &amp;&amp; . oe-init-build-env /builds/Northern.tech/Mender/build-vexpress-qemu/test-build-9b3urwr4'
+capture = False
+
+    def _run_bitbake(target, env_setup_cmd, capture=False):
+        cmd = "%s &amp;&amp; bitbake %s" % (env_setup_cmd, target)
+        ps = run_verbose(cmd, capture=subprocess.PIPE)
+        output = ""
+        try:
+            # Cannot use for loop here due to buffering and iterators.
+            while True:
+                line = ps.stdout.readline().decode()
+                if not line:
+                    break
+    
+                if line.find("is not a recognized MENDER_ variable") &gt;= 0:
+                    pytest.fail(
+                        "Found variable which is not in mender-vars.json: %s" % line.strip()
+                    )
+    
+                if capture:
+                    output += line
+                else:
+                    sys.stdout.write(line)
+        finally:
+            # Empty any remaining lines.
+            try:
+                if capture:
+                    output += ps.stdout.readlines().decode()
+                else:
+                    ps.stdout.readlines()
+            except:
+                pass
+            ps.wait()
+            if ps.returncode != 0:
+                e = subprocess.CalledProcessError(ps.returncode, cmd)
+                if capture:
+                    e.output = output
+&gt;               raise e
+E               subprocess.CalledProcessError: Command 'cd /builds/Northern.tech/Mender &amp;&amp; . oe-init-build-env /builds/Northern.tech/Mender/build-vexpress-qemu/test-build-9b3urwr4 &amp;&amp; bitbake core-image-full-cmdline' returned non-zero exit status 1.
+
+image-tests/tests/utils/common/common.py:440: CalledProcessError</failure></testcase><testcase classname="test_build.TestBuild" name="test_build_nodbus" time="46.561"><failure message="subprocess.CalledProcessError: Command 'cd /builds/Northern.tech/Mender &amp;&amp; . oe-init-build-env /builds/Northern.tech/Mender/build-vexpress-qemu/test-build-9b3urwr4 &amp;&amp; bitbake mender-client' returned non-zero exit status 1.">self = &lt;test_build.TestBuild object at 0x7f2a2abff2e8&gt;
+request = &lt;FixtureRequest for &lt;Function test_build_nodbus&gt;&gt;
+prepared_test_build = {'bitbake_corebase': '/builds/Northern.tech/Mender', 'build_dir': '/builds/Northern.tech/Mender/build-vexpress-qemu/test-build-9b3urwr4'}
+bitbake_path = '/builds/Northern.tech/Mender/build-vexpress-qemu/tmp/sysroots-uninative/x86_64-linux/usr/bin:/builds/Northern.tech/Me...r/bin:/sbin:/bin:/snap/bin:/builds/Northern.tech/Mender/go/bin:/builds/Northern.tech/Mender/mender-binary-delta/x86_64'
+
+    @pytest.mark.min_mender_version("1.0.0")
+    def test_build_nodbus(self, request, prepared_test_build, bitbake_path):
+        """Test that we can remove dbus from PACKAGECONFIG, and that this causes the
+        library dependency to be gone. The opposite is not tested, since we
+        assume failure to link to the library will be caught in other tests that
+        test DBus functionality."""
+    
+        build_image(
+            prepared_test_build["build_dir"],
+            prepared_test_build["bitbake_corebase"],
+            "mender-client",
+&gt;           ['PACKAGECONFIG_remove = "dbus"'],
+        )
+
+test_build.py:1154: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+image-tests/tests/utils/common/common.py:403: in build_image
+    _run_bitbake(bitbake_image, init_env_cmd, capture)
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+target = 'mender-client'
+env_setup_cmd = 'cd /builds/Northern.tech/Mender &amp;&amp; . oe-init-build-env /builds/Northern.tech/Mender/build-vexpress-qemu/test-build-9b3urwr4'
+capture = False
+
+    def _run_bitbake(target, env_setup_cmd, capture=False):
+        cmd = "%s &amp;&amp; bitbake %s" % (env_setup_cmd, target)
+        ps = run_verbose(cmd, capture=subprocess.PIPE)
+        output = ""
+        try:
+            # Cannot use for loop here due to buffering and iterators.
+            while True:
+                line = ps.stdout.readline().decode()
+                if not line:
+                    break
+    
+                if line.find("is not a recognized MENDER_ variable") &gt;= 0:
+                    pytest.fail(
+                        "Found variable which is not in mender-vars.json: %s" % line.strip()
+                    )
+    
+                if capture:
+                    output += line
+                else:
+                    sys.stdout.write(line)
+        finally:
+            # Empty any remaining lines.
+            try:
+                if capture:
+                    output += ps.stdout.readlines().decode()
+                else:
+                    ps.stdout.readlines()
+            except:
+                pass
+            ps.wait()
+            if ps.returncode != 0:
+                e = subprocess.CalledProcessError(ps.returncode, cmd)
+                if capture:
+                    e.output = output
+&gt;               raise e
+E               subprocess.CalledProcessError: Command 'cd /builds/Northern.tech/Mender &amp;&amp; . oe-init-build-env /builds/Northern.tech/Mender/build-vexpress-qemu/test-build-9b3urwr4 &amp;&amp; bitbake mender-client' returned non-zero exit status 1.
+
+image-tests/tests/utils/common/common.py:440: CalledProcessError</failure></testcase><testcase classname="test_build.TestBuild" name="test_mender_inventory_network_scripts" time="51.921"><failure message="subprocess.CalledProcessError: Command 'cd /builds/Northern.tech/Mender &amp;&amp; . oe-init-build-env /builds/Northern.tech/Mender/build-vexpress-qemu/test-build-9b3urwr4 &amp;&amp; bitbake core-image-full-cmdline' returned non-zero exit status 1.">self = &lt;test_build.TestBuild object at 0x7f2a2ac10080&gt;
+request = &lt;FixtureRequest for &lt;Function test_mender_inventory_network_scripts&gt;&gt;
+prepared_test_build = {'bitbake_corebase': '/builds/Northern.tech/Mender', 'build_dir': '/builds/Northern.tech/Mender/build-vexpress-qemu/test-build-9b3urwr4'}
+bitbake_image = 'core-image-full-cmdline'
+
+    @pytest.mark.min_mender_version("2.5.0")
+    @pytest.mark.only_with_image("ext4")
+    def test_mender_inventory_network_scripts(
+        self, request, prepared_test_build, bitbake_image
+    ):
+        """
+        Test the 'inventory-network-scripts' build feature configuration through
+        'PACKAGECONFIG' is working as expected.
+    
+        This verifies that the 'inventory-network-scripts' option is a part
+        build, and also that the inventory scripts are not included when
+        removed.
+    
+    
+        The test only runs for sdimg, as the build image should not really matter here.
+        """
+    
+        #
+        # Feature enabled
+        #
+        reset_build_conf(prepared_test_build["build_dir"])
+        build_image(
+            prepared_test_build["build_dir"],
+            prepared_test_build["bitbake_corebase"],
+            bitbake_image,
+&gt;           ['PACKAGECONFIG_append_pn-mender-client = " inventory-network-scripts"'],
+        )
+
+test_build.py:1205: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+image-tests/tests/utils/common/common.py:403: in build_image
+    _run_bitbake(bitbake_image, init_env_cmd, capture)
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+target = 'core-image-full-cmdline'
+env_setup_cmd = 'cd /builds/Northern.tech/Mender &amp;&amp; . oe-init-build-env /builds/Northern.tech/Mender/build-vexpress-qemu/test-build-9b3urwr4'
+capture = False
+
+    def _run_bitbake(target, env_setup_cmd, capture=False):
+        cmd = "%s &amp;&amp; bitbake %s" % (env_setup_cmd, target)
+        ps = run_verbose(cmd, capture=subprocess.PIPE)
+        output = ""
+        try:
+            # Cannot use for loop here due to buffering and iterators.
+            while True:
+                line = ps.stdout.readline().decode()
+                if not line:
+                    break
+    
+                if line.find("is not a recognized MENDER_ variable") &gt;= 0:
+                    pytest.fail(
+                        "Found variable which is not in mender-vars.json: %s" % line.strip()
+                    )
+    
+                if capture:
+                    output += line
+                else:
+                    sys.stdout.write(line)
+        finally:
+            # Empty any remaining lines.
+            try:
+                if capture:
+                    output += ps.stdout.readlines().decode()
+                else:
+                    ps.stdout.readlines()
+            except:
+                pass
+            ps.wait()
+            if ps.returncode != 0:
+                e = subprocess.CalledProcessError(ps.returncode, cmd)
+                if capture:
+                    e.output = output
+&gt;               raise e
+E               subprocess.CalledProcessError: Command 'cd /builds/Northern.tech/Mender &amp;&amp; . oe-init-build-env /builds/Northern.tech/Mender/build-vexpress-qemu/test-build-9b3urwr4 &amp;&amp; bitbake core-image-full-cmdline' returned non-zero exit status 1.
+
+image-tests/tests/utils/common/common.py:440: CalledProcessError</failure></testcase><testcase classname="test_build.TestBuild" name="test_mender_dbus_interface_file" time="172.726" /><testcase classname="test_dataimg.TestDataImg" name="test_dataimg_creation" time="173.027" /><testcase classname="test_dbus.TestDBus" name="test_dbus_system_configuration_file" time="211.177" /><testcase classname="test_dbus.TestDBus" name="test_dbus_non_root_access" time="126.029" /><testcase classname="test_dbus.TestDBus" name="test_dbus_get_jwt_token" time="58.996" /><testcase classname="test_dbus.TestDBus" name="test_dbus_fetch_jwt_token" time="44.638" /><testcase classname="test_inventory.TestInventory" name="test_rootfs_type" time="0.712" /><testcase classname="test_inventory.TestInventory" name="test_bootloader_integration" time="0.282" /><testcase classname="test_inventory.TestInventory" name="test_inventory_os" time="10.227" /><testcase classname="test_mender-artifact.TestMenderArtifact" name="test_order[2]" time="59.974" /><testcase classname="test_mender-artifact.TestMenderArtifact" name="test_order[3]" time="38.864" /><testcase classname="test_mender-artifact.TestMenderArtifact" name="test_files_list_integrity[2]" time="40.317" /><testcase classname="test_mender-artifact.TestMenderArtifact" name="test_files_list_integrity[3]" time="40.499" /><testcase classname="test_mender-artifact.TestMenderArtifact" name="test_files_checksum_integrity[2]" time="40.943" /><testcase classname="test_mender-artifact.TestMenderArtifact" name="test_files_checksum_integrity[3]" time="40.855" /><testcase classname="test_mender-artifact.TestMenderArtifact" name="test_artifacts_validation[2]" time="41.456" /><testcase classname="test_mender-artifact.TestMenderArtifact" name="test_artifacts_validation[3]" time="40.681" /><testcase classname="test_mender-artifact.TestMenderArtifact" name="test_artifacts_rootfs_size[2]" time="40.237" /><testcase classname="test_mender-artifact.TestMenderArtifact" name="test_artifacts_rootfs_size[3]" time="40.410" /><testcase classname="test_mender-connect.TestMenderConnect" name="test_mender_connect_auth_changes" time="56.254" /><testcase classname="test_mender-connect.TestMenderConnect" name="test_mender_connect_reconnect" time="153.866" /><testcase classname="test_os_integration.TestOsIntegration" name="test_syslogger" time="139.870" /><testcase classname="test_snapshot.TestSnapshot" name="test_basic_snapshot[compression0]" time="141.300" /><testcase classname="test_snapshot.TestSnapshot" name="test_basic_snapshot[compression1]" time="392.196" /><testcase classname="test_snapshot.TestSnapshot" name="test_snapshot_device_file" time="146.343" /><testcase classname="test_snapshot.TestSnapshot" name="test_snapshot_inactive" time="78.050" /><testcase classname="test_snapshot.TestSnapshot" name="test_snapshot_avoid_deadlock" time="83.351" /><testcase classname="test_snapshot.TestSnapshot" name="test_snapshot_using_mender_artifact[]" time="148.927" /><testcase classname="test_snapshot.TestSnapshot" name="test_snapshot_using_mender_artifact[screen -D -m -L -Logfile screen.log.tmp]" time="151.444" /><testcase classname="test_snapshot.TestSnapshot" name="test_snapshot_using_mender_artifact_no_sudo[]" time="152.433" /><testcase classname="test_snapshot.TestSnapshot" name="test_snapshot_using_mender_artifact_no_sudo[screen -D -m -L -Logfile screen.log.tmp]" time="152.283" /><testcase classname="test_ubimg.TestUbimg" name="test_total_size" time="0.009"><skipped message="no supported filesystem in tar.bz2, ext4, mender, mender.bmap, sdimg, sdimg.bmap, sdimg.bz2, ext4 (supports ubimg)" type="pytest.skip">/builds/Northern.tech/Mender/meta-mender/tests/acceptance/image-tests/tests/utils/fixtures/fixtures.py:595: no supported filesystem in tar.bz2, ext4, mender, mender.bmap, sdimg, sdimg.bmap, sdimg.bz2, ext4 (supports ubimg)</skipped></testcase><testcase classname="test_ubimg.TestUbimg" name="test_volumes" time="0.001"><skipped message="no supported filesystem in tar.bz2, ext4, mender, mender.bmap, sdimg, sdimg.bmap, sdimg.bz2, ext4 (supports ubimg)" type="pytest.skip">/builds/Northern.tech/Mender/meta-mender/tests/acceptance/image-tests/tests/utils/fixtures/fixtures.py:595: no supported filesystem in tar.bz2, ext4, mender, mender.bmap, sdimg, sdimg.bmap, sdimg.bz2, ext4 (supports ubimg)</skipped></testcase><testcase classname="test_ubimg.TestUbimg" name="test_volume_contents" time="0.002"><skipped message="no supported filesystem in tar.bz2, ext4, mender, mender.bmap, sdimg, sdimg.bmap, sdimg.bz2, ext4 (supports ubimg)" type="pytest.skip">/builds/Northern.tech/Mender/meta-mender/tests/acceptance/image-tests/tests/utils/fixtures/fixtures.py:595: no supported filesystem in tar.bz2, ext4, mender, mender.bmap, sdimg, sdimg.bmap, sdimg.bz2, ext4 (supports ubimg)</skipped></testcase><testcase classname="test_ubimg.TestUbimg" name="test_equal_checksum_ubimg_and_artifact" time="0.780"><skipped message="no supported filesystem in tar.bz2, ext4, mender, mender.bmap, sdimg, sdimg.bmap, sdimg.bz2, ext4 (supports ubimg)" type="pytest.skip">/builds/Northern.tech/Mender/meta-mender/tests/acceptance/image-tests/tests/utils/fixtures/fixtures.py:595: no supported filesystem in tar.bz2, ext4, mender, mender.bmap, sdimg, sdimg.bmap, sdimg.bz2, ext4 (supports ubimg)</skipped></testcase><testcase classname="test_uboot_automation.TestUbootAutomation" name="test_uboot_compile" time="9.014"><skipped message="Skipping test_uboot_compile because u-boot commits are old and already upstream." type="pytest.skip">/builds/Northern.tech/Mender/meta-mender/tests/acceptance/test_uboot_automation.py:195: Skipping test_uboot_compile because u-boot commits are old and already upstream.</skipped></testcase><testcase classname="test_uboot_automation.TestUbootAutomation" name="test_older_uboot_build" time="257.554" /><testcase classname="test_uboot_automation.TestUbootAutomation" name="test_save_mender_auto_configured_patch" time="140.968" /><testcase classname="test_uboot_automation.TestUbootAutomation" name="test_incorrect_Kconfig_setting" time="0.002"><skipped message="no supported distro feature in mender-uboot, mender-image-sd, mender-testing-enabled, mender-image, mender-client-install, mender-systemd, mender-growfs-data, acl, alsa, argp, bluetooth, ext2, ipv4, ipv6, largefile, pcmcia, usbgadget, usbhost, wifi, xattr, nfs, zeroconf, pci, 3g, nfc, x11, vfat, largefile, opengl, ptest, multiarch, wayland, vulkan, pulseaudio, gobject-introspection-data, ldconfig, systemd (supports mender-ubi)" type="pytest.skip">/builds/Northern.tech/Mender/meta-mender/tests/acceptance/image-tests/tests/utils/fixtures/fixtures.py:624: no supported distro feature in mender-uboot, mender-image-sd, mender-testing-enabled, mender-image, mender-client-install, mender-systemd, mender-growfs-data, acl, alsa, argp, bluetooth, ext2, ipv4, ipv6, largefile, pcmcia, usbgadget, usbhost, wifi, xattr, nfs, zeroconf, pci, 3g, nfc, x11, vfat, largefile, opengl, ptest, multiarch, wayland, vulkan, pulseaudio, gobject-introspection-data, ldconfig, systemd (supports mender-ubi)</skipped></testcase><testcase classname="test_update_control.TestUpdateControl" name="test_update_control_maps[Empty map-case0]" time="62.245" /><testcase classname="test_update_control.TestUpdateControl" name="test_update_control_maps[Fail in ArtifactInstall_Enter-case1]" time="85.312" /><testcase classname="test_update_control.TestUpdateControl" name="test_update_control_maps[Fail in ArtifactReboot_Enter-case2]" time="70.824" /><testcase classname="test_update_control.TestUpdateControl" name="test_update_control_maps[Fail in ArtifactCommit_Enter-case3]" time="59.452" /><testcase classname="test_update_control.TestUpdateControl" name="test_update_control_maps[Pause in ArtifactInstall_Enter-case4]" time="80.044" /><testcase classname="test_update_control.TestUpdateControl" name="test_update_control_maps[Pause in ArtifactReboot_Enter-case5]" time="89.440" /><testcase classname="test_update_control.TestUpdateControl" name="test_update_control_maps[Pause in ArtifactCommit_Enter-case6]" time="71.584" /><testcase classname="test_update_control.TestUpdateControl" name="test_update_control_maps[Expire in ArtifactInstall_Enter-case7]" time="154.621" /><testcase classname="test_update_control.TestUpdateControl" name="test_update_control_maps[Reboot and expire in ArtifactInstall_Enter-case8]" time="170.401" /><testcase classname="test_update_control.TestUpdateControl" name="test_update_control_maps[Continue, then fail in ArtifactInstall_Enter-case9]" time="105.802" /><testcase classname="test_update_control.TestUpdateControl" name="test_update_control_maps[continue with higher priority-case10]" time="65.183" /><testcase classname="test_update_control.TestUpdateControl" name="test_update_control_maps[force_continue with higher priority-case11]" time="70.172" /><testcase classname="test_update_control.TestUpdateControl" name="test_update_control_maps[force_continue with lower priority-case12]" time="69.917" /><testcase classname="test_update_control.TestUpdateControl" name="test_update_control_maps[Expired and purged map-case13]" time="166.951" /><testcase classname="test_update_control.TestUpdateControl" name="test_invalid_update_control_map" time="33.275" /><testcase classname="test_update_control.TestUpdateControl" name="test_update_control_map_cleanup[Cleanup after success-case0]" time="114.757" /><testcase classname="test_update_control.TestUpdateControl" name="test_update_control_map_cleanup[Cleanup after failure-case1]" time="90.275" /><testcase classname="test_update_control.TestUpdateControl" name="test_many_state_transitions_with_update_control" time="152.132" /><testcase classname="commercial.test_delta_update_module.TestDeltaUpdateModule" name="test_build_and_run_module" time="156.895" /><testcase classname="commercial.test_delta_update_module.TestDeltaUpdateModule" name="test_runtime_checksum" time="348.649" /><testcase classname="commercial.test_delta_update_module.TestDeltaUpdateModule" name="test_perform_update" time="0.002"><skipped message="incompatible machine vexpress-qemu" type="pytest.skip">/builds/Northern.tech/Mender/meta-mender/tests/acceptance/image-tests/tests/utils/fixtures/fixtures.py:572: incompatible machine vexpress-qemu</skipped></testcase><testcase classname="commercial.test_mender_gateway.TestMenderGateway" name="test_build_mender_gateway" time="146.136" /><testcase classname="commercial.test_monitor_addon.TestMonitorAddon" name="test_build_addon" time="145.092" /><testcase classname="image-tests.tests.test_part_image.TestMostPartitionImages" name="test_total_size" time="8.981" /><testcase classname="image-tests.tests.test_part_image.TestMostPartitionImages" name="test_partition_alignment" time="18.601" /><testcase classname="image-tests.tests.test_part_image.TestMostPartitionImages" name="test_device_type" time="0.901" /><testcase classname="image-tests.tests.test_part_image.TestMostPartitionImages" name="test_data_ownership" time="0.914" /><testcase classname="image-tests.tests.test_part_image.TestMostPartitionImages" name="test_fstab_correct" time="3.330" /><testcase classname="image-tests.tests.test_part_image.TestMostPartitionImages" name="test_mender_grubenv" time="0.002"><skipped message="no supported distro feature in mender-uboot, mender-image-sd, mender-testing-enabled, mender-image, mender-client-install, mender-systemd, mender-growfs-data, acl, alsa, argp, bluetooth, ext2, ipv4, ipv6, largefile, pcmcia, usbgadget, usbhost, wifi, xattr, nfs, zeroconf, pci, 3g, nfc, x11, vfat, largefile, opengl, ptest, multiarch, wayland, vulkan, pulseaudio, gobject-introspection-data, ldconfig, systemd (supports mender-grub)" type="pytest.skip">/builds/Northern.tech/Mender/meta-mender/tests/acceptance/image-tests/tests/utils/fixtures/fixtures.py:624: no supported distro feature in mender-uboot, mender-image-sd, mender-testing-enabled, mender-image, mender-client-install, mender-systemd, mender-growfs-data, acl, alsa, argp, bluetooth, ext2, ipv4, ipv6, largefile, pcmcia, usbgadget, usbhost, wifi, xattr, nfs, zeroconf, pci, 3g, nfc, x11, vfat, largefile, opengl, ptest, multiarch, wayland, vulkan, pulseaudio, gobject-introspection-data, ldconfig, systemd (supports mender-grub)</skipped></testcase><testcase classname="image-tests.tests.test_part_image.TestMostPartitionImages" name="test_split_mender_conf" time="1.547" /><testcase classname="image-tests.tests.test_part_image.TestMostPartitionImages" name="test_expected_data_dirs" time="1.027" /><testcase classname="image-tests.tests.test_part_image.TestAllPartitionImages" name="test_equal_checksum_part_image_and_artifact" time="7.281" /><testcase classname="image-tests.tests.test_rootfs.TestRootfs" name="test_expected_files_ext234" time="0.052" /><testcase classname="image-tests.tests.test_rootfs.TestRootfs" name="test_expected_files_ext234_mender_connect" time="0.022" /><testcase classname="image-tests.tests.test_rootfs.TestRootfs" name="test_expected_files_ext234_mender_configure" time="0.035" /><testcase classname="image-tests.tests.test_rootfs.TestRootfs" name="test_expected_files_ext234_mender_monitor" time="0.002"><skipped message="Test only applicable for mender-convert images." type="pytest.skip">/builds/Northern.tech/Mender/meta-mender/tests/acceptance/image-tests/tests/test_rootfs.py:247: Test only applicable for mender-convert images.</skipped></testcase><testcase classname="image-tests.tests.test_rootfs.TestRootfs" name="test_expected_files_ubifs" time="0.009"><skipped message="no supported filesystem in tar.bz2, ext4, mender, mender.bmap, sdimg, sdimg.bmap, sdimg.bz2, ext4 (supports ubifs)" type="pytest.skip">/builds/Northern.tech/Mender/meta-mender/tests/acceptance/image-tests/tests/utils/fixtures/fixtures.py:595: no supported filesystem in tar.bz2, ext4, mender, mender.bmap, sdimg, sdimg.bmap, sdimg.bz2, ext4 (supports ubifs)</skipped></testcase><testcase classname="image-tests.tests.test_rootfs.TestRootfs" name="test_unconfigured_image" time="0.001"><skipped message="no supported distro feature in mender-uboot, mender-image-sd, mender-testing-enabled, mender-image, mender-client-install, mender-systemd, mender-growfs-data, acl, alsa, argp, bluetooth, ext2, ipv4, ipv6, largefile, pcmcia, usbgadget, usbhost, wifi, xattr, nfs, zeroconf, pci, 3g, nfc, x11, vfat, largefile, opengl, ptest, multiarch, wayland, vulkan, pulseaudio, gobject-introspection-data, ldconfig, systemd (supports mender-convert)" type="pytest.skip">/builds/Northern.tech/Mender/meta-mender/tests/acceptance/image-tests/tests/utils/fixtures/fixtures.py:624: no supported distro feature in mender-uboot, mender-image-sd, mender-testing-enabled, mender-image, mender-client-install, mender-systemd, mender-growfs-data, acl, alsa, argp, bluetooth, ext2, ipv4, ipv6, largefile, pcmcia, usbgadget, usbhost, wifi, xattr, nfs, zeroconf, pci, 3g, nfc, x11, vfat, largefile, opengl, ptest, multiarch, wayland, vulkan, pulseaudio, gobject-introspection-data, ldconfig, systemd (supports mender-convert)</skipped></testcase><testcase classname="image-tests.tests.test_secure_boot.TestSecureBoot" name="test_secure_boot_enabled" time="477.743"><skipped message="MEN-5253: Secure Boot not yet working for Yocto" type="pytest.skip">/builds/Northern.tech/Mender/meta-mender/tests/acceptance/image-tests/tests/test_secure_boot.py:24: MEN-5253: Secure Boot not yet working for Yocto</skipped></testcase><testcase classname="image-tests.tests.test_update.TestUpdates" name="test_broken_image_update" time="75.724" /><testcase classname="image-tests.tests.test_update.TestUpdates" name="test_image_update_broken_kernel" time="306.983" /><testcase classname="image-tests.tests.test_update.TestUpdates" name="test_too_big_image_update" time="46.027" /><testcase classname="image-tests.tests.test_update.TestUpdates" name="test_network_based_image_update" time="346.942" /><testcase classname="image-tests.tests.test_update.TestUpdates" name="test_signed_updates[sig_case0]" time="24.512" /><testcase classname="image-tests.tests.test_update.TestUpdates" name="test_signed_updates[sig_case1]" time="20.208" /><testcase classname="image-tests.tests.test_update.TestUpdates" name="test_signed_updates[sig_case2]" time="12.709" /><testcase classname="image-tests.tests.test_update.TestUpdates" name="test_signed_updates[sig_case3]" time="27.060" /><testcase classname="image-tests.tests.test_update.TestUpdates" name="test_signed_updates[sig_case4]" time="15.721" /><testcase classname="image-tests.tests.test_update.TestUpdates" name="test_signed_updates[sig_case5]" time="24.061" /><testcase classname="image-tests.tests.test_update.TestUpdates" name="test_signed_updates[sig_case6]" time="30.004" /><testcase classname="image-tests.tests.test_update.TestUpdates" name="test_signed_updates[sig_case7]" time="16.035" /><testcase classname="image-tests.tests.test_update.TestUpdates" name="test_signed_updates[sig_case8]" time="27.570" /><testcase classname="image-tests.tests.test_update.TestUpdates" name="test_signed_updates[sig_case9]" time="17.196" /><testcase classname="image-tests.tests.test_update.TestUpdates" name="test_signed_updates[sig_case10]" time="15.316" /><testcase classname="image-tests.tests.test_update.TestUpdates" name="test_signed_updates[sig_case11]" time="10.309" /><testcase classname="image-tests.tests.test_update.TestUpdates" name="test_signed_updates[sig_case12]" time="17.664" /><testcase classname="image-tests.tests.test_update.TestUpdates" name="test_signed_updates[sig_case13]" time="19.676" /><testcase classname="image-tests.tests.test_update.TestUpdates" name="test_signed_updates[sig_case14]" time="10.564" /><testcase classname="image-tests.tests.test_update.TestUpdates" name="test_signed_updates[sig_case15]" time="17.894" /><testcase classname="image-tests.tests.test_update.TestUpdates" name="test_signed_updates[sig_case16]" time="9.330" /><testcase classname="image-tests.tests.test_update.TestUpdates" name="test_signed_updates[sig_case17]" time="14.541" /><testcase classname="image-tests.tests.test_update.TestUpdates" name="test_signed_updates[sig_case18]" time="18.867" /><testcase classname="image-tests.tests.test_update.TestUpdates" name="test_signed_updates[sig_case19]" time="9.380" /><testcase classname="image-tests.tests.test_update.TestUpdates" name="test_signed_updates[sig_case20]" time="17.578" /><testcase classname="image-tests.tests.test_update.TestUpdates" name="test_signed_updates[sig_case21]" time="9.186" /><testcase classname="image-tests.tests.test_update.TestUpdates" name="test_signed_updates[sig_case22]" time="15.051" /><testcase classname="image-tests.tests.test_update.TestUpdates" name="test_signed_updates[sig_case23]" time="10.653" /><testcase classname="image-tests.tests.test_update.TestUpdates" name="test_redundant_grub_env" time="0.003"><skipped message="no supported distro feature in mender-uboot, mender-image-sd, mender-testing-enabled, mender-image, mender-client-install, mender-systemd, mender-growfs-data, acl, alsa, argp, bluetooth, ext2, ipv4, ipv6, largefile, pcmcia, usbgadget, usbhost, wifi, xattr, nfs, zeroconf, pci, 3g, nfc, x11, vfat, largefile, opengl, ptest, multiarch, wayland, vulkan, pulseaudio, gobject-introspection-data, ldconfig, systemd (supports mender-grub)" type="pytest.skip">/builds/Northern.tech/Mender/meta-mender/tests/acceptance/image-tests/tests/utils/fixtures/fixtures.py:624: no supported distro feature in mender-uboot, mender-image-sd, mender-testing-enabled, mender-image, mender-client-install, mender-systemd, mender-growfs-data, acl, alsa, argp, bluetooth, ext2, ipv4, ipv6, largefile, pcmcia, usbgadget, usbhost, wifi, xattr, nfs, zeroconf, pci, 3g, nfc, x11, vfat, largefile, opengl, ptest, multiarch, wayland, vulkan, pulseaudio, gobject-introspection-data, ldconfig, systemd (supports mender-grub)</skipped></testcase><testcase classname="image-tests.tests.test_update.TestUpdates" name="test_uboot_mender_saveenv_canary" time="13.922" /><testcase classname="image-tests.tests.test_update.TestUpdates" name="test_standalone_update_rollback" time="18.699" /><testcase classname="image-tests.tests.test_update_modules.TestUpdateModules" name="test_directory_update_module" time="24.799" /><testcase classname="image-tests.tests.test_update_modules.TestUpdateModules" name="test_single_file_update_module" time="38.471" /></testsuite></testsuites>
