@@ -46,25 +46,20 @@ const ResultsView = () => {
       }
     `;
 
-    // const today = new Date().toISOString().split('T')[0];
     const latestPipelines = await request({
       url: 'http://localhost/graphql',
       // variables: {
       //     date: today
       // },
       document: query,
-      // requestHeaders: {
-      //     Authorization: `Bearer ${process.env.GITLAB_TOKEN}`
-      // }
     });
     console.log(`jobid: latestPipelines: ${latestPipelines}`);
-    // TODO - figure out the difference between the nodes and the edges query...
     const {
       jobById: {
         resultsByJobId: { nodes },
       },
     } = latestPipelines;
-    console.log(`edges: ${nodes}`);
+    console.log(`nodes: ${nodes}`);
     return nodes;
   };
 

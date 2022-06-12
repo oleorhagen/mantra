@@ -14,7 +14,6 @@ const BuildsView = () => {
   const [jobs, setJobs] = useState([]);
 
   useEffect(() => {
-    console.log('jobs/index.js useEffect...');
     if (!pipelineid) {
       return;
     }
@@ -40,19 +39,14 @@ query GetJobsForPipeline {
   }
 }                    `;
 
-    // const today = new Date().toISOString().split('T')[0];
     const pipelineJobs = await request({
       url: 'http://localhost/graphql',
       // variables: {
       //     date: today
       // },
       document: query,
-      // requestHeaders: {
-      //     Authorization: `Bearer ${process.env.GITLAB_TOKEN}`
-      // }
     });
     console.log(`getPipelines: pipelineJobs: ${pipelineJobs}`);
-    // TODO - figure out the difference between the nodes and the edges query...
     const {
       pipelineById: {
         jobsByPipelineId: { nodes },
