@@ -70,9 +70,9 @@ class ResultsResource(Resources):
                 Result.from_junit_xml_test_case(case, data["job_id"])
                 for case in test_suites
             ]
-            resp.status = falcon.HTTP_201
             # TODO - What to do with the Metadata atm (?)
             result_metadata = Result.create_many(results, **data)
+            resp.status = falcon.HTTP_201
         except Exception as e:
             print(f"caught Exception: {e}")
             # TODO - use make_error_body perhaps (?)

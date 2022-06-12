@@ -29,9 +29,6 @@ class Pipeline(BaseModel):
         self.id = int(kwargs["pipeline_id"])
         # TODO - do we really need to truncate (?)
         self.name = truncate(kwargs["pipeline_name"], self.TABLE.c.name.type.length)
-        self.build_url = truncate(
-            kwargs.get("build_url"), self.TABLE.c.build_url.type.length
-        )
         self.status = truncate(kwargs.get("status"), self.TABLE.c.status.type.length)
         self.tags = kwargs.get("tags") or {}
 
@@ -64,14 +61,12 @@ class Pipeline(BaseModel):
         limit=None,
         offset=None,
         name=None,
-        build_url=None,
         status=None,
         **tag_filters,
     ):
         handler = handler or get_handler()
         and_clause = cls._and_clause(
             name=name,
-            build_url=build_url,
         )
 
         # match the build if its tags are a superset of the filters

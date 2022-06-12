@@ -30,7 +30,6 @@ query GetJobsForPipeline {
     jobsByPipelineId {
       nodes {
         id
-        buildUrl
         name
         status
         tags

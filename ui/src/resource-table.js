@@ -28,18 +28,6 @@ const tableColumnDefinitions = {
       minWidth: 200,
     },
     {
-      field: 'buildUrl',
-      headerName: 'Build URL',
-    },
-    {
-      field: 'region',
-      headerName: 'Region',
-    },
-    {
-      field: 'environment',
-      headerName: 'Environment',
-    },
-    {
       field: 'showFailed',
       headerName: 'Failed',
     },

@@ -29,9 +29,6 @@ class Job(BaseModel):
         self.id = int(kwargs["job_id"])
         self.pipeline_id = int(kwargs["pipeline_id"])
         self.name = truncate(kwargs["job_name"], self.TABLE.c.name.type.length)
-        self.build_url = truncate(
-            kwargs.get("build_url"), self.TABLE.c.build_url.type.length
-        )
         self.status = truncate(kwargs.get("status"), self.TABLE.c.status.type.length)
         self.tags = kwargs.get("tags", {})
 
@@ -42,18 +39,12 @@ class Job(BaseModel):
         limit=None,
         offset=None,
         name=None,
-        build_url=None,
-        region=None,
-        environment=None,
         status=None,
         **tag_filters,
     ):
         handler = handler or get_handler()
         and_clause = cls._and_clause(
             name=name,
-            build_url=build_url,
-            region=region,
-            environment=environment,
         )
 
         query = cls._get_all_query(
