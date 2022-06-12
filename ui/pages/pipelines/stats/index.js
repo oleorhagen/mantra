@@ -35,32 +35,27 @@ const StatisticsView = () => {
       }
     `;
 
-    // const today = new Date().toISOString().split('T')[0];
     const failingTests = await request({
       url: 'http://localhost/graphql',
       // variables: {
       //     date: today
       // },
       document: query,
-      // requestHeaders: {
-      //     Authorization: `Bearer ${process.env.GITLAB_TOKEN}`
-      // }
     });
     console.log(`failingTests: ${failingTests}`);
-    // TODO - figure out the difference between the nodes and the edges query...
     const {
       allResults: { nodes },
     } = failingTests;
-    console.log(`edges: ${nodes}`);
+    console.log(`nodes: ${nodes}`);
     return nodes;
   };
 
   return (
     <>
       <Typography marginBottom={2} variant="h4">
-        Pipelines{' '}
+        Statistics{' '}
       </Typography>{' '}
-      <ResourceTable resources={results} type="results" />
+      {/* <ResourceTable resources={results} type="results" /> */}
     </>
   );
 };
