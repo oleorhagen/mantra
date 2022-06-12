@@ -71,9 +71,9 @@ for root, _, files in os.walk(TEST_RESULTS_DIR):
             auth=HTTPBasicAuth(user, password),
             data=json.dumps(
                 {
-                    "pipeline_id": pipes[run_date],  # TODO
+                    "pipeline_id": pipes[run_date],
                     "pipeline_name": pipeline_name,
-                    "job_id": job_id,  # TODO
+                    "job_id": job_id,
                     "job_name": m.group(1),
                     "result": xml_result,
                 }

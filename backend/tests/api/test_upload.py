@@ -16,6 +16,7 @@ class BaseUploadTest(BaseTetraTest):
 
     def tearDown(self):
         print("teardown")
+        # TODO - cleanup the DB
 
 
 class TestUploads(BaseUploadTest):
@@ -25,38 +26,41 @@ class TestUploads(BaseUploadTest):
 
     def test_upload_test_results(self):
         for root, _, files in os.walk("test_resources"):
-            i = 10000
+            pipeline_id = 1
+            job_id = 1000
+            pipes = {}
             for name in sorted(files):
                 _, suite_results, run_date = re.match(
                     r"([0-9]+)-([\w]+)@([0-9]{4}-[0-9]{2}-[0-9]{2}).xml", name
                 ).groups()
+
+                if run_date not in pipes.keys():
+                    pipes[run_date] = pipeline_id
+                    pipeline_id += 1
 
                 pipeline_name = "nightly-" + run_date
 
                 with open(os.path.join(root, name)) as fd:
                     xml_result = fd.read()
 
-                # Extract the name of the test
+                # Extract the name of the job
                 m = re.match("[0-9]{1,2}-results_(.*)@.*", name)
                 if not m:
-                    sys.exit(1)
+                    pytest.fail
 
-                #
-                # TODO - fix proper build numbers
-                #
                 r = requests.post(
                     self._TETRA_API_BASE_URL + "results",
                     headers={"Content-type": "application/json"},
                     auth=HTTPBasicAuth(user, password),
                     data=json.dumps(
                         {
-                            "pipeline_id": i + 1,  # TODO
+                            "pipeline_id": pipes[run_date],
                             "pipeline_name": pipeline_name,
-                            "job_id": i + 2,  # TODO
+                            "job_id": job_id,
                             "job_name": m.group(1),
                             "result": xml_result,
                         }
                     ),
                 )
-                i += 3
+                job_id += 1
                 assert r.ok
