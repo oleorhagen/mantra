@@ -26,7 +26,7 @@ class TestUploads(BaseUploadTest):
 
     def test_upload_test_results(self):
         fail = True
-        for root, _, files in os.walk("test_resources"):
+        for root, _, files in os.walk(__file__ + "../test_resources"):
             pipeline_id = 1
             job_id = 1000
             pipes = {}
