@@ -40,7 +40,7 @@ test:backend-unit:
     - pip install -r requirements.txt
     - pip install tox
   script:
-    - gunicorn -t 120 --daemon --bind 127.0.0.1:7374 --access-logfile - tetra.app:application
+    - gunicorn -t 120 --daemon --bind 127.0.0.1:7374 --access-logfile - qaportal.app:application
     - TOXENV=functional tox
 
 build:docker:
