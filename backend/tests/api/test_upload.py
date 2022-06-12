@@ -25,7 +25,9 @@ class TestUploads(BaseUploadTest):
     _TETRA_API_BASE_URL = "{}/api/".format(_TETRA_API_HOST)
 
     def test_upload_test_results(self):
+        fail = True
         for root, _, files in os.walk("test_resources"):
+            assert False
             pipeline_id = 1
             job_id = 1000
             pipes = {}
@@ -64,3 +66,5 @@ class TestUploads(BaseUploadTest):
                 )
                 job_id += 1
                 assert r.ok
+                fail = False
+        assert not fail
