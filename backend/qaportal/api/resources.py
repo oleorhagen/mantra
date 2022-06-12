@@ -57,7 +57,6 @@ class ResultsResource(Resources):
             data = json.load(req.stream)
             print(f"data received: {data}")
             test_suites, test_results = self._parse_xunitXML(data["result"])
-            # TODO - Can do this with the result metadata
             data["status"] = "failure" if len(test_results.errors) > 0 or len(test_results.failures) > 0 else "success"
             # Create the Pipeline (if it does not exist)
             pipeline = Pipeline.from_dict(data)
@@ -70,13 +69,10 @@ class ResultsResource(Resources):
                 Result.from_junit_xml_test_case(case, data["job_id"])
                 for case in test_suites
             ]
-            # TODO - What to do with the Metadata atm (?)
             result_metadata = Result.create_many(results, **data)
             resp.status = falcon.HTTP_201
         except Exception as e:
             print(f"caught Exception: {e}")
-            # TODO - use make_error_body perhaps (?)
-            # resp.body = make_error_body(e)
             raise Exception(f"caught Exception: {e}")
 
     def _parse_xunitXML(self, results_xml_string):

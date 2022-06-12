@@ -28,8 +28,8 @@ const tableColumnDefinitions = {
       minWidth: 200,
     },
     {
-      field: 'showFailed',
-      headerName: 'Failed',
+      field: 'status',
+      headerName: 'Passed',
     },
   ],
   pipelines: [
