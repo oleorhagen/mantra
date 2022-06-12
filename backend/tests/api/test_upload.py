@@ -16,7 +16,6 @@ class BaseUploadTest(BaseTetraTest):
 
     def tearDown(self):
         print("teardown")
-        # TODO - cleanup the DB
 
 
 class TestUploads(BaseUploadTest):
