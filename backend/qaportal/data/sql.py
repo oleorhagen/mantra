@@ -27,7 +27,9 @@ pipelines_table = Table(
     metadata,
     Column("id", Integer, nullable=False, primary_key=True),  # CI_PIPELINE_ID
     Column("name", String(256), nullable=False),
-    Column("build_url", String(256), nullable=True),  # TODO - add to post from CI script in the QA-pipeline
+    Column(
+        "build_url", String(256), nullable=True
+    ),  # TODO - add to post from CI script in the QA-pipeline
     Column("status", String(256), nullable=True),
     Column("tags", JSONB, nullable=False),
     Index("pipeline_index", "id"),

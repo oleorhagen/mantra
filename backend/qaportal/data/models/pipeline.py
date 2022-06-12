@@ -44,6 +44,7 @@ class Pipeline(BaseModel):
         """
         data = resource.to_dict()
         from sqlalchemy.dialects.postgresql import insert
+
         stmt = (
             insert(resource.TABLE)
             .values(**data)

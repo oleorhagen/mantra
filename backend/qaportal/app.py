@@ -16,9 +16,7 @@ limitations under the License.
 import falcon
 import json
 
-from .api.resources import (
-    ResultsResource,
-)
+from .api.resources import ResultsResource
 
 
 class VersionResource(object):
