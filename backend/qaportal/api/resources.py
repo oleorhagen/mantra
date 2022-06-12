@@ -52,8 +52,7 @@ class ResultsResource(Resources):
     RESOURCE_CLASS = Result
 
     def on_post(self, req, resp, **kwargs):
-        # TODO - Check if JSON (parse response)
-        resp.status = falcon.HTTP_500  # Standard is 500, unless we get 201 success
+        resp.status = falcon.HTTP_500
         try:
             data = json.load(req.stream)
             print(f"data received: {data}")
@@ -61,23 +60,18 @@ class ResultsResource(Resources):
             pipeline = Pipeline.from_dict(data)
             created_pipeline = Pipeline.create(resource=pipeline)
             try:
-                test_suites = self._parse_xunitXML(data["result"])
-
-                # data["job_name"] = test_suites["test_name"]
-
+                test_suites, test_results = self._parse_xunitXML(data["result"])
                 # Create the Job
                 job = Job.from_dict(data)
                 created_job = Job.create(resource=job)
                 # Create the Result
-
                 results = [
                     Result.from_junit_xml_test_case(case, data["job_id"])
                     for case in test_suites
                 ]
                 resp.status = falcon.HTTP_201
-                response_data = Result.create_many(results, **data)
-                # TODO - is this needed (?)
-                # resp.body = json.dumps(response_data)
+                # TODO - What to do with the Metadata atm (?)
+                result_metadata = Result.create_many(results, **data)
             except Exception as e:
                 print(f"Error parsing result XML: {e}")
                 raise Exception(f"Error parsing result XML: {e}")
@@ -92,7 +86,7 @@ class ResultsResource(Resources):
         from io import StringIO
 
         result_stream = StringIO(results_xml_string)
-        ts, tr = xunitparser.parse(result_stream)  # TODO - why ignore the test result?
+        ts, tr = xunitparser.parse(result_stream)
         print(f"TestSuites: {ts}")
         print(f"TestResult: {tr}")
-        return ts
+        return ts, tr
