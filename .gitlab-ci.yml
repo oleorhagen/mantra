@@ -23,6 +23,7 @@ test:check-python3-formatting:
   before_script:
     - pip install black tox
     - cd backend
+    - black --version
   script:
     - TOXENV=format tox
 
