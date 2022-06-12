@@ -23,14 +23,37 @@ class Pipeline(BaseModel):
     TABLE = sql.pipelines_table
 
     def __init__(
-            self, **kwargs,
+        self, **kwargs,
     ):
         self.id = int(kwargs["pipeline_id"])
         # TODO - do we really need to truncate (?)
         self.name = truncate(kwargs["pipeline_name"], self.TABLE.c.name.type.length)
-        self.build_url = truncate(kwargs.get("build_url"), self.TABLE.c.build_url.type.length)
+        self.build_url = truncate(
+            kwargs.get("build_url"), self.TABLE.c.build_url.type.length
+        )
         self.status = truncate(kwargs.get("status"), self.TABLE.c.status.type.length)
         self.tags = kwargs.get("tags") or {}
+
+    @classmethod
+    def create(self, resource, handler=None):
+        """
+
+        Create allows duplicates for the pipelines. Simply do nothing in
+        this instance.
+
+        """
+        data = resource.to_dict()
+        from sqlalchemy.dialects.postgresql import insert
+        stmt = (
+            insert(resource.TABLE)
+            .values(**data)
+            .on_conflict_do_nothing(index_elements=["id"])
+        )
+        print(f"PIPELINE: Insert statement: {stmt}")
+        handler = handler or get_handler()
+        result = handler.engine.execute(stmt)
+        resource.id = result.inserted_primary_key[0]
+        return resource
 
     @classmethod
     def get_all(
@@ -41,7 +64,7 @@ class Pipeline(BaseModel):
         name=None,
         build_url=None,
         status=None,
-        **tag_filters
+        **tag_filters,
     ):
         handler = handler or get_handler()
         and_clause = cls._and_clause(name=name, build_url=build_url,)

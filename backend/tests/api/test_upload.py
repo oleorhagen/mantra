@@ -9,6 +9,7 @@ import json
 
 user, password = os.getenv("TETRA_USER"), os.getenv("TETRA_PASSWORD")
 
+
 class BaseUploadTest(BaseTetraTest):
     def setUp(self):
         super(BaseUploadTest, self).setUp()
@@ -24,7 +25,7 @@ class TestUploads(BaseUploadTest):
 
     def test_upload_test_results(self):
         for root, _, files in os.walk("test_resources"):
-            i = 0
+            i = 10000
             for name in sorted(files):
                 _, suite_results, run_date = re.match(
                     r"([0-9]+)-([\w]+)@([0-9]{4}-[0-9]{2}-[0-9]{2}).xml", name
@@ -34,6 +35,11 @@ class TestUploads(BaseUploadTest):
 
                 with open(os.path.join(root, name)) as fd:
                     xml_result = fd.read()
+
+                # Extract the name of the test
+                m = re.match("[0-9]{1,2}-results_(.*)@.*", name)
+                if not m:
+                    sys.exit(1)
 
                 #
                 # TODO - fix proper build numbers
@@ -47,7 +53,7 @@ class TestUploads(BaseUploadTest):
                             "pipeline_id": i + 1,  # TODO
                             "pipeline_name": pipeline_name,
                             "job_id": i + 2,  # TODO
-                            "job_name": "integration",  # TODO - This can probs be taken from the xml parsing
+                            "job_name": m.group(1),
                             "result": xml_result,
                         }
                     ),

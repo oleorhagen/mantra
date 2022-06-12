@@ -57,7 +57,7 @@ class ResultsResource(Resources):
         try:
             data = json.load(req.stream)
             print(f"data received: {data}")
-            # Create the Pipeline
+            # Create the Pipeline (if it does not exist)
             pipeline = Pipeline.from_dict(data)
             created_pipeline = Pipeline.create(resource=pipeline)
             try:
