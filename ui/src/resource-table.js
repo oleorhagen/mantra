@@ -139,7 +139,7 @@ const tableColumnDefinitions = {
       sortable: true,
       valueGetter: params => {
         const date = new Date(params.row.timestamp * 1000);
-        return date.toUTCString();
+        return date.toLocaleDateString();
       },
       minWidth: 200,
     },
@@ -147,11 +147,6 @@ const tableColumnDefinitions = {
 };
 
 const ResourceTable = ({ resources, type }) => {
-  console.log('Resources:');
-  console.log(resources);
-  console.log('type');
-  console.log(type);
-
   const columns = tableColumnDefinitions[type];
 
   const rows = resources;

@@ -33,10 +33,6 @@ class Result(BaseModel):
         self,
         **kwargs,
     ):
-        print(f"Result received kwargs: {kwargs}")
-        # if kwargs.get("id"):
-        #     self.id = int((id))
-
         self.test_name = truncate(
             kwargs["test_name"], self.TABLE.c.test_name.type.length
         )
