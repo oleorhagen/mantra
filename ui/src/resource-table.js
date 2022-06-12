@@ -57,6 +57,11 @@ const tableColumnDefinitions = {
       minWidth: 250,
       renderCell: params => <Link href={`/pipelines/${params.row.id}/jobs`}> {params.row.name} </Link>,
     },
+    {
+      field: 'status',
+      headerName: 'Passed',
+      minWidth: 100,
+    },
   ],
   results: [
     {
