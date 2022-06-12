@@ -29,7 +29,7 @@ const tableColumnDefinitions = {
     },
     {
       field: 'status',
-      headerName: 'Passed',
+      headerName: 'Result',
     },
   ],
   pipelines: [
@@ -47,7 +47,7 @@ const tableColumnDefinitions = {
     },
     {
       field: 'status',
-      headerName: 'Passed',
+      headerName: 'Result',
       minWidth: 100,
     },
   ],
@@ -110,7 +110,6 @@ const tableColumnDefinitions = {
       sortable: true,
       minMinWidth: 260,
       flex: 1,
-      // valueGetter: params => `/projects/${params.row.project_id}/tests/history?name=${encodeURIComponent(params.row.test_name)}&count=10`,
       renderCell: params => <Link href={`/tests/history?name=${encodeURIComponent(params.row.testName)}&count=10`}> {params.row.testName} </Link>,
     },
     {

@@ -26,16 +26,16 @@ const PipelinesView = () => {
 
     const getPipelines = async () => {
         const query = gql`
-                    query MyQuery {
-                    allPipelines {
-                        nodes {
-                            id
-                            name
-                            status
-                            tags
-                        }
+            query GetAllPipelines {
+                allPipelines {
+                    nodes {
+                        id
+                        name
+                        status
+                        tags
                     }
-                    }
+                }
+            }
                     `;
 
         const latestPipelines = await request({
