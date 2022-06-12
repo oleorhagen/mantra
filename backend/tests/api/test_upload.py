@@ -24,9 +24,13 @@ class TestUploads(BaseUploadTest):
     _TETRA_API_HOST = os.getenv("TETRA_API_HOST", "http://localhost")
     _TETRA_API_BASE_URL = "{}/api/".format(_TETRA_API_HOST)
 
+    TEST_RESOURCES_DIR = os.path.join(
+        os.path.dirname(os.path.abspath(__file__)), "../test_resources"
+    )
+
     def test_upload_test_results(self):
         fail = True
-        for root, _, files in os.walk(__file__ + "../test_resources"):
+        for root, _, files in os.walk(self.TEST_RESOURCES_DIR):
             pipeline_id = 1
             job_id = 1000
             pipes = {}
