@@ -6,9 +6,7 @@
 `mantra` is a fork of [tetra](https://github.com/rackerlabs/tetra), an Open
 Source project from [rackerlabs](https://developer.rackspace.com).
 
-It has been extended and is maintained by Mender for internal use. While the
-actual source code still refers to `tetra`, the Docker images and other user
-facing aspects have been renamed.
+It has been extended and is maintained by Mender for internal use. 
 
 # tetra
 

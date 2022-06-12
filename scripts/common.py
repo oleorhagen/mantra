@@ -16,13 +16,6 @@ TEST_RESULTS_DIR = os.path.join(
 _TETRA_API_HOST = os.getenv("TETRA_API_HOST", "http://localhost")
 _TETRA_API_BASE_URL = "{}/api/".format(_TETRA_API_HOST)
 
-TETRA_API_PROJECTS_URL = _TETRA_API_BASE_URL + "projects"
-TETRA_API_BUILDS_URL_FMT = _TETRA_API_BASE_URL + "projects/{project_id}/builds"
-TETRA_API_RESULTS_URL_FMT = (
-    _TETRA_API_BASE_URL + "projects/{project_id}/builds/{build_id}/results"
-)
-
-
 def get_tetra_credentials():
     user = os.getenv("TETRA_USER")
     password = os.getenv("TETRA_PASSWORD")

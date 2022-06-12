@@ -53,5 +53,3 @@ for root, _, files in os.walk(TEST_RESULTS_DIR):
         if not r.ok:
             logger.error("Error(%d) %s" % (r.status_code, r.text))
             sys.exit(1)
-        # j = r.json()
-        # logger.info("Created build: %s" % j)

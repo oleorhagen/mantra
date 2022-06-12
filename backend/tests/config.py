@@ -2,9 +2,9 @@ from oslo_config import cfg
 import os
 
 _LOCATIONS = (
-    os.path.realpath("tetra-test.conf"),
-    os.path.realpath("etc/tetra/tetra-test.conf"),
-    "/etc/tetra/tetra-test.conf",
+    os.path.realpath("../qaportal-test.conf"),
+    os.path.realpath("../etc/qaportal/qaportal-test.conf"),
+    "..//etc/qaportal/qaportal-test.conf",
 )
 
 cfg.CONF.register_group(cfg.OptGroup("api"))

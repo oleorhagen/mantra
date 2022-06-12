@@ -112,16 +112,14 @@ const tableColumnDefinitions = {
       minMinWidth: 260,
       flex: 1,
       // valueGetter: params => `/projects/${params.row.project_id}/tests/history?name=${encodeURIComponent(params.row.test_name)}&count=10`,
-      renderCell: params => (
-        <Link href={`/pipelines/${params.row.jobId}/tests/history?name=${encodeURIComponent(params.row.testName)}&count=10`}> {params.row.testName} </Link>
-      ),
+      renderCell: params => <Link href={`/tests/history?name=${encodeURIComponent(params.row.testName)}&count=10`}> {params.row.testName} </Link>,
     },
     {
       field: 'tags',
       headerName: 'Tags',
       sortable: true,
       renderCell: params => {
-        if (params.row.tags.nightly) {
+        if (params.row.tags && params.row.tags.nightly) {
           return (
             <div
               style={{
