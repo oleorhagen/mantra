@@ -63,14 +63,6 @@ for root, _, files in os.walk(TEST_RESULTS_DIR):
 
         logger.info(f"Job name: {m.group(1)}")
 
-        #
-        # TODO - fix proper build numbers
-        #
-
-        #
-        # TODO - group pipelines by date
-        #
-
         logger.info(f"pipeline_id: {pipes[run_date]}")
 
         r = requests.post(
