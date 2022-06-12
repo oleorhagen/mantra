@@ -25,18 +25,18 @@ const BuildsView = () => {
 
   const getPipelines = async pipelineid => {
     const query = gql`
-query GetJobsForPipeline {
-  pipelineById(id: ${pipelineid}) {
-    jobsByPipelineId {
-      nodes {
-        id
-        name
-        status
-        tags
-      }
-    }
-  }
-}                    `;
+        query GetJobsForPipeline {
+            pipelineById(id: ${pipelineid}) {
+                jobsByPipelineId {
+                nodes {
+                    id
+                    name
+                    status
+                    tags
+                }
+              }
+            }
+        }                    `;
 
     const pipelineJobs = await request({
       url: 'http://localhost/graphql',

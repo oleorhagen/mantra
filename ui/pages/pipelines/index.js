@@ -36,7 +36,7 @@ const PipelinesView = () => {
                     }
                 }
             }
-                    `;
+        `;
 
         const latestPipelines = await request({
             url: 'http://localhost/graphql',
