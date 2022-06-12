@@ -21,10 +21,10 @@ test:check-python3-formatting:
   needs: []
   image: python:3
   before_script:
-    - pip install tox
+    - pip install black tox
     - cd backend
   script:
-    - TOXENV=flake8 tox
+    - TOXENV=format tox
 
 test:backend-unit:
   stage: test
