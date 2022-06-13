@@ -1,0 +1,112 @@
+import React from 'react';
+
+import { request, gql } from 'graphql-request';
+
+import { Grid, IconButton, Stack, Tooltip, Typography } from '@mui/material';
+import { Circle } from '@mui/icons-material';
+import { buildStatusColor } from './build-status';
+
+export const openNightlyClick = item => window.open(`https://gitlab.com${item.path}`, '_newtab');
+
+const BuildStatus = ({ nightlies }) => (
+  <>
+    <Typography variant="h4">Nightlies</Typography>
+    <Stack>
+      {Object.values(nightlies)
+        .reverse()
+        .map(monthlyNightlies => {
+          const date = new Date(monthlyNightlies[0].startedAt);
+          return (
+            <React.Fragment key={date.getMonth()}>
+              <Typography variant="h6">{date.toLocaleString('default', { month: 'long' })}</Typography>
+              <Grid container direction="row" justifyContent="flex-start" alignItems="flex-start">
+                {monthlyNightlies.reverse().map(item => (
+                  <Stack key={item.path} alignItems="center">
+                    <Tooltip
+                      arrow
+                      title={
+                        <>
+                          {new Date(item.startedAt).toLocaleString()}
+                          {Object.entries(item.testReportSummary.total).map(([name, value]) => (
+                            <Stack direction="row" justifyContent="space-between" key={name}>
+                              <b>{name}</b>
+                              <div>{Math.ceil(value)}</div>
+                            </Stack>
+                          ))}
+                        </>
+                      }
+                    >
+                      <IconButton color={buildStatusColor(item.status)} edge="start" onClick={() => openNightlyClick(item)} size="small">
+                        <Circle color={buildStatusColor(item.status)} />
+                      </IconButton>
+                    </Tooltip>
+                    {!!Number(item.testReportSummary.total.failed) && <Typography variant="caption">{item.testReportSummary.total.failed}</Typography>}
+                  </Stack>
+                ))}
+              </Grid>
+            </React.Fragment>
+          );
+        })}
+    </Stack>
+  </>
+);
+
+export const getLatestNightlies = async (cutoffDate, limit = 1) => {
+  const query = gql`
+    query getPipeline($date: Time, $limit: Int) {
+      project(fullPath: "Northern.tech/Mender/mender-qa") {
+        pipelines(source: "schedule", ref: "master", last: $limit, updatedAfter: $date) {
+          nodes {
+            path
+            status
+            startedAt
+            testReportSummary {
+              total {
+                count
+                error
+                failed
+                skipped
+                success
+                time
+              }
+            }
+          }
+        }
+      }
+    }
+  `;
+
+  const nightlies = await request({
+    url: 'https://gitlab.com/api/graphql',
+    variables: { date: cutoffDate.toISOString().split('T')[0], limit },
+    document: query,
+    requestHeaders: { Authorization: `Bearer ${process.env.GITLAB_TOKEN}` }
+  });
+  const {
+    project: {
+      pipelines: { nodes }
+    }
+  } = nightlies;
+  return nodes;
+};
+
+export async function getStaticProps() {
+  const today = new Date();
+  today.setDate(today.getDate() - 99);
+  const latestNightlies = await getLatestNightlies(today, 100);
+  const nightlies = latestNightlies.reduce((accu, item) => {
+    const date = new Date(item.startedAt);
+    if (!accu[date.getMonth()]) {
+      accu[date.getMonth()] = [];
+    }
+    accu[date.getMonth()].push(item);
+    return accu;
+  }, {});
+  return {
+    props: {
+      nightlies
+    }
+  };
+}
+
+export default BuildStatus;
