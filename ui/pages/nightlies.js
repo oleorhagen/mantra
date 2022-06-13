@@ -4,52 +4,68 @@ import { request, gql } from 'graphql-request';
 
 import { Grid, IconButton, Stack, Tooltip, Typography } from '@mui/material';
 import { Circle } from '@mui/icons-material';
+import { makeStyles } from 'tss-react/mui';
+
 import { buildStatusColor } from './build-status';
+
+const useStyles = makeStyles()(theme => ({
+  builds: {
+    borderColor: theme.palette.grey[500],
+    borderRadius: theme.spacing(0.5),
+    borderStyle: 'solid',
+    borderWidth: 1,
+    marginTop: theme.spacing(2),
+    padding: theme.spacing(2)
+  }
+}));
 
 export const openNightlyClick = item => window.open(`https://gitlab.com${item.path}`, '_newtab');
 
-const BuildStatus = ({ nightlies }) => (
-  <>
-    <Typography variant="h4">Nightlies</Typography>
-    <Stack>
-      {Object.values(nightlies)
-        .reverse()
-        .map(monthlyNightlies => {
-          const date = new Date(monthlyNightlies[0].startedAt);
-          return (
-            <React.Fragment key={date.getMonth()}>
-              <Typography variant="h6">{date.toLocaleString('default', { month: 'long' })}</Typography>
-              <Grid container direction="row" justifyContent="flex-start" alignItems="flex-start">
-                {monthlyNightlies.reverse().map(item => (
-                  <Stack key={item.path} alignItems="center">
-                    <Tooltip
-                      arrow
-                      title={
-                        <>
-                          {new Date(item.startedAt).toLocaleString()}
-                          {Object.entries(item.testReportSummary.total).map(([name, value]) => (
-                            <Stack direction="row" justifyContent="space-between" key={name}>
-                              <b>{name}</b>
-                              <div>{Math.ceil(value)}</div>
-                            </Stack>
-                          ))}
-                        </>
-                      }
-                    >
-                      <IconButton color={buildStatusColor(item.status)} edge="start" onClick={() => openNightlyClick(item)} size="small">
-                        <Circle color={buildStatusColor(item.status)} />
-                      </IconButton>
-                    </Tooltip>
-                    {!!Number(item.testReportSummary.total.failed) && <Typography variant="caption">{item.testReportSummary.total.failed}</Typography>}
-                  </Stack>
-                ))}
-              </Grid>
-            </React.Fragment>
-          );
-        })}
-    </Stack>
-  </>
-);
+const Nightlies = ({ nightlies }) => {
+  const { classes } = useStyles();
+  return (
+    <>
+      <Typography variant="h4">Nightlies</Typography>
+      <Stack className={classes.builds}>
+        {Object.values(nightlies)
+          .reverse()
+          .map(monthlyNightlies => {
+            const date = new Date(monthlyNightlies[0].startedAt);
+            return (
+              <React.Fragment key={date.getMonth()}>
+                <Typography variant="h6">{date.toLocaleString('default', { month: 'long' })}</Typography>
+                <Grid container direction="row" justifyContent="flex-start" alignItems="flex-start">
+                  {monthlyNightlies.reverse().map(item => (
+                    <Stack key={item.path} alignItems="center">
+                      <Tooltip
+                        arrow
+                        title={
+                          <>
+                            {new Date(item.startedAt).toLocaleString()}
+                            {Object.entries(item.testReportSummary.total).map(([name, value]) => (
+                              <Stack direction="row" justifyContent="space-between" key={name}>
+                                <b>{name}</b>
+                                <div>{Math.ceil(value)}</div>
+                              </Stack>
+                            ))}
+                          </>
+                        }
+                      >
+                        <IconButton color={buildStatusColor(item.status)} edge="start" onClick={() => openNightlyClick(item)} size="small">
+                          <Circle color={buildStatusColor(item.status)} />
+                        </IconButton>
+                      </Tooltip>
+                      {!!Number(item.testReportSummary.total.failed) && <Typography variant="caption">{item.testReportSummary.total.failed}</Typography>}
+                    </Stack>
+                  ))}
+                </Grid>
+              </React.Fragment>
+            );
+          })}
+      </Stack>
+    </>
+  );
+};
 
 export const getLatestNightlies = async (cutoffDate, limit = 1) => {
   const query = gql`
@@ -109,4 +125,4 @@ export async function getStaticProps() {
   };
 }
 
-export default BuildStatus;
+export default Nightlies;
