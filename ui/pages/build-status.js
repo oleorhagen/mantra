@@ -1,11 +1,10 @@
 import React from 'react';
 
-import { request, gql } from 'graphql-request';
-
 import { Accordion, AccordionDetails, AccordionSummary, Button, Stack, Typography } from '@mui/material';
 import { Circle, ExpandMore as ExpandMoreIcon } from '@mui/icons-material';
 
 import Link from '../components/link';
+import { getLatestNightlies, openNightlyClick } from './nightlies';
 
 const areas = {
   backend: 'backend',
@@ -95,13 +94,9 @@ const buildStatusColorMap = {
   default: 'warning.dark' // WTF is going on colour!
 };
 
-const buildStatusColor = status => {
-  return buildStatusColorMap[status] || buildStatusColorMap.default;
-};
+export const buildStatusColor = status => buildStatusColorMap[status] || buildStatusColorMap.default;
 
 const BuildStatus = ({ componentsByArea, latestNightly, ltsReleases, versions }) => {
-  const openNightlyClick = () => window.open(`https://gitlab.com${latestNightly.path}`, '_newtab');
-
   const { total, ...components } = componentsByArea;
   return (
     <>
@@ -112,7 +107,7 @@ const BuildStatus = ({ componentsByArea, latestNightly, ltsReleases, versions })
           <Button
             variant="outlined"
             title={latestNightly.startedAt}
-            onClick={openNightlyClick}
+            onClick={() => openNightlyClick(latestNightly)}
             endIcon={<Circle color={buildStatusColor(latestNightly.status)} />}
           >
             latest Nightly
@@ -214,38 +209,6 @@ const collectStagingInfo = (result, repos, clientRepos, stagingRepos, executable
   }, []);
 };
 
-const getLatestNightly = async () => {
-  const query = gql`
-    query getPipeline($date: Time) {
-      project(fullPath: "Northern.tech/Mender/mender-qa") {
-        pipelines(source: "schedule", ref: "master", last: 1, updatedAfter: $date) {
-          edges {
-            node {
-              path
-              status
-              startedAt
-            }
-          }
-        }
-      }
-    }
-  `;
-
-  const today = new Date().toISOString().split('T')[0];
-  const latestNightly = await request({
-    url: 'https://gitlab.com/api/graphql',
-    variables: { date: today },
-    document: query,
-    requestHeaders: { Authorization: `Bearer ${process.env.GITLAB_TOKEN}` }
-  });
-  const {
-    project: {
-      pipelines: { edges }
-    }
-  } = latestNightly;
-  return edges[0].node;
-};
-
 const badgeUrl = 'badges/coveralls_';
 const retrieveCoverageInfo = async repoInfo => {
   const url = `https://coveralls.io/repos/github/mendersoftware/${repoInfo.repo}/badge.svg?branch=master`;
@@ -316,13 +279,13 @@ export async function getStaticProps() {
     return accu;
   }, {});
 
-  const latestNightly = await getLatestNightly();
+  const latestNightly = await getLatestNightlies(new Date(), 1);
   const coverageCollection = await enhanceWithCoverageData({ ...remainder, client });
   const { product: dropHereToo, ...componentsByArea } = coverageCollection;
   return {
     props: {
       componentsByArea,
-      latestNightly,
+      latestNightly: latestNightly[0],
       ltsReleases: versions.lts,
       versions: shownVersions
     }

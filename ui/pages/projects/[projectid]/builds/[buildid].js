@@ -42,7 +42,7 @@ const ResultsView = () => {
   const offsetDecrease = () => getResults(Math.max(offset - OFFSET_DELTA, 0));
 
   const canPageForward = offset + OFFSET_DELTA < metadata['total_results'];
-  const canPageBackward = offset - OFFSET_DELTA > 0;
+  const canPageBackward = offset - OFFSET_DELTA >= 0;
 
   return (
     <>
