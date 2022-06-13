@@ -2,16 +2,11 @@ import React, { useEffect, useState } from 'react';
 
 import { useRouter } from 'next/router';
 
-import { AppBar, Button, IconButton, Stack, Tab, Tabs, Toolbar, Typography } from '@mui/material';
+import { AppBar, IconButton, Stack, Tab, Tabs, Toolbar, Typography } from '@mui/material';
 import { DarkMode as DarkModeIcon, LightMode as LightModeIcon } from '@mui/icons-material';
 
 import Link from './link';
-
-const paths = [
-  { title: 'Projects', location: '/projects' },
-  { title: 'Build Status', location: '/build-status' },
-  { title: 'Security Status', location: '/security-status' }
-];
+import { paths } from '../pages';
 
 export const Navbar = () => {
   const [mode, setMode] = useState('light');
