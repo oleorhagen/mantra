@@ -95,9 +95,7 @@ const buildStatusColorMap = {
   default: 'warning.dark' // WTF is going on colour!
 };
 
-const buildStatusColor = status => {
-  return buildStatusColorMap[status] || buildStatusColorMap.default;
-};
+export const buildStatusColor = status => buildStatusColorMap[status] || buildStatusColorMap.default;
 
 const BuildStatus = ({ componentsByArea, latestNightly, ltsReleases, versions }) => {
   const openNightlyClick = () => window.open(`https://gitlab.com${latestNightly.path}`, '_newtab');
