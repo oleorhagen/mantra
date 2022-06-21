@@ -17,12 +17,12 @@ const variantPalette = {
     '300': '#e6f2f1',
     '200': '#ddedec',
     '100': '#d8ebe9',
-    '50': '#d4e9e7'
+    '50': '#d4e9e7',
   },
   background: {
     default: '#fff',
-    dark: 'rgb(50, 50, 50)'
-  }
+    dark: 'rgb(50, 50, 50)',
+  },
 };
 
 export const light = {
@@ -36,10 +36,10 @@ export const light = {
           ...overrides.MuiAccordion.styleOverrides.root,
           [`&.${accordionClasses.expanded}`]: {
             ...overrides.MuiAccordion.styleOverrides.root[`&.${accordionClasses.expanded}`],
-            backgroundColor: variantPalette.grey[400]
-          }
-        }
-      }
+            backgroundColor: variantPalette.grey[400],
+          },
+        },
+      },
     },
     MuiButton: {
       styleOverrides: {
@@ -48,10 +48,10 @@ export const light = {
           ...overrides.MuiButton.styleOverrides.root,
           [`&.${buttonClasses.text}`]: {
             ...overrides.MuiButton.styleOverrides.root[`&.${buttonClasses.text}`],
-            color: variantPalette.text.primary
-          }
-        }
-      }
+            color: variantPalette.text.primary,
+          },
+        },
+      },
     },
     MuiListItem: {
       styleOverrides: {
@@ -59,33 +59,33 @@ export const light = {
         root: {
           ...overrides.MuiListItem.styleOverrides.root,
           [`&.active`]: {
-            backgroundColor: variantPalette.background.default
+            backgroundColor: variantPalette.background.default,
           },
           [`&.leftNav.active`]: {
             borderTop: `1px solid ${variantPalette.grey[50]}`,
-            borderBottom: `1px solid ${variantPalette.grey[50]}`
+            borderBottom: `1px solid ${variantPalette.grey[50]}`,
           },
           [`&.navLink, &.navLink .${listItemTextClasses.root}`]: {
-            color: variantPalette.grey[900]
-          }
-        }
-      }
+            color: variantPalette.grey[900],
+          },
+        },
+      },
     },
     MuiListItemText: {
       styleOverrides: {
         ...overrides.MuiListItemText.styleOverrides,
         root: {
           ...overrides.MuiListItemText.styleOverrides.root,
-          color: variantPalette.text.primary
-        }
-      }
+          color: variantPalette.text.primary,
+        },
+      },
     },
     MuiTooltip: {
       styleOverrides: {
         tooltip: {
-          backgroundColor: variantPalette.background.dark
-        }
-      }
-    }
-  }
+          backgroundColor: variantPalette.background.dark,
+        },
+      },
+    },
+  },
 };

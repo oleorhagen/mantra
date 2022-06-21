@@ -13,7 +13,7 @@ const areas = {
   docs: 'docs',
   frontend: 'frontend',
   saas: 'saas',
-  qa: 'qa'
+  qa: 'qa',
 };
 
 const repos = [
@@ -64,7 +64,7 @@ const repos = [
   { repo: 'useradm-enterprise', staging: true, isExecutable: false, isProduct: true, area: areas.backend },
   { repo: 'useradm', staging: false, isExecutable: false, isProduct: true, area: areas.backend },
   { repo: 'workflows-enterprise', staging: true, isExecutable: false, isProduct: true, area: areas.backend },
-  { repo: 'workflows', staging: false, isExecutable: false, isProduct: true, area: areas.backend }
+  { repo: 'workflows', staging: false, isExecutable: false, isProduct: true, area: areas.backend },
 ];
 
 const CoverageDisplay = ({ coverage }) => !!coverage && coverage !== 'unknown' && <Typography color="text.disabled">Coverage: {coverage}%</Typography>;
@@ -92,7 +92,7 @@ const buildStatusColorMap = {
   FAILED: 'error',
   RUNNING: 'warning',
   SUCCESS: 'success',
-  default: 'warning.dark' // WTF is going on colour!
+  default: 'warning.dark', // WTF is going on colour!
 };
 
 const buildStatusColor = status => {
@@ -161,7 +161,7 @@ const BuildStatus = ({ componentsByArea, latestNightly, ltsReleases, versions })
 const areaTargetsMap = [
   { name: 'staging', target: 'staging' },
   { name: 'isExecutable', target: 'executable' },
-  { name: 'isProduct', target: 'product' }
+  { name: 'isProduct', target: 'product' },
 ];
 
 const transformReposIntoAreas = () =>
@@ -187,7 +187,7 @@ const extractReleaseInfo = releaseInfo =>
     (result, release) => {
       let minorVersion = {
         ...result,
-        firstReleaseDate: !result.firstReleaseDate || release.release_date < result.releaseDate ? release.release_date : result.firstReleaseDate
+        firstReleaseDate: !result.firstReleaseDate || release.release_date < result.releaseDate ? release.release_date : result.firstReleaseDate,
       };
       if (release.repos && release.release_date > minorVersion.releaseDate) {
         minorVersion = { ...minorVersion, releaseDate: release.release_date, repos: release.repos };
@@ -236,12 +236,12 @@ const getLatestNightly = async () => {
     url: 'https://gitlab.com/api/graphql',
     variables: { date: today },
     document: query,
-    requestHeaders: { Authorization: `Bearer ${process.env.GITLAB_TOKEN}` }
+    requestHeaders: { Authorization: `Bearer ${process.env.GITLAB_TOKEN}` },
   });
   const {
     project: {
-      pipelines: { edges }
-    }
+      pipelines: { edges },
+    },
   } = latestNightly;
   return edges[0].node;
 };
@@ -279,7 +279,7 @@ const enhanceWithCoverageData = async reposByArea => {
             accu[area] = {
               ...accu[area],
               count: (accu[area].count += 1),
-              sum: (accu[area].sum += coverage)
+              sum: (accu[area].sum += coverage),
             };
           }
         }
@@ -292,7 +292,7 @@ const enhanceWithCoverageData = async reposByArea => {
     const { count, sum, ...remainder } = accu[key];
     accu[key] = {
       ...remainder,
-      coverage: sum > 0 ? Math.round(sum / count) : 0
+      coverage: sum > 0 ? Math.round(sum / count) : 0,
     };
     return accu;
   }, sumEnhanced);
@@ -324,8 +324,8 @@ export async function getStaticProps() {
       componentsByArea,
       latestNightly,
       ltsReleases: versions.lts,
-      versions: shownVersions
-    }
+      versions: shownVersions,
+    },
   };
 }
 

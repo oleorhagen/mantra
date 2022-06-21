@@ -5,9 +5,9 @@ import { red } from '@mui/material/colors';
 const theme = createTheme({
   palette: {
     error: {
-      main: red.A400
-    }
-  }
+      main: red.A400,
+    },
+  },
 });
 
 export default theme;

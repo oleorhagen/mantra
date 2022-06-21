@@ -11,18 +11,18 @@ const secondaryText = 'rgba(0, 0, 0, 0.54)';
  */
 export const palette = {
   primary: {
-    main: '#337a87'
+    main: '#337a87',
   },
   secondary: {
-    main: '#5d0f43'
+    main: '#5d0f43',
   },
   error: {
     light: 'rgba(93, 15, 67, 0.075)',
     main: '#ab1000',
-    dark: '#770b00' // hardcode same as darken to match less variables
+    dark: '#770b00', // hardcode same as darken to match less variables
   },
   success: {
-    main: '#009e73'
+    main: '#009e73',
   },
   text: {
     /**
@@ -30,11 +30,11 @@ export const palette = {
      */
     primary: 'rgba(10, 10, 11, 0.78)',
     secondary: secondaryText,
-    hint: secondaryText
+    hint: secondaryText,
   },
   brand: {
-    mender: '#015969'
-  }
+    mender: '#015969',
+  },
 };
 
 const generatedColors = {
@@ -43,12 +43,12 @@ const generatedColors = {
   c: '#00859e',
   d: '#14cfda',
   e: '#9bfff0',
-  f: '#d5d5d5'
+  f: '#d5d5d5',
 };
 const qualitative = {};
 for (const [grp, col] of Object.entries(generatedColors)) {
   qualitative[grp] = {
-    main: col
+    main: col,
   };
 }
 palette['qualitative'] = qualitative;
@@ -110,7 +110,7 @@ export const colors = {
    */
   successStyleColor: '#009e73',
   red: '#8f0d0d',
-  green: '#009e73'
+  green: '#009e73',
 };
 
 const round = value => Math.round(value * 1e4) / 1e4;
@@ -123,28 +123,28 @@ export const typography = {
   fontFamily: 'Lato, sans-serif',
   fontSize, // will be transformed to rem automatically by mui
   body1: {
-    lineHeight: 1.5
+    lineHeight: 1.5,
   },
-  pxToRem
+  pxToRem,
 };
 
 const componentProps = {
   MuiFormControl: {
     defaultProps: {
-      variant: 'standard'
-    }
+      variant: 'standard',
+    },
   },
   MuiTextField: {
     defaultProps: {
-      variant: 'standard'
-    }
+      variant: 'standard',
+    },
   },
   MuiSelect: {
     defaultProps: {
       autoWidth: true,
-      variant: 'standard'
-    }
-  }
+      variant: 'standard',
+    },
+  },
 };
 
 export const overrides = {
@@ -152,23 +152,23 @@ export const overrides = {
   MuiCheckbox: {
     styleOverrides: {
       root: {
-        color: palette.text.primary
-      }
-    }
+        color: palette.text.primary,
+      },
+    },
   },
   MuiSnackbarContent: {
     styleOverrides: {
       action: {
-        color: '#9E6F8E'
-      }
-    }
+        color: '#9E6F8E',
+      },
+    },
   },
   MuiTab: {
     styleOverrides: {
       root: {
-        textTransform: 'none'
-      }
-    }
+        textTransform: 'none',
+      },
+    },
   },
   MuiAccordion: {
     styleOverrides: {
@@ -176,15 +176,15 @@ export const overrides = {
         border: 'none',
         boxShadow: 'none',
         '&:before': {
-          display: 'none'
+          display: 'none',
         },
         padding: 0,
         [`&.${accordionClasses.expanded}`]: {
           backgroundColor: colors.expansionBackground,
-          margin: 'auto'
-        }
-      }
-    }
+          margin: 'auto',
+        },
+      },
+    },
   },
   MuiAccordionSummary: {
     styleOverrides: {
@@ -193,75 +193,75 @@ export const overrides = {
         height: 48,
         [`&.${accordionSummaryClasses.expanded}`]: {
           height: 48,
-          minHeight: 48
-        }
+          minHeight: 48,
+        },
       },
       content: {
         alignItems: 'center',
         [`&.${accordionSummaryClasses.expanded}`]: {
-          margin: 0
+          margin: 0,
         },
         '& > :last-child': {
-          paddingRight: 12
-        }
-      }
-    }
+          paddingRight: 12,
+        },
+      },
+    },
   },
   MuiAccordionDetails: {
     styleOverrides: {
       root: {
-        flexDirection: 'column'
-      }
-    }
+        flexDirection: 'column',
+      },
+    },
   },
   MuiInput: {
     styleOverrides: {
       underline: {
         '&:before': {
-          borderBottom: '1px solid rgb(224, 224, 224)'
+          borderBottom: '1px solid rgb(224, 224, 224)',
         },
         '&:hover:not($disabled):before': {
-          borderBottom: `2px solid ${colors.linkgreen} !important`
+          borderBottom: `2px solid ${colors.linkgreen} !important`,
         },
         '&:after': {
-          borderBottom: `2px solid ${colors.linkgreen}`
-        }
-      }
-    }
+          borderBottom: `2px solid ${colors.linkgreen}`,
+        },
+      },
+    },
   },
   MuiFormLabel: {
     styleOverrides: {
       root: {
         color: palette.text.hint,
         [`&.${formLabelClasses.focused}`]: {
-          color: colors.linkgreen
-        }
-      }
-    }
+          color: colors.linkgreen,
+        },
+      },
+    },
   },
   MuiFormControl: {
     ...componentProps.MuiFormControl,
     styleOverrides: {
       root: {
         marginTop: '18px',
-        minWidth: '240px'
-      }
-    }
+        minWidth: '240px',
+      },
+    },
   },
   MuiFormControlLabel: {
     styleOverrides: {
       root: {
-        marginTop: '18px'
-      }
-    }
+        marginTop: '18px',
+      },
+    },
   },
   MuiIconButton: {
     styleOverrides: {
       root: {
         color: palette.text.hint,
-        fontSize: '1.2rem'
-      }
-    }
+        fontSize: '1.2rem',
+      },
+    },
   },
   MuiButton: {
     styleOverrides: {
@@ -270,22 +270,22 @@ export const overrides = {
         fontSize: 14,
         fontWeight: 'bold',
         '&:hover': {
-          colors: palette.primary.main
-        }
+          colors: palette.primary.main,
+        },
       },
       text: {
-        padding: '10px 15px'
-      }
-    }
+        padding: '10px 15px',
+      },
+    },
   },
   MuiSvgIcon: {
     styleOverrides: {
       root: {
         iconButton: {
-          marginRight: '8px'
-        }
-      }
-    }
+          marginRight: '8px',
+        },
+      },
+    },
   },
   MuiListItem: {
     styleOverrides: {
@@ -293,42 +293,42 @@ export const overrides = {
         paddingTop: 11,
         paddingBottom: 11,
         [`&.${listItemClasses.disabled}`]: {
-          opacity: 1
-        }
-      }
-    }
+          opacity: 1,
+        },
+      },
+    },
   },
   MuiListItemText: {
     styleOverrides: {
       root: {
         marginTop: 0,
-        marginBottom: 0
-      }
-    }
+        marginBottom: 0,
+      },
+    },
   },
   MuiTableCell: {
     styleOverrides: {
       root: {
         padding: '0px 24px 0px 24px',
-        height: '48px'
+        height: '48px',
       },
       head: {
         height: '56px',
-        lineHeight: '1.15rem'
+        lineHeight: '1.15rem',
       },
       paddingCheckbox: {
         padding: '0 0 0 6px',
-        width: '54px'
-      }
-    }
+        width: '54px',
+      },
+    },
   },
   MuiDrawer: {
     styleOverrides: {
       paper: {
         minWidth: '40vw',
         maxWidth: '80vw',
-        padding: '30px 75px 5%'
-      }
-    }
-  }
+        padding: '30px 75px 5%',
+      },
+    },
+  },
 };

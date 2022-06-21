@@ -39,7 +39,7 @@ const GridCellExpand = memo(function GridCellExpand({ width, value }) {
         width: 1,
         height: 1,
         position: 'relative',
-        display: 'flex'
+        display: 'flex',
       }}
     >
       <Box
@@ -49,7 +49,7 @@ const GridCellExpand = memo(function GridCellExpand({ width, value }) {
           width,
           display: 'block',
           position: 'absolute',
-          top: 0
+          top: 0,
         }}
       />
       <Box ref={cellValue} sx={{ whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>
@@ -78,7 +78,7 @@ const columns = [
   { field: 'InstalledVersion', headerName: 'Installed Version', flex: 1 },
   { field: 'PublishedDate', headerName: 'Published Date', type: 'dateTime', flex: 1 },
   { field: 'Title', headerName: 'Title', flex: 1, renderCell: renderCellExpand },
-  { field: 'logfile', headerName: 'Report Logs', flex: 0.5, sortable: false, renderCell: params => <Link href={params.row.logfile}>SEE LOGS</Link> }
+  { field: 'logfile', headerName: 'Report Logs', flex: 0.5, sortable: false, renderCell: params => <Link href={params.row.logfile}>SEE LOGS</Link> },
 ];
 
 const SecurityStatus = ({ results }) => {
@@ -199,7 +199,7 @@ export async function getStaticProps() {
           InstalledVersion,
           FixedVersion = null,
           PublishedDate = null,
-          Title = null
+          Title = null,
         } = vulnerability;
         return {
           id: `${image}-${VulnerabilityID}-${index}`,
@@ -213,7 +213,7 @@ export async function getStaticProps() {
           InstalledVersion,
           FixedVersion,
           PublishedDate,
-          Title
+          Title,
         };
       })
     );
@@ -222,8 +222,8 @@ export async function getStaticProps() {
 
   return {
     props: {
-      results: mappedResults
-    }
+      results: mappedResults,
+    },
   };
 }
 

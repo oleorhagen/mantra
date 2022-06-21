@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { DataGrid, GridToolbar, LinearProgress, CustomNoRowsOverlay } from '@mui/x-data-grid';
+import { DataGrid, GridToolbar } from '@mui/x-data-grid';
 
 import { Typography } from '@mui/material';
 
@@ -189,8 +189,8 @@ const ResourceTable = ({ resources, type }) => {
       disableDensitySelector
       components={{
         Toolbar: GridToolbar,
-        LoadingOverlay: LinearProgress,
-        NoRowsOverlay: CustomNoRowsOverlay,
+        /* LoadingOverlay: LinearProgress, */
+        /* NoRowsOverlay: CustomNoRowsOverlay, */
       }}
       componentsProps={{
         toolbar: {

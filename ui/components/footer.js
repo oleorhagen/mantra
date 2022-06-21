@@ -5,7 +5,7 @@ import Link from './link';
 
 const links = [
   { title: 'Github', location: 'https://github.com/mendersoftware/mantra' },
-  { title: 'Docs', location: 'https://github.com/mendersoftware/mantra/blob/master/README.md' }
+  { title: 'Docs', location: 'https://github.com/mendersoftware/mantra/blob/master/README.md' },
 ];
 
 export const Footer = () => (

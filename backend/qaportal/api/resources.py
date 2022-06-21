@@ -83,3 +83,26 @@ class ResultsResource(Resources):
         print(f"TestSuites: {ts}")
         print(f"TestResult: {tr}")
         return ts, tr
+
+
+class StatsResource(Resources):
+    ROUTE = "/stats"
+    RESOURCE_CLASS = Result
+
+    def on_get(self, req, resp, **kwargs):
+        resp.status = falcon.HTTP_500
+        # DONE - Query for the stats with sqlalchemy (using ORM - as below)
+        # TODO - Build the right query to return!
+        # TODO - Check
+        # statement = (
+        #     select(Result)
+        #     .where(Result.result == "failed")
+        # )
+        # stmt = (
+        # select(Address)
+        # .join(Address.user)
+        # .where(User.name == "sandy")
+        # .where(Address.email_address == "sandy@sqlalchemy.org")
+        # )
+        # sandy_address = session.scalars(stmt).one()
+

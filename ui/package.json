@@ -1,7 +1,7 @@
 {
-  "name": "tetra-ui",
+  "name": "qaportal-ui",
   "version": "1.0.0",
-  "description": "the dashboard for tetra",
+  "description": "the dashboard for the QA-Portal",
   "main": "app/main.js",
   "dependencies": {
     "@aws-sdk/client-s3": "^3.83.0",

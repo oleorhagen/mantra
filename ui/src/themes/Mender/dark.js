@@ -18,16 +18,16 @@ const variantPalette = {
     '300': '#a0c7c4',
     '200': '#89c6c1',
     '100': '#4dc3bc',
-    '50': '#00c1b9'
+    '50': '#00c1b9',
   },
   background: {
     default: '#222',
-    paper: '#343434'
+    paper: '#343434',
   },
   text: {
     primary: 'hsl(240deg 5% 93% / 78%)',
-    hint: 'rgba(0, 0, 0, 0.54)'
-  }
+    hint: 'rgba(0, 0, 0, 0.54)',
+  },
 };
 
 export const dark = {
@@ -41,10 +41,10 @@ export const dark = {
           ...overrides.MuiAccordion.styleOverrides.root,
           [`&.${accordionClasses.expanded}`]: {
             ...overrides.MuiAccordion.styleOverrides.root[`&.${accordionClasses.expanded}`],
-            backgroundColor: variantPalette.grey['A400']
-          }
-        }
-      }
+            backgroundColor: variantPalette.grey['A400'],
+          },
+        },
+      },
     },
     MuiButton: {
       styleOverrides: {
@@ -53,10 +53,10 @@ export const dark = {
           ...overrides.MuiButton.styleOverrides.root,
           [`&.${buttonClasses.text}`]: {
             ...overrides.MuiButton.styleOverrides.root[`&.${buttonClasses.text}`],
-            color: variantPalette.text.primary
-          }
-        }
-      }
+            color: variantPalette.text.primary,
+          },
+        },
+      },
     },
     MuiListItem: {
       styleOverrides: {
@@ -64,26 +64,26 @@ export const dark = {
         root: {
           ...overrides.MuiListItem.styleOverrides.root,
           [`&.active`]: {
-            backgroundColor: variantPalette.background.default
+            backgroundColor: variantPalette.background.default,
           },
           [`&.leftNav.active`]: {
             borderTop: `1px solid ${variantPalette.grey[50]}`,
-            borderBottom: `1px solid ${variantPalette.grey[50]}`
+            borderBottom: `1px solid ${variantPalette.grey[50]}`,
           },
           [`&.navLink, &.navLink .${listItemTextClasses.root}`]: {
-            color: variantPalette.grey[900]
-          }
-        }
-      }
+            color: variantPalette.grey[900],
+          },
+        },
+      },
     },
     MuiListItemText: {
       styleOverrides: {
         ...overrides.MuiListItemText.styleOverrides,
         root: {
           ...overrides.MuiListItemText.styleOverrides.root,
-          color: variantPalette.text.primary
-        }
-      }
-    }
-  }
+          color: variantPalette.text.primary,
+        },
+      },
+    },
+  },
 };
