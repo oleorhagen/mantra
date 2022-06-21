@@ -2,21 +2,16 @@ import React, { useCallback, useEffect, useState } from 'react';
 
 import { useRouter } from 'next/router';
 
-import { Button, Stack, Typography } from '@mui/material';
-import { ArrowBackIosNew as ArrowBackIcon, ArrowForwardIos as ArrowForwardIcon } from '@mui/icons-material';
-
 import { request, gql } from 'graphql-request';
 
 import ResourceTable from '../../../../src/resource-table';
 import Navigator from '../../../../src/breadcrumb-navigator';
+// TODO - What to do with the results meta data (?)
 import ResultsMetadata from '../../../../src/results-metadata';
-
-const OFFSET_DELTA = 25;
 
 const ResultsView = () => {
   const [results, setResults] = useState([]);
   const [metadata, setMetadata] = useState({});
-  const [offset, setOffset] = useState(0);
 
   const router = useRouter();
   const { jobid, pipelineid } = router.query;
@@ -74,7 +69,6 @@ const ResultsView = () => {
   return (
     <>
       <Navigator />
-      <Typography variant="h6">Summary</Typography>
       <ResourceTable resources={results} type="results" />
     </>
   );
