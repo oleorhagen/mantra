@@ -111,7 +111,7 @@ const tableColumnDefinitions = {
       sortable: false,
       minWidth: 110,
       flex: 1,
-      renderCell: params => <Link href={`/pipelines/${params.row.id}/jobs/${params.row.jobId}/result`}> {params.row.resultMessage} </Link>,
+      renderCell: params => <Link href={`/pipelines/${params.row.id}/jobs/result`}> {params.row.resultMessage} </Link>,
     },
     {
       field: 'testName',
