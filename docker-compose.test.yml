@@ -1,6 +1,6 @@
 version: '2'
 services:
   api:
-    image: mendersoftware/mantra-api:pr
+    image: mendersoftware/qaportal-api:pr
   ui:
-    image: mendersoftware/mantra-ui:pr
+    image: mendersoftware/qaportal-ui:pr

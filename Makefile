@@ -6,9 +6,9 @@ UNAME := $(shell uname)
 OPEN := open
 
 # the image and container are both named this
-DOCKER_TAG := mantra-api
-DOCKER_DB_TAG := mantra-db
-DOCKER_UI_TAG := mantra-ui
+DOCKER_TAG := qaportal-api
+DOCKER_DB_TAG := qaportal-db
+DOCKER_UI_TAG := qaportal-ui
 
 help:
 	@echo 'Commands:'

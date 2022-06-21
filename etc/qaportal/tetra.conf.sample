@@ -1,10 +1,10 @@
 [sqlalchemy]
 engine = postgres
-host = mantra-db
+host = qaportal-db
 port = 5432
 username = postgres
 password = password
-database = mantra-db
+database = qaportal-db
 
 [api]
 default_limit = 25

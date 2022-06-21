@@ -1,11 +1,11 @@
 version: '3.8'
 services:
   api:
-    image: mendersoftware/mantra-api:master
+    image: mendersoftware/qaportal-api:master
     build:
       context: ./backend
       dockerfile: Dockerfile
-    container_name: mantra-api
+    container_name: qaportal-api
     ports:
       - "7374:7374"
     restart: unless-stopped
@@ -14,15 +14,15 @@ services:
         condition: service_healthy
   db:
     image: bitnami/postgresql:12.2.0
-    container_name: mantra-db
+    container_name: qaportal-db
     ports:
       # note: exposing port 5432 here causes issues in travis builds
       - "5432"
     environment:
       POSTGRES_PASSWORD: password
-      POSTGRES_DB: mantra-db
+      POSTGRES_DB: qaportal-db
     healthcheck:
-      test: pg_isready --user=postgres --dbname=mantra-db || exit 1
+      test: pg_isready --user=postgres --dbname=qaportal-db || exit 1
       interval: 10s
       timeout: 5s
       retries: 10
@@ -40,7 +40,7 @@ services:
     command:
       [
         '--connection',
-        'postgres://postgres:password@db:5432/mantra-db',
+        'postgres://postgres:password@db:5432/qaportal-db',
         '--port',
         '5433',
         '--schema',
@@ -50,11 +50,11 @@ services:
         # '@graphile-contrib/pg-many-to-many',
       ]
   ui:
-    image: mendersoftware/mantra-ui:master
+    image: mendersoftware/qaportal-ui:master
     build:
       context: ./ui
       dockerfile: Dockerfile
-    container_name: mantra-ui
+    container_name: qaportal-ui
     environment:
       - AWS_ACCESS_KEY_ID=$AWS_ACCESS_KEY_ID
       - AWS_SECRET_ACCESS_KEY=$AWS_SECRET_ACCESS_KEY
@@ -65,7 +65,7 @@ services:
       - api
   gateway:
     image: nginx:stable-alpine
-    container_name: mantra-gateway
+    container_name: qaportal-gateway
     entrypoint: >
       /bin/sh -c 'echo " events {} http {
         server {
