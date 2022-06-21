@@ -2,11 +2,46 @@ import React from 'react';
 
 import { DataGrid, GridToolbar, LinearProgress, CustomNoRowsOverlay } from '@mui/x-data-grid';
 
+import { Typography } from '@mui/material';
+
 import { useRouter } from 'next/router';
 
 import Link from '../components/link';
 
+const ResultCell = ({ params }) => {
+  const color = params.row.status === 'success' ? 'success.light' : 'error';
+
+  return (
+    <Typography variant="h8" color={color}>
+      {' '}
+      {params.row.status}{' '}
+    </Typography>
+  );
+};
+
 const tableColumnDefinitions = {
+  pipelines: [
+    {
+      field: 'id',
+      headerName: 'GitLab Pipeline ID',
+      minWidth: 100,
+      renderCell: params => <Link href={`https://gitlab.com/Northern.tech/Mender/mender-api-docs/-/pipelines/${params.row.id}`}> {params.row.id} </Link>,
+    },
+    {
+      field: 'name',
+      headerName: 'Name',
+      minWidth: 250,
+      renderCell: params => <Link href={`/pipelines/${params.row.id}/jobs`}> {params.row.name} </Link>,
+    },
+    {
+      field: 'status',
+      headerName: 'Result',
+      minWidth: 100,
+      renderCell: params => {
+        return <ResultCell params={params} />;
+      },
+    },
+  ],
   jobs: [
     {
       field: 'id',
@@ -30,25 +65,6 @@ const tableColumnDefinitions = {
     {
       field: 'status',
       headerName: 'Result',
-    },
-  ],
-  pipelines: [
-    {
-      field: 'id',
-      headerName: 'GitLab Pipeline ID',
-      minWidth: 100,
-      renderCell: params => <Link href={`https://gitlab.com/Northern.tech/Mender/mender-api-docs/-/pipelines/${params.row.id}`}> {params.row.id} </Link>,
-    },
-    {
-      field: 'name',
-      headerName: 'Name',
-      minWidth: 250,
-      renderCell: params => <Link href={`/pipelines/${params.row.id}/jobs`}> {params.row.name} </Link>,
-    },
-    {
-      field: 'status',
-      headerName: 'Result',
-      minWidth: 100,
     },
   ],
   results: [
