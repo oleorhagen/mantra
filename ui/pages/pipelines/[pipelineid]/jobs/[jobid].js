@@ -8,6 +8,7 @@ import { ArrowBackIosNew as ArrowBackIcon, ArrowForwardIos as ArrowForwardIcon }
 import { request, gql } from 'graphql-request';
 
 import ResourceTable from '../../../../src/resource-table';
+import Navigator from '../../../../src/breadcrumb-navigator';
 import ResultsMetadata from '../../../../src/results-metadata';
 
 const OFFSET_DELTA = 25;
@@ -72,7 +73,7 @@ const ResultsView = () => {
 
   return (
     <>
-      <Typography variant="h4">Results</Typography>
+      <Navigator />
       <Typography variant="h6">Summary</Typography>
       <ResourceTable resources={results} type="results" />
     </>

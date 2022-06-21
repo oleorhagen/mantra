@@ -7,6 +7,7 @@ import { request, gql } from 'graphql-request';
 import { Typography } from '@mui/material';
 
 import ResourceTable from '../../../../src/resource-table';
+import Navigator from '../../../../src/breadcrumb-navigator';
 
 const BuildsView = () => {
   const router = useRouter();
@@ -57,7 +58,7 @@ const BuildsView = () => {
 
   return (
     <>
-      <Typography variant="h4">Jobs</Typography>
+      <Navigator />
       <ResourceTable resources={jobs} type="jobs" />
     </>
   );

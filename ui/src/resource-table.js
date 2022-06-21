@@ -59,7 +59,11 @@ const tableColumnDefinitions = {
     {
       field: 'name',
       headerName: 'Name',
-      renderCell: params => <Link href={`/pipelines/${params.row.pipelineId}/jobs/${params.row.id}`}> {params.row.name} </Link>,
+      renderCell: params => {
+        const router = useRouter();
+        const { pipelineid } = router.query;
+        return <Link href={`/pipelines/${pipelineid}/jobs/${params.row.id}`}> {params.row.name} </Link>;
+      },
       minWidth: 200,
     },
     {
