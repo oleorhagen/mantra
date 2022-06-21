@@ -27,10 +27,10 @@ services:
       timeout: 5s
       retries: 10
   postgraphile:
-    image: mendersoftware/postgraphile # Extended with many-to-many relations
-    build:
-      context: ./postgraphile
-      dockerfile: Dockerfile
+    image: graphile/postgraphile
+    # build:
+    #   context: ./postgraphile
+    #   dockerfile: Dockerfile
     container_name: postgraphile
     depends_on:
       db:
@@ -46,8 +46,8 @@ services:
         '--schema',
         'public',
         '--enhance-graphiql',
-        '--append-plugins',
-        '@graphile-contrib/pg-many-to-many',
+        # '--append-plugins',
+        # '@graphile-contrib/pg-many-to-many',
       ]
   ui:
     image: mendersoftware/mantra-ui:master
