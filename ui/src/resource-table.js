@@ -8,13 +8,13 @@ import { useRouter } from 'next/router';
 
 import Link from '../components/link';
 
-const ResultCell = ({ params }) => {
-  const color = params.row.status === 'success' ? 'success.light' : 'error';
+const ResultCell = ({ result }) => {
+  const color = result === 'success' || result == 'passed' ? 'success.light' : 'error';
 
   return (
     <Typography variant="h8" color={color}>
       {' '}
-      {params.row.status}{' '}
+      {result}{' '}
     </Typography>
   );
 };
@@ -38,7 +38,7 @@ const tableColumnDefinitions = {
       headerName: 'Result',
       minWidth: 100,
       renderCell: params => {
-        return <ResultCell params={params} />;
+        return <ResultCell result={params.row.status} />;
       },
     },
   ],
@@ -59,12 +59,15 @@ const tableColumnDefinitions = {
     {
       field: 'name',
       headerName: 'Name',
-      renderCell: params => <Link href={`/pipelines/${params.row.pipeline_id}/jobs/${params.row.id}`}> {params.row.name} </Link>,
+      renderCell: params => <Link href={`/pipelines/${params.row.pipelineId}/jobs/${params.row.id}`}> {params.row.name} </Link>,
       minWidth: 200,
     },
     {
       field: 'status',
       headerName: 'Result',
+      renderCell: params => {
+        return <ResultCell result={params.row.status} />;
+      },
     },
   ],
   results: [
@@ -73,12 +76,11 @@ const tableColumnDefinitions = {
       headerName: 'Build ID',
       minWidth: 150,
       sortable: false,
-      renderCell: params => (
-        <Link href={`https://gitlab.com/Northern.tech/Mender/mender-api-docs/-/pipelines/${params.row.pipeline_id}/jobs/${params.row.id}`}>
-          {' '}
-          {params.row.id}{' '}
-        </Link>
-      ),
+      renderCell: params => {
+        const router = useRouter();
+        const { pipelineid } = router.query;
+        return <Link href={`https://gitlab.com/Northern.tech/Mender/mender-api-docs/-/pipelines/${pipelineid}/jobs/${params.row.id}`}> {params.row.id} </Link>;
+      },
       editable: false,
     },
     {
@@ -87,7 +89,7 @@ const tableColumnDefinitions = {
       minWidth: 150,
       sortable: false,
       filterable: false,
-      renderCell: params => <Link href={`/pipelines/${params.row.id}/jobs/${params.row.jobId}/builds`}> {params.row.project_id} </Link>,
+      renderCell: params => <Link href={`/pipelines/${params.row.id}/jobs/${params.row.jobId}/builds`}> {params.row.jobId} </Link>,
       editable: false,
     },
     {
@@ -95,20 +97,7 @@ const tableColumnDefinitions = {
       headerName: 'Result',
       minWidth: 110,
       renderCell: params => {
-        var color = 'green';
-        if (params.row.result != 'passed') {
-          color = 'red';
-        }
-        return (
-          <div
-            style={{
-              color,
-            }}
-          >
-            {' '}
-            {params.row.result}{' '}
-          </div>
-        );
+        return <ResultCell result={params.row.result} />;
       },
       sortable: true,
     },
