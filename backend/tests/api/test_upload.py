@@ -20,8 +20,8 @@ class BaseUploadTest(BaseTetraTest):
 
 class TestUploads(BaseUploadTest):
 
-    _TETRA_API_HOST = os.getenv("TETRA_API_HOST", "http://localhost")
-    _TETRA_API_BASE_URL = "{}/api/".format(_TETRA_API_HOST)
+    _QAPORTAL_API_HOST = os.getenv("QAPORTAL_API_HOST", "http://localhost")
+    _QAPORTAL_API_BASE_URL = "{}/api/".format(_QAPORTAL_API_HOST)
 
     TEST_RESOURCES_DIR = os.path.join(
         os.path.dirname(os.path.abspath(__file__)), "../test_resources"
@@ -53,7 +53,7 @@ class TestUploads(BaseUploadTest):
                     pytest.fail
 
                 r = requests.post(
-                    self._TETRA_API_BASE_URL + "results",
+                    self._QAPORTAL_API_BASE_URL + "results",
                     headers={"Content-type": "application/json"},
                     auth=HTTPBasicAuth(user, password),
                     data=json.dumps(

@@ -11,7 +11,7 @@ import json
 
 from common import logger
 from common import TEST_RESULTS_DIR
-from common import _TETRA_API_HOST, _TETRA_API_BASE_URL
+from common import _QAPORTAL_API_HOST, _QAPORTAL_API_BASE_URL
 from common import get_tetra_credentials
 
 user, password = get_tetra_credentials()
@@ -66,7 +66,7 @@ for root, _, files in os.walk(TEST_RESULTS_DIR):
         logger.info(f"pipeline_id: {pipes[run_date]}")
 
         r = requests.post(
-            _TETRA_API_BASE_URL + "results",
+            _QAPORTAL_API_BASE_URL + "results",
             headers={"Content-type": "application/json"},
             auth=HTTPBasicAuth(user, password),
             data=json.dumps(

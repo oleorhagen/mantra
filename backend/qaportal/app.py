@@ -16,7 +16,7 @@ limitations under the License.
 import falcon
 import json
 
-from .api.resources import ResultsResource
+from .api.resources import ResultsResource, HealthResource
 
 
 class VersionResource(object):
@@ -36,6 +36,7 @@ application = falcon.App()
 RESOURCES = [
     ResultsResource(),
     VersionResource(),
+    HealthResource(),
 ]
 for resource in RESOURCES:
     application.add_route(resource.ROUTE, resource)

@@ -1,5 +1,6 @@
 version: '3.8'
 services:
+
   api:
     image: mendersoftware/qaportal-api:master
     build:
@@ -12,6 +13,11 @@ services:
     depends_on:
       db:
         condition: service_healthy
+    healthcheck:
+      test: curl --fail http://localhost:7374/healthy || exit 1
+      interval: 10s
+      timeout: 5s
+      retries: 10
   db:
     image: bitnami/postgresql:12.2.0
     container_name: qaportal-db
@@ -26,14 +32,14 @@ services:
       interval: 10s
       timeout: 5s
       retries: 10
+
   postgraphile:
     image: graphile/postgraphile
-    # build:
-    #   context: ./postgraphile
-    #   dockerfile: Dockerfile
     container_name: postgraphile
     depends_on:
       db:
+        condition: service_healthy
+      api:
         condition: service_healthy
     ports:
       - "5433:5433"
@@ -46,8 +52,6 @@ services:
         '--schema',
         'public',
         '--enhance-graphiql',
-        # '--append-plugins',
-        # '@graphile-contrib/pg-many-to-many',
       ]
   ui:
     image: mendersoftware/qaportal-ui:master
@@ -62,7 +66,9 @@ services:
     ports:
       - "8080:80"
     depends_on:
-      - api
+      api:
+        condition: service_healthy
+
   gateway:
     image: nginx:stable-alpine
     container_name: qaportal-gateway
@@ -99,5 +105,8 @@ services:
       # The HTTP port
       - "80:80"
     depends_on:
-      - ui
-      - api
+      ui:
+        condition: service_started
+      api:
+        condition: service_healthy
+

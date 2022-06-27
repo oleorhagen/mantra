@@ -13,8 +13,8 @@ TEST_RESULTS_DIR = os.path.join(
     os.path.dirname(os.path.abspath(__file__)), "test_results"
 )
 
-_TETRA_API_HOST = os.getenv("TETRA_API_HOST", "http://localhost")
-_TETRA_API_BASE_URL = "{}/api/".format(_TETRA_API_HOST)
+_QAPORTAL_API_HOST = os.getenv("QAPORTAL_API_HOST", "http://localhost")
+_QAPORTAL_API_BASE_URL = "{}/api/".format(_QAPORTAL_API_HOST)
 
 def get_tetra_credentials():
     user = os.getenv("TETRA_USER")

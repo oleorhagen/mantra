@@ -16,7 +16,7 @@ limitations under the License.
 import time
 
 from sqlalchemy import desc
-from sqlalchemy.sql import func, select, and_
+from sqlalchemy.sql import func, select, and_, desc
 
 from qaportal.data import sql
 from qaportal.data.db_handler import get_handler
@@ -73,3 +73,20 @@ class Result(BaseModel):
             "metadata": metadata.to_dict(),
         }
         return results_dict
+
+    @classmethod
+    def result_stats(self, test_name="", since=None):
+        """TODO - return the stats for the given test TODO - Filter on date, so
+        the user can select i.e., last week, last month etc.
+        TODO - add a test for this
+
+        """
+        statement = (
+            select([Result.test_name, func.count(Result.result)])
+            .where(Result.result != "passed")
+            .where(Result.result != 'skipped')
+            .group_by(Result.test_name)
+            .order_by(desc(func.count(Result.result)))
+        )
+        # TODO - execute the statement
+        pass

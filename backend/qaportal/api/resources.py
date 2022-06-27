@@ -22,7 +22,6 @@ from qaportal.data.models.pipeline import Pipeline
 from qaportal.data.models.job import Job
 from qaportal.data.models.result import Result
 
-
 def make_error_body(msg):
     return json.dumps({"error": msg})
 
@@ -91,18 +90,20 @@ class StatsResource(Resources):
 
     def on_get(self, req, resp, **kwargs):
         resp.status = falcon.HTTP_500
-        # DONE - Query for the stats with sqlalchemy (using ORM - as below)
-        # TODO - Build the right query to return!
-        # TODO - Check
-        # statement = (
-        #     select(Result)
-        #     .where(Result.result == "failed")
-        # )
-        # stmt = (
-        # select(Address)
-        # .join(Address.user)
-        # .where(User.name == "sandy")
-        # .where(Address.email_address == "sandy@sqlalchemy.org")
-        # )
-        # sandy_address = session.scalars(stmt).one()
+        kwargs.update(req.params)
+        print(f"on_stats: args: {kwargs}")
+        results = self.RESOURCE_CLASS.result_stats(**kwargs)
+        resp.body = json.dumps(results)
+        resp.status = falcon.HTTP_200
+
+
+class HealthResource(Resources):
+    ROUTE = "/healthy"
+
+    def on_get(self, req, resp, **kwargs):
+        resp.status = falcon.HTTP_500
+        # TODO - disallow arguments here
+        print(f"on_healthy: args: {kwargs}")
+        results = Result.get_all(**kwargs)
+        resp.status = falcon.HTTP_200
 
