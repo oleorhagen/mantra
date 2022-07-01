@@ -22,6 +22,7 @@ const HistoryView = () => {
   }, [count, name]);
 
   const getPipelines = async () => {
+    // TODO - Verify this query
     const query = gql`
       query TestHistoryForName {
         allResults(condition: { testName: "${name}" }, first: ${count}) {
