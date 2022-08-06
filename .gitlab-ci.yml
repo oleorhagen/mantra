@@ -112,7 +112,7 @@ test:composition:
     - docker load -i image-ui.tar
     - docker tag mendersoftware/mantra-ui:${CI_COMMIT_REF_SLUG} mendersoftware/mantra-ui:pr
     - apk add --no-cache python3
-    - pip3 install tox
+    - pip3 install --ignore-installed tox
     - echo $'[api]\nbase_url = http://test:test@docker/api' > backend/tetra-test.conf
   script:
     - docker-compose -f docker-compose.yml -f docker-compose.test.yml up -d db
