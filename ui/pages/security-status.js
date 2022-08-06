@@ -4,7 +4,7 @@ import { GetObjectCommand, ListObjectsCommand, S3Client } from '@aws-sdk/client-
 
 import React, { memo, useRef, useState } from 'react';
 
-import { Box, Paper, Popper, Typography } from '@mui/material';
+import { Box, FormControlLabel, Paper, Popper, Switch, Typography } from '@mui/material';
 import { DataGrid } from '@mui/x-data-grid';
 
 import Link from '../components/link';
@@ -82,13 +82,25 @@ const columns = [
 ];
 
 const SecurityStatus = ({ results }) => {
+  const [isFiltered, setIsFiltered] = useState(false);
+  const handleChange = () => setIsFiltered(current => !current);
   return (
     <>
-      <Typography marginBottom={2} variant="h4">
-        Security Status
-      </Typography>
+      <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+        <Typography marginBottom={2} variant="h4">
+          Security Status
+        </Typography>
+        <FormControlLabel control={<Switch checked={isFiltered} onChange={handleChange} color="primary" />} label="Filter images" labelPlacement="start" />
+      </div>
       <div style={{ height: '70vh', width: '100%' }}>
-        <DataGrid rows={results} columns={columns} pageSize={50} rowsPerPageOptions={[50]} disableSelectionOnClick />
+        <DataGrid
+          filterModel={{ items: isFiltered ? [{ columnField: 'image', operatorValue: 'contains', value: 'mendersoftware' }] : [] }}
+          rows={results}
+          columns={columns}
+          pageSize={50}
+          rowsPerPageOptions={[50]}
+          disableSelectionOnClick
+        />
       </div>
     </>
   );
