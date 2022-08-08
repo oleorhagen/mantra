@@ -10,17 +10,19 @@ import { paths } from '../pages';
 
 export const Navbar = () => {
   const [mode, setMode] = useState('light');
+  const [tabValue, setTabValue] = useState(0);
   const router = useRouter();
-  const tabIndex = paths.findIndex(({ location }) => location === router.pathname);
-  const [tabValue, setTabValue] = useState(tabIndex > -1 ? tabIndex : 0);
   const handleTabChange = (e, value) => setTabValue(value);
 
   useEffect(() => {
     if (!window) {
       return;
     }
+    const pathname = !global.window || router.pathname.length > 1 ? router.pathname : window.location.pathname;
+    const tabIndex = paths.findIndex(({ location }) => location.startsWith(pathname));
+    setTabValue(tabIndex > -1 ? tabIndex : 1);
     setMode(window.localStorage.getItem('mode') || 'light');
-  }, []);
+  }, [router.pathname]);
 
   const onModeToggle = () => {
     const newMode = mode === 'light' ? 'dark' : 'light';
