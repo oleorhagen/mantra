@@ -1,4 +1,4 @@
-import React from 'react';
+import { useEffect } from 'react';
 
 import { useRouter } from 'next/router';
 
@@ -16,9 +16,13 @@ export const paths = [
 
 const Index = () => {
   const router = useRouter();
-  const tabIndex = paths.findIndex(({ location }) => location.startsWith(router.pathname));
-  const Component = paths[tabIndex > -1 ? tabIndex : 0].component;
-  return <Component />;
+  useEffect(() => {
+    if (!window || !(window.location.pathname === '/' || paths.some(({ location }) => window.location.pathname.startsWith(location)))) {
+      return;
+    }
+    router.push(window.location.pathname !== '/' ? window.location.pathname : paths[1].location);
+  }, [router]);
+  return null;
 };
 
 export default Index;
