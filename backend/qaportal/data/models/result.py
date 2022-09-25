@@ -75,12 +75,18 @@ class Result(BaseModel):
         return results_dict
 
     @classmethod
-    def result_stats(self, test_name="", since=None):
-        """TODO - return the stats for the given test TODO - Filter on date, so
+    def result_stats(self, test_name="", since=None, handler=None):
+        """TODO - return the stats for the given test
+
+        TODO - Filter on date, so
         the user can select i.e., last week, last month etc.
+
         TODO - add a test for this
 
         """
+
+        handler = handler or get_handler()
+
         statement = (
             select([Result.test_name, func.count(Result.result)])
             .where(Result.result != "passed")
@@ -88,5 +94,6 @@ class Result(BaseModel):
             .group_by(Result.test_name)
             .order_by(desc(func.count(Result.result)))
         )
-        # TODO - execute the statement
-        pass
+        result = self.engine.execute(statement)
+        result.close()
+        return result
