@@ -8,6 +8,7 @@ import os
 import re
 import sys
 import json
+from python_graphql_client import GraphqlClient
 
 from common import logger
 from common import TEST_RESULTS_DIR
@@ -15,6 +16,9 @@ from common import _QAPORTAL_API_HOST, _QAPORTAL_API_BASE_URL
 from common import get_tetra_credentials
 
 user, password = get_tetra_credentials()
+
+# Instantiate the client with an endpoint.
+client = GraphqlClient(endpoint="https://countries.trevorblades.com")
 
 # TODO - Yield pipeline ids
 def pipeline_id(date):
@@ -64,6 +68,22 @@ for root, _, files in os.walk(TEST_RESULTS_DIR):
         logger.info(f"Job name: {m.group(1)}")
 
         logger.info(f"pipeline_id: {pipes[run_date]}")
+
+        # Create the query string and variables required for the request.
+        query = """
+            query countryQuery($countryCode: String) {
+                country(code:$countryCode) {
+                    code
+                    name
+                }
+            }
+        """
+
+        variables = {"countryCode": "CA"}
+
+        # Synchronous request
+        data = client.execute(query=query, variables=variables)
+        print(data)  # => {'data': {'country': {'code': 'CA', 'name': 'Canada'}}}
 
         r = requests.post(
             _QAPORTAL_API_BASE_URL + "results",
