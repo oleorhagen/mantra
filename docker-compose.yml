@@ -1,23 +1,6 @@
 version: '3.8'
 services:
 
-  api:
-    image: mendersoftware/qaportal-api:master
-    build:
-      context: ./backend
-      dockerfile: Dockerfile
-    container_name: qaportal-api
-    ports:
-      - "7374:7374"
-    restart: unless-stopped
-    depends_on:
-      db:
-        condition: service_healthy
-    healthcheck:
-      test: curl --fail http://localhost:7374/healthy || exit 1
-      interval: 10s
-      timeout: 5s
-      retries: 10
   db:
     image: bitnami/postgresql:12.2.0
     container_name: qaportal-db
@@ -32,6 +15,8 @@ services:
       interval: 10s
       timeout: 5s
       retries: 10
+    volumes:
+      - .backend/sql:/docker-entrypoint-initdb.d/
 
   postgraphile:
     image: graphile/postgraphile
@@ -53,6 +38,7 @@ services:
         'public',
         '--enhance-graphiql',
       ]
+
   ui:
     image: mendersoftware/qaportal-ui:master
     build:

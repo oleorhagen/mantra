@@ -1,0 +1,5 @@
+
+
+CREATE TABLE IF NOT EXISTS test (
+    id SERIAL8 PRIMARY KEY
+);
