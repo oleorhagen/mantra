@@ -1,5 +1,0 @@
-requests
-oslo.config
-pytest
-pytest-xdist
-junit-xml
