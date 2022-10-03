@@ -25,6 +25,7 @@ const repos = [
   { repo: 'deviceconfig', staging: true, isExecutable: false, isProduct: true, area: areas.backend },
   { repo: 'deviceconnect', staging: true, isExecutable: false, isProduct: true, area: areas.backend },
   { repo: 'devicemonitor', staging: true, isExecutable: false, isProduct: true, area: areas.backend },
+  { repo: 'generate-delta-worker', staging: true, isExecutable: false, isProduct: true, area: areas.backend },
   { repo: 'go-lib-micro', staging: false, isExecutable: false, isProduct: false, area: areas.backend },
   { repo: 'gui', staging: true, isExecutable: false, isProduct: true, area: areas.frontend },
   { repo: 'integration-test-runner', staging: false, isExecutable: false, isProduct: false, area: areas.qa },
