@@ -135,6 +135,13 @@ class LastCountByTestNameClientMixin(BaseClient):
                        '/count', count)
         return requests.get(url, params=params)
 
+class SpuriousFailuresClientMixIn(BaseClient):
+
+    @log_response
+    def list_spurious_failures(self, params=None):
+        url = self.url('/spurious')
+        return requests.get(url, params=params)
+
 
 class TetraClient(
     VersionClientMixin,
@@ -142,6 +149,7 @@ class TetraClient(
     BuildClientMixin,
     ResultClientMixin,
     LastCountByStatusClientMixin,
-    LastCountByTestNameClientMixin
+    LastCountByTestNameClientMixin,
+    SpuriousFailuresClientMixIn,
 ):
     pass

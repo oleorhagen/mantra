@@ -191,3 +191,54 @@ class Result(BaseModel):
         count_results = handler.get_all(resource_class=Result, query=query)
 
         return ResultMetadata.from_database_counts(count_results)
+
+    @classmethod
+    def get_test_stats(self, test_name="unused atm", since_time=0, handler=None):
+        """TODO - return the stats for the given test
+
+        DONE - Filter on date, so
+        the user can select i.e., last week, last month etc. -> Now accepts a timestamp
+
+        TODO - add a test for this
+
+        == Initial query ==
+
+select test_name, count(result) from results where result = 'failed' or result = 'error' group by test_name order by count(result) desc;
+
+        == With timestamp filter ==
+
+select test_name, count(result) from results where result = 'failed' or result = 'error' and results.timestamp >= 0 group by test_name
+order by count(result) desc;
+
+        select test_name, count(result) from
+        (select  name, timestamp, test_name, result from results join builds on results.build_id = builds.id) as meta
+        where result = 'failed'
+        or result = 'error'
+        and name like 'nightly%'
+        and timestamp > 0
+        group by test_name
+        order by count(result) desc;
+
+
+        """
+
+        handler = handler or get_handler()
+
+        from sqlalchemy.sql import text
+        try:
+            statement = text(
+                "SELECT test_name, count(result) "
+                    "FROM (SELECT name, timestamp, test_name, result FROM results JOIN builds ON results.build_id = builds.id) as tmp "
+                    "WHERE result = 'failed' "
+                    "OR result = 'error' "
+                    "AND name like 'nightly%' "
+                    "AND timestamp > :since_time "
+                    "GROUP BY test_name "
+                    "ORDER BY count(result) DESC"
+            )
+            result = handler.engine.execute(statement, since_time=since_time).fetchall()
+        except Exception as e:
+            print(f"Foobar: {e}")
+            return None
+
+        return [(dict(row.items())) for row in result]

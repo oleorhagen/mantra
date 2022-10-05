@@ -252,6 +252,19 @@ class TestLastCountByStatusResults(BaseResultTest):
             self.assertEqual(i["result"], "passed")
             self.assertEqual(i["build_id"], self.build_id_two)
 
+    def test_list_spurious_failures(self):
+        """Test the /spurious endpoint"""
+        # check that only first set of result gets returned
+        resp = self.client.list_spurious_failures(params={"since_time": 0})
+        self.assertEqual(resp.status_code, 200)
+
+        results = resp.json()
+        self.assertEqual(len(results), 2)
+
+        # for i in results:
+        #     self.assertEqual(i["result"], "passed")
+        #     self.assertEqual(i["build_id"], self.build_id_two)
+
 
 class LastCountByTestNameResults(BaseResultTest):
     def setUp(self):

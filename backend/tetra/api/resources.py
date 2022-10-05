@@ -157,3 +157,15 @@ class ResultResource(Resource):
     ROUTE = "/projects/{project_id}/builds/{build_id}/results/{result_id}"
     RESOURCE_CLASS = Result
     RESOURCE_ID_KEY = "result_id"
+
+class SpuriousResource(Resource):
+    ROUTE = "/spurious/{since_time}"
+    RESOURCE_CLASS = Result
+
+    # TODO - Add the test-name parameter
+
+    def on_get(self, req, resp, **kwargs):
+        resp.status = falcon.HTTP_200
+        kwargs.update(req.params)
+        results = self.RESOURCE_CLASS.get_test_stats(**kwargs)
+        resp.text = json.dumps(results)
