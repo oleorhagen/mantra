@@ -6,12 +6,14 @@ import BuildStatus from './build-status';
 import ProjectsView from './projects';
 import Nightlies from './nightlies';
 import SecurityStatus from './security-status';
+import Stats from './stats';
 
 export const paths = [
   { title: 'Projects', location: '/projects', component: ProjectsView },
   { title: 'Build Status', location: '/build-status', component: BuildStatus },
   { title: 'Nigthlies', location: '/nightlies', component: Nightlies },
-  { title: 'Security Status', location: '/security-status', component: SecurityStatus }
+  { title: 'Security Status', location: '/security-status', component: SecurityStatus },
+  { title: 'Test statistics', location: '/stats', component: Stats }
 ];
 
 const Index = () => {

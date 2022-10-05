@@ -157,3 +157,23 @@ class ResultResource(Resource):
     ROUTE = "/projects/{project_id}/builds/{build_id}/results/{result_id}"
     RESOURCE_CLASS = Result
     RESOURCE_ID_KEY = "result_id"
+
+
+class SpuriousResource(Resource):
+    """Return data on our tests.
+
+    Accepts the parameters:
+
+    type: <none (default) | nightly>
+    since_time: <int> (the time to return statistics from)
+    status: <[list of statuses to query]> (default 'failed' and 'error')
+    test_name: <none (default) | name>
+    """
+    ROUTE = "/tests/statistics/spurious-failures/"
+    RESOURCE_CLASS = Result
+
+    def on_get(self, req, resp, **kwargs):
+        resp.status = falcon.HTTP_200
+        kwargs.update(req.params)
+        results = self.RESOURCE_CLASS.get_test_stats(**kwargs)
+        resp.text = json.dumps(results)
