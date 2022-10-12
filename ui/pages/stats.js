@@ -7,7 +7,7 @@ import SpuriousFailuresView from '../src/statistics/spurious-failures-view.js';
 const Stats = props => {
   return (
     <Paper elevation={0}>
-      <SpuriousFailuresView />;
+      <SpuriousFailuresView />
     </Paper>
   );
 };
