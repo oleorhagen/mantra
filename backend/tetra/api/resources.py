@@ -173,6 +173,7 @@ class SpuriousResource(Resource):
     RESOURCE_CLASS = Result
 
     def on_get(self, req, resp, **kwargs):
+        print("Handling get to stats...")
         resp.status = falcon.HTTP_200
         kwargs.update(req.params)
         results = self.RESOURCE_CLASS.get_test_stats(**kwargs)

@@ -6,44 +6,54 @@ services:
       context: ./backend
       dockerfile: Dockerfile
     container_name: mantra-api
-    ports:
-      - "7374:7374"
-    restart: unless-stopped
-    depends_on:
-      db:
-        condition: service_healthy
-  db:
-    image: bitnami/postgresql:12.2.0
-    container_name: mantra-db
-    ports:
-      # note: exposing port 5432 here causes issues in travis builds
-      - "5432"
-    environment:
-      POSTGRES_PASSWORD: password
-      POSTGRES_DB: mantra-db
-    healthcheck:
-      test: pg_isready --user=postgres --dbname=mantra-db || exit 1
-      interval: 10s
-      timeout: 5s
-      retries: 10
+    # ports:
+    #   - "7374:7374"
+      # - "5432:5432"
+    network_mode: "host"
+    # restart: unless-stopped
+    # extra_hosts:
+    #     - "db:host-gateway"
+
+    # depends_on:
+    #   db:
+    #     condition: service_healthy
+
+  # db:
+  #   image: bitnami/postgresql:12.2.0
+  #   container_name: mantra-db
+  #   ports:
+  #     # note: exposing port 5432 here causes issues in travis builds
+  #     - "5432"
+  #   environment:
+  #     POSTGRES_PASSWORD: password
+  #     POSTGRES_DB: mantra-db
+  #   healthcheck:
+  #     test: pg_isready --user=postgres --dbname=mantra-db || exit 1
+  #     interval: 10s
+  #     timeout: 5s
+  #     retries: 10
+
   postgraphile:
     image: graphile/postgraphile
     container_name: postgraphile
-    depends_on:
-      db:
-        condition: service_healthy
+    # depends_on:
+    #   db:
+    #     condition: service_healthy
     ports:
       - "5433:5433"
     command:
       [
         '--connection',
-        'postgres://postgres:password@db:5432/mantra-db',
+        'postgres://postgres:password@db:5432/tetra-db',
         '--port',
         '5433',
         '--schema',
         'public',
         '--enhance-graphiql'
       ]
+    extra_hosts:
+        - "db:host-gateway"
+
   ui:
     image: mendersoftware/mantra-ui:master
     build:
@@ -58,6 +68,9 @@ services:
       - "8080:80"
     depends_on:
       - api
+    extra_hosts:
+        - "host.docker.internal:host-gateway"
+
   gateway:
     image: nginx:stable-alpine
     container_name: mantra-gateway
@@ -97,3 +110,6 @@ services:
     depends_on:
       - ui
       - api
+
+    # extra_hosts:
+    #     - "host.docker.internal:host-gateway"

@@ -248,6 +248,9 @@ class Result(BaseModel):
             *ands,
         )).group_by(rt.c.test_name).order_by(func.count(rt.c.result).desc())
 
+        from sqlalchemy.dialects import postgresql
+        print (orm_statement.compile(dialect=postgresql.dialect()))
+
         return handler.get_all(
             resource_class=cls, query=orm_statement,
             limit=100)

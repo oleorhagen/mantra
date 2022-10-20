@@ -32,7 +32,7 @@ def iterate_dates(start_date, total_days, delta_days=-1):
 
 def iterate_nightlies(start_date, total_days):
     # Filter with user that triggers master and nightlies:
-    parameters_base = "username=lluiscampos"
+    parameters_base = "source=schedule"
 
     for single_date in iterate_dates(start_date, total_days):
         single_date_str = single_date.strftime("%Y-%m-%d")
@@ -63,7 +63,7 @@ def iterate_nightlies(start_date, total_days):
             logger.error("Could not find nightly for " + single_date_str)
 
 
-def fetch_and_save_nightlies(start_date=date.today(), total_days=-14):
+def fetch_and_save_nightlies(start_date=date.today(), total_days=-1):
     for date_str, nightly_id in iterate_nightlies(start_date, total_days):
         url = pipelines_api + str(nightly_id) + "/jobs?per_page=100"
         logger.debug("Fetching URL: " + url)
