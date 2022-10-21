@@ -20,12 +20,15 @@ const SpuriousFailuresView = props => {
 
   const [results, setResults] = useState([]);
 
+  const [loading, setLoading] = useState(true);
+
   const fetchStatistics = params => {
     fetch('/api/tests/statistics/spurious-failures/' + '?' + new URLSearchParams(params))
       .then(response => response.json())
       .then(result => {
         setResults(result);
-      });
+      })
+      .finally(() => setLoading(false));
   };
 
   const handleChange = date => {
@@ -33,6 +36,7 @@ const SpuriousFailuresView = props => {
   };
 
   useEffect(() => {
+    setLoading(true);
     fetchStatistics({ since_time: sinceDate.unix(), type: 'nightly' });
   }, [sinceDate]);
 
@@ -49,7 +53,15 @@ const SpuriousFailuresView = props => {
           renderInput={params => <TextField {...params} />}
         />
         <Box sx={{ height: 650, width: '100%' }}>
-          <DataGrid getRowId={row => row.test_name} rows={results} columns={columns} pageSize={10} rowsPerPageOptions={[10]} disableSelectionOnClick />
+          <DataGrid
+            getRowId={row => row.test_name}
+            rows={results}
+            columns={columns}
+            pageSize={10}
+            rowsPerPageOptions={[10]}
+            disableSelectionOnClick
+            loading={loading}
+          />
         </Box>
       </LocalizationProvider>
     </>
