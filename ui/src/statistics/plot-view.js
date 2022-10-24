@@ -1,57 +1,53 @@
-import React from 'react';
-import { letterFrequency } from '@visx/mock-data';
-import { Group } from '@visx/group';
-import { Bar } from '@visx/shape';
-import { scaleLinear, scaleBand } from '@visx/scale';
+import {
+  AnimatedAxis, // any of these can be non-animated equivalents
+  AnimatedGrid,
+  AnimatedLineSeries,
+  AnimatedBarStack,
+  AnimatedBarSeries,
+  XYChart,
+  Tooltip
+} from '@visx/xychart';
 
-// We'll use some mock data from `@visx/mock-data` for this.
-const data = letterFrequency;
+const data1 = [
+  { x: '2020-01-01', y: 1 },
+  { x: '2020-01-02', y: 0 },
+  { x: '2020-01-03', y: 1 }
+];
 
-// Define the graph dimensions and margins
-const width = 500;
-const height = 500;
-const margin = { top: 20, bottom: 20, left: 20, right: 20 };
+const data2 = [
+  { x: '2020-01-01', y: 0 },
+  { x: '2020-01-02', y: 1 },
+  { x: '2020-01-03', y: 1 }
+];
 
-// Then we'll create some bounds
-const xMax = width - margin.left - margin.right;
-const yMax = height - margin.top - margin.bottom;
+const accessors = {
+  xAccessor: d => d.x,
+  yAccessor: d => d.y
+};
 
-// We'll make some helpers to get at the data we want
-const x = d => d.letter;
-const y = d => +d.frequency * 100;
-
-// And then scale the graph by our data
-const xScale = scaleBand({
-  range: [0, xMax],
-  round: true,
-  domain: data.map(x),
-  padding: 0.4
-});
-const yScale = scaleLinear({
-  range: [yMax, 0],
-  round: true,
-  domain: [0, Math.max(...data.map(y))]
-});
-
-// Compose together the scale and accessor functions to get point functions
-const compose = (scale, accessor) => data => scale(accessor(data));
-const xPoint = compose(xScale, x);
-const yPoint = compose(yScale, y);
-
-// Finally we'll embed it all in an SVG
-function PlotView(props) {
-  return (
-    <svg width={width} height={height}>
-      {data.map((d, i) => {
-        const barHeight = yMax - yPoint(d);
-        return (
-          <Group key={`bar-${i}`}>
-            <Bar x={xPoint(d)} y={yMax - barHeight} height={barHeight} width={xScale.bandwidth()} fill="#fc2e1c" />
-          </Group>
-        );
-      })}
-    </svg>
-  );
-}
+const PlotView = () => (
+  <XYChart height={400} xScale={{ type: 'band' }} yScale={{ type: 'linear' }}>
+    <AnimatedAxis orientation="bottom" />
+    <AnimatedGrid columns={false} numTicks={4} />
+    <AnimatedBarStack>
+      <AnimatedBarSeries dataKey="Line 1" data={data1} {...accessors} />
+      <AnimatedBarSeries dataKey="Line 2" data={data2} {...accessors} />
+    </AnimatedBarStack>
+    <Tooltip
+      snapTooltipToDatumX
+      snapTooltipToDatumY
+      showVerticalCrosshair
+      showSeriesGlyphs
+      renderTooltip={({ tooltipData, colorScale }) => (
+        <div>
+          <div style={{ color: colorScale(tooltipData.nearestDatum.key) }}>{tooltipData.nearestDatum.key}</div>
+          {accessors.xAccessor(tooltipData.nearestDatum.datum)}
+          {', '}
+          {accessors.yAccessor(tooltipData.nearestDatum.datum)}
+        </div>
+      )}
+    />
+  </XYChart>
+);
 
 export default PlotView;

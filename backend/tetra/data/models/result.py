@@ -251,3 +251,94 @@ class Result(BaseModel):
         return handler.get_all(
             resource_class=cls, query=orm_statement,
             limit=100)
+
+
+    @classmethod
+    def get_test_stats(
+            cls,
+            handler=None,
+            type="nightly",
+            test_name=None,
+            status=["failed", "error"],
+            since_time=0):
+        """Returns the spurious failures in our nightlies for the given time
+        interval [time_since, now] and the date they failed on:
+
+        So... Essentially we are creating bars, so:
+
+
+        [
+        {
+        'testname': '<name>',
+        'failures':  [
+            {
+            'date': '1970-01-01',
+            'failure': <- Is really implicit in that the entry exists...
+            },
+        .
+        .
+        .
+        ]
+        },
+        {
+          'testname': '<name2>',
+           date: <somedate>,
+        },
+        .
+        .
+        .
+        ]
+
+
+        ]
+
+
+
+        Also can filter on the given:
+
+        * test_name
+        * Statuses
+
+        statement = text(
+            "SELECT test_name, count(result) "
+            "FROM (
+                SELECT name,
+                timestamp,
+                test_name,
+                result FROM results JOIN builds ON results.build_id = builds.id
+            ) as tmp "
+                "WHERE result = 'failed' "
+                "OR result = 'error' "
+                "AND name like ':type%' "
+                "AND timestamp > :since_time "
+                "GROUP BY test_name "
+                "ORDER BY count(result) DESC"
+        )
+
+        """
+
+        handler = handler or get_handler()
+
+        bt = Build.TABLE
+        rt = cls.TABLE
+        ands = [
+            bt.c.name.like(f"{type}%"),
+            rt.c.timestamp > since_time,
+            ]
+        if test_name:
+            ands.append(rt.c.test_name == test_name)
+        orm_statement = select(
+            [rt.c.test_name,
+             func.count(rt.c.result).label("count")]
+        ).select_from(
+            rt.join(Build.TABLE)
+        ).where(and_(
+            or_(
+                rt.c.result.in_(status),
+            ),
+            *ands,
+        )).group_by(rt.c.test_name).order_by(func.count(rt.c.result).desc())
+
+        return handler.get_all(
+            resource_class=cls, query=orm_statement,
+            limit=100)
