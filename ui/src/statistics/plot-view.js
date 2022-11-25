@@ -1,3 +1,7 @@
+import React, { useState, useEffect } from 'react';
+
+import dayjs from 'dayjs';
+
 import {
   AnimatedAxis, // any of these can be non-animated equivalents
   AnimatedGrid,
@@ -8,46 +12,77 @@ import {
   Tooltip
 } from '@visx/xychart';
 
-const data1 = [
-  { x: '2020-01-01', y: 1 },
-  { x: '2020-01-02', y: 0 },
-  { x: '2020-01-03', y: 1 }
-];
-
-const data2 = [
-  { x: '2020-01-01', y: 0 },
-  { x: '2020-01-02', y: 1 },
-  { x: '2020-01-03', y: 1 }
-];
-
 const accessors = {
-  xAccessor: d => d.x,
-  yAccessor: d => d.y
+  xAccessor: d => {
+    // We need to transform the [failures] into local dates
+    // return d.failures.map(e => dayjs(e));
+    if (d.failures) {
+      return d.failures.map(e => {
+        console.log('converting: ' + e);
+        console.log('to: ' + dayjs.unix(e).format('DD/MM/YYYY'));
+        return dayjs.unix(e).format('DD/MM/YYYY');
+      });
+    }
+    return 'None';
+  },
+  yAccessor: d => 1
 };
 
-const PlotView = () => (
-  <XYChart height={400} xScale={{ type: 'band' }} yScale={{ type: 'linear' }}>
-    <AnimatedAxis orientation="bottom" />
-    <AnimatedGrid columns={false} numTicks={4} />
-    <AnimatedBarStack>
-      <AnimatedBarSeries dataKey="Line 1" data={data1} {...accessors} />
-      <AnimatedBarSeries dataKey="Line 2" data={data2} {...accessors} />
-    </AnimatedBarStack>
-    <Tooltip
-      snapTooltipToDatumX
-      snapTooltipToDatumY
-      showVerticalCrosshair
-      showSeriesGlyphs
-      renderTooltip={({ tooltipData, colorScale }) => (
-        <div>
-          <div style={{ color: colorScale(tooltipData.nearestDatum.key) }}>{tooltipData.nearestDatum.key}</div>
-          {accessors.xAccessor(tooltipData.nearestDatum.datum)}
-          {', '}
-          {accessors.yAccessor(tooltipData.nearestDatum.datum)}
-        </div>
-      )}
-    />
-  </XYChart>
-);
+const PlotView = () => {
+  const [results, setResults] = useState([]);
+
+  const fetchStatistics = params => {
+    fetch('/api/tests/statistics/spurious-failures/viz')
+      .then(response => response.json())
+      .then(result => {
+        console.log('the returned result:');
+        console.log(result);
+        // Transform the result into the local x,y schema
+        setResults(result);
+      })
+      .catch(err => console.log('Failed to fetch the test statistics: ' + err));
+    // .finally(() => setLoading(false));
+  };
+
+  useEffect(() => {
+    // setLoading(true);
+    fetchStatistics();
+  }, []);
+
+  console.log(results);
+  let foobar = results ? results.map((e, i) => <AnimatedBarSeries dataKey={e.test_name} data={[e]} {...accessors} />) : [];
+
+  var baselineDays = [1, 2, 3, 4, 5, 6, 7].map(e => {
+    return { 'date': dayjs().subtract(e, 'day').format('DD/MM/YYYY') };
+  });
+
+  return (
+    <>
+      {'foobar' + foobar.length}
+      <XYChart height={400} xScale={{ type: 'band' }} yScale={{ type: 'linear' }}>
+        <AnimatedAxis orientation="bottom" />
+        <AnimatedGrid columns={false} numTicks={4} />
+        <AnimatedBarStack>
+          <AnimatedBarSeries dataKey="baseline" data={baselineDays} xAccessor={d => d.date} yAccessor={d => 0} />
+          {foobar}
+        </AnimatedBarStack>
+        <Tooltip
+          snapTooltipToDatumX
+          snapTooltipToDatumY
+          showVerticalCrosshair
+          showSeriesGlyphs
+          renderTooltip={({ tooltipData, colorScale }) => (
+            <div>
+              <div style={{ color: colorScale(tooltipData.nearestDatum.key) }}>{tooltipData.nearestDatum.key}</div>
+              {accessors.xAccessor(tooltipData.nearestDatum.datum)}
+              {', '}
+              {accessors.yAccessor(tooltipData.nearestDatum.datum)}
+            </div>
+          )}
+        />
+      </XYChart>
+    </>
+  );
+};
 
 export default PlotView;

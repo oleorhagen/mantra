@@ -177,3 +177,26 @@ class SpuriousResource(Resource):
         kwargs.update(req.params)
         results = self.RESOURCE_CLASS.get_test_stats(**kwargs)
         resp.text = json.dumps(results)
+
+class GraphResource(Resource):
+    """Return data on our tests.
+
+    Accepts the parameters:
+
+    # TODO - cleanup and make consistent
+
+    type: <none (default) | nightly>
+    since_time: <int> (the time to return statistics from)
+    status: <[list of statuses to query]> (default 'failed' and 'error')
+    test_name: <none (default) | name>
+    """
+    ROUTE = "/tests/statistics/spurious-failures/viz"
+    RESOURCE_CLASS = Result
+
+    def on_get(self, req, resp, **kwargs):
+        resp.status = falcon.HTTP_200
+        kwargs.update(req.params)
+        results = self.RESOURCE_CLASS.get_test_stats_viz(**kwargs)
+
+        # Maybe we should mangle the data here instead (?)
+        resp.text = json.dumps(results)

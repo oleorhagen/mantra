@@ -17,6 +17,7 @@ import time
 
 from sqlalchemy import desc
 from sqlalchemy.sql import func, select, and_, or_
+from sqlalchemy.sql import text
 
 from tetra.data import sql
 from tetra.data.db_handler import get_handler
@@ -254,7 +255,7 @@ class Result(BaseModel):
 
 
     @classmethod
-    def get_test_stats(
+    def get_test_stats_viz(
             cls,
             handler=None,
             type="nightly",
@@ -289,56 +290,84 @@ class Result(BaseModel):
         .
         ]
 
+        or
+
+        {
+        date: '1970-01-01',
+        failures: [ test-name1, test-name2, ...],
+        }
+        .
+        .
+        .
+
+        Decided not to do this, due to how `visx` handles data in the frontend..
+
 
         ]
 
 
+        select test_name, timestamp from (select name, timestamp, test_name, result from results join builds on results.build_id = builds.id where ( result = 'failed' or result = 'error') and name like 'nightly%') as tmp;
 
-        Also can filter on the given:
 
-        * test_name
-        * Statuses
+        select test_name, timestamp from (select name, timestamp, test_name, result from results join builds on results.build_id = builds.id where ( result = 'failed' or result = 'error') and name like 'nightly%') as tmp group by test_name, timestamp;
 
-        statement = text(
-            "SELECT test_name, count(result) "
-            "FROM (
-                SELECT name,
-                timestamp,
-                test_name,
-                result FROM results JOIN builds ON results.build_id = builds.id
-            ) as tmp "
-                "WHERE result = 'failed' "
-                "OR result = 'error' "
-                "AND name like ':type%' "
-                "AND timestamp > :since_time "
-                "GROUP BY test_name "
-                "ORDER BY count(result) DESC"
-        )
+        With the timestamp filter
+
+        select test_name, timestamp from (select name, timestamp, test_name, result from results join builds on results.build_id = builds.id where ( result = 'failed' or result = 'error') and name like 'nightly%' and timestamp > 1668812400) as tmp group by test_name, timestamp;
+
+        SELECT test_name, timestamp
+        FROM (
+          SELECT name,
+                 timestamp,
+                 test_name,
+                 result FROM results JOIN builds ON results.build_id = builds.id
+                    WHERE (
+                     (result = 'failed' or result = 'error')
+                    AND
+                     name LIKE 'nightly%'
+                    AND
+                     timestamp > :timestamp:
+        ) AS tmp
+        GROUP BY test_name, timestamp
+
+        This groups the tests into groups
+
 
         """
 
+        # TODO - Create the actual SQLAlchemy query for this
+
         handler = handler or get_handler()
 
-        bt = Build.TABLE
-        rt = cls.TABLE
-        ands = [
-            bt.c.name.like(f"{type}%"),
-            rt.c.timestamp > since_time,
-            ]
-        if test_name:
-            ands.append(rt.c.test_name == test_name)
-        orm_statement = select(
-            [rt.c.test_name,
-             func.count(rt.c.result).label("count")]
-        ).select_from(
-            rt.join(Build.TABLE)
-        ).where(and_(
-            or_(
-                rt.c.result.in_(status),
-            ),
-            *ands,
-        )).group_by(rt.c.test_name).order_by(func.count(rt.c.result).desc())
+# """select test_name, timestamp from (select name, timestamp, test_name, result from results join builds on results.build_id = builds.id where ( result = 'failed' or result = 'error') and name like 'nightly%' and timestamp > 1668612400) as tmp group by test_name, timestamp
+# """
 
-        return handler.get_all(
-            resource_class=cls, query=orm_statement,
-            limit=100)
+        statement = text(
+"""select test_name, timestamp from (select name, timestamp, test_name, result from results join builds on results.build_id = builds.id where name like 'nightly%' and timestamp > 1668612400) as tmp group by test_name, timestamp
+"""
+        )
+
+        result =  handler.engine.execute(statement).fetchall()
+
+        print("Visualization result:")
+        print("--------------------")
+        print(result)
+        print("--------------------")
+
+        # Gather the data into an appropriate JSON structure
+        d = {}
+        for row in result:
+            if row[0] not in d:
+                d[row[0]] = [row[1]]
+            else:
+                d[row[0]].append(row[1])
+
+        l = []
+        for key in d.keys():
+            l.append(
+                {
+                    'test_name': key,
+                    'failures': d[key],
+                }
+            )
+        return l
