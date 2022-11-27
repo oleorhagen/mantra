@@ -26,7 +26,7 @@ const accessors = {
   yAccessor: d => 1
 };
 
-const PlotView = () => {
+const PlotView = props => {
   const [results, setResults] = useState([]);
 
   const fetchStatistics = params => {
@@ -44,16 +44,24 @@ const PlotView = () => {
 
   useEffect(() => {
     // setLoading(true);
-    // TODO - Get the date from the datepicker
-    fetchStatistics({ since_time: dayjs().subtract(7, 'day').unix() });
-  }, []);
+    console.log('plot-view use-effect:');
+    console.log(props.sinceDate);
+    fetchStatistics({ since_time: props.sinceDate.unix() });
+  }, [props.sinceDate]);
 
   let foobar = results ? results.map((e, i) => <AnimatedBarSeries dataKey={e.test_name} data={[e]} {...accessors} />) : [];
 
-  //  TODO - sync with the date selector in the table
-  var baselineDays = [1, 2, 3, 4, 5, 6, 7].map(e => {
-    return { 'date': dayjs().subtract(e, 'day').format('DD/MM/YYYY') };
-  });
+  let now = dayjs();
+  let baselineDays = [];
+  let tempDate = props.sinceDate;
+  while (tempDate.isBefore(now) || tempDate.isSame(now)) {
+    tempDate = tempDate.add(1, 'day');
+    // TODO - Unify the format somehow (?)
+    baselineDays.push({ 'date': tempDate.format('DD/MM/YYYY') });
+  }
+
+  console.log('baselineDays:');
+  console.log(baselineDays);
 
   return (
     <>

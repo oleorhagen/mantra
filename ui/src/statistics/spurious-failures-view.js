@@ -16,7 +16,7 @@ const columns = [
 const minInputDate = new Date(2020, 1, 1);
 
 const SpuriousFailuresView = props => {
-  const [sinceDate, setSinceDate] = useState(dayjs().subtract(7, 'day'));
+  // const [sinceDate, setSinceDate] = useState(dayjs().subtract(7, 'day'));
 
   const [results, setResults] = useState([]);
 
@@ -32,13 +32,13 @@ const SpuriousFailuresView = props => {
   };
 
   const handleChange = date => {
-    setSinceDate(date);
+    props.setSinceDate(date);
   };
 
   useEffect(() => {
     setLoading(true);
-    fetchStatistics({ since_time: sinceDate.unix(), type: 'nightly' });
-  }, [sinceDate]);
+    fetchStatistics({ since_time: props.sinceDate.unix(), type: 'nightly' });
+  }, [props.sinceDate]);
 
   return (
     <>
@@ -46,7 +46,7 @@ const SpuriousFailuresView = props => {
       <LocalizationProvider dateAdapter={AdapterDayjs}>
         <DesktopDatePicker
           label="Since Date"
-          value={sinceDate}
+          value={props.sinceDate}
           onChange={handleChange}
           maxDate={new Date()}
           minDate={minInputDate}
