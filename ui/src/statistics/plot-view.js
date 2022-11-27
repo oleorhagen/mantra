@@ -55,9 +55,9 @@ const PlotView = props => {
   let baselineDays = [];
   let tempDate = props.sinceDate;
   while (tempDate.isBefore(now) || tempDate.isSame(now)) {
-    tempDate = tempDate.add(1, 'day');
     // TODO - Unify the format somehow (?)
     baselineDays.push({ 'date': tempDate.format('DD/MM/YYYY') });
+    tempDate = tempDate.add(1, 'day');
   }
 
   console.log('baselineDays:');
