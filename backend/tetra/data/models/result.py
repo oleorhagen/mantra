@@ -343,11 +343,11 @@ class Result(BaseModel):
 # """
 
         statement = text(
-"""select test_name, timestamp from (select name, timestamp, test_name, result from results join builds on results.build_id = builds.id where name like 'nightly%' and timestamp > 1668612400) as tmp group by test_name, timestamp
+"""select test_name, timestamp from (select name, timestamp, test_name, result from results join builds on results.build_id = builds.id where name like 'nightly%' and timestamp > :timestamp and (result = 'failed' or result = 'error')) as tmp group by test_name, timestamp
 """
         )
 
-        result =  handler.engine.execute(statement).fetchall()
+        result =  handler.engine.execute(statement, timestamp=since_time).fetchall()
 
         print("Visualization result:")
         print("--------------------")

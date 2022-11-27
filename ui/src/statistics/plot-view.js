@@ -14,8 +14,6 @@ import {
 
 const accessors = {
   xAccessor: d => {
-    // We need to transform the [failures] into local dates
-    // return d.failures.map(e => dayjs(e));
     if (d.failures) {
       return d.failures.map(e => {
         console.log('converting: ' + e);
@@ -32,7 +30,7 @@ const PlotView = () => {
   const [results, setResults] = useState([]);
 
   const fetchStatistics = params => {
-    fetch('/api/tests/statistics/spurious-failures/viz')
+    fetch('/api/tests/statistics/spurious-failures/viz' + '?' + new URLSearchParams(params))
       .then(response => response.json())
       .then(result => {
         console.log('the returned result:');
@@ -46,12 +44,13 @@ const PlotView = () => {
 
   useEffect(() => {
     // setLoading(true);
-    fetchStatistics();
+    // TODO - Get the date from the datepicker
+    fetchStatistics({ since_time: dayjs().subtract(7, 'day').unix() });
   }, []);
 
-  console.log(results);
   let foobar = results ? results.map((e, i) => <AnimatedBarSeries dataKey={e.test_name} data={[e]} {...accessors} />) : [];
 
+  //  TODO - sync with the date selector in the table
   var baselineDays = [1, 2, 3, 4, 5, 6, 7].map(e => {
     return { 'date': dayjs().subtract(e, 'day').format('DD/MM/YYYY') };
   });
