@@ -7,7 +7,7 @@ import dayjs from 'dayjs';
 import SpuriousFailuresView from '../src/statistics/spurious-failures-view';
 import PlotView from '../src/statistics/plot-view';
 
-// INPROGRESS - Handle the date-picker and search filter here
+// TODO - Handle the search filter here
 
 const Stats = props => {
   const [sinceDate, setSinceDate] = useState(dayjs().subtract(7, 'day'));
