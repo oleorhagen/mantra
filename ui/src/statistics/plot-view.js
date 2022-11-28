@@ -12,16 +12,21 @@ import {
   Tooltip
 } from '@visx/xychart';
 
+import { LegendOrdinal } from '@visx/legend';
+// import { scaleThreshold } from '@visx/scale';
+// const colorScale = scaleOrdinal({
+//     range: ["#ff8906", "#3da9fc", "#ef4565", "#7f5af0", "#2cb67d"],
+//     domain: [...new Set(data.map(color))],
+// })
+
+// const threshold = scaleThreshold({
+//   domain: [0.02, 0.04, 0.06, 0.08, 0.1],
+//   range: ['#f2f0f7', '#dadaeb', '#bcbddc', '#9e9ac8', '#756bb1', '#54278f']
+// });
+
 const accessors = {
   xAccessor: d => {
-    if (d.failures) {
-      return d.failures.map(e => {
-        console.log('converting: ' + e);
-        console.log('to: ' + dayjs.unix(e).format('DD/MM/YYYY'));
-        return dayjs.unix(e).format('DD/MM/YYYY');
-      });
-    }
-    return 'None';
+    return d.date;
   },
   yAccessor: d => 1
 };
@@ -49,46 +54,67 @@ const PlotView = props => {
     fetchStatistics({ since_time: props.sinceDate.unix() });
   }, [props.sinceDate]);
 
-  let foobar = results ? results.map((e, i) => <AnimatedBarSeries dataKey={e.test_name} data={[e]} {...accessors} />) : [];
+  const transformData = params => {
+    // Transform from the data format of the server to the one we present
+    // [T1, T1, ...] => [ {'x': date(T1)}, {'x': date(T2)}]
+    console.log('transformData received params:');
+    console.log(params);
+    return params
+      .map(failureDate => {
+        console.log('in map:');
+        console.log(failureDate);
+        return { 'date': dayjs.unix(failureDate).format('DD-MM-YYYY') };
+      })
+      .sort();
+  };
+
+  let testFailuresBarSeries = results
+    ? results.map((e, i) => <AnimatedBarSeries key={i} dataKey={e.test_name} data={transformData(e.failures)} {...accessors} />)
+    : [];
 
   let now = dayjs();
   let baselineDays = [];
   let tempDate = props.sinceDate;
   while (tempDate.isBefore(now) || tempDate.isSame(now)) {
     // TODO - Unify the format somehow (?)
-    baselineDays.push({ 'date': tempDate.format('DD/MM/YYYY') });
+    baselineDays.push({ 'date': tempDate.format('YYYY-MM-DD') });
     tempDate = tempDate.add(1, 'day');
   }
 
   console.log('baselineDays:');
   console.log(baselineDays);
 
+  console.log('testFailureBarSeries:');
+  console.log(testFailuresBarSeries);
+
   return (
-    <>
-      {'foobar' + foobar.length}
-      <XYChart height={400} xScale={{ type: 'band' }} yScale={{ type: 'linear' }}>
-        <AnimatedAxis orientation="bottom" />
-        <AnimatedGrid columns={false} numTicks={4} />
-        <AnimatedBarStack>
-          <AnimatedBarSeries dataKey="baseline" data={baselineDays} xAccessor={d => d.date} yAccessor={d => 0} />
-          {foobar}
-        </AnimatedBarStack>
-        <Tooltip
-          snapTooltipToDatumX
-          snapTooltipToDatumY
-          showVerticalCrosshair
-          showSeriesGlyphs
-          renderTooltip={({ tooltipData, colorScale }) => (
-            <div>
-              <div style={{ color: colorScale(tooltipData.nearestDatum.key) }}>{tooltipData.nearestDatum.key}</div>
-              {accessors.xAccessor(tooltipData.nearestDatum.datum)}
-              {', '}
-              {accessors.yAccessor(tooltipData.nearestDatum.datum)}
-            </div>
-          )}
-        />
-      </XYChart>
-    </>
+    <div>
+      <>
+        {'testFailuresBarSeries' + testFailuresBarSeries.length}
+        <XYChart height={400} xScale={{ type: 'band' }} yScale={{ type: 'linear' }}>
+          <AnimatedAxis orientation="bottom" />
+          <AnimatedGrid columns={false} numTicks={1} />
+          <AnimatedBarStack>
+            {/* <AnimatedBarSeries dataKey="baseline" data={baselineDays} xAccessor={d => d.date} yAccessor={d => 0} /> */}
+            {testFailuresBarSeries}
+          </AnimatedBarStack>
+          <Tooltip
+            renderTooltip={({ tooltipData, colorScale }) => {
+              console.log('ToolTip: ');
+              console.log(tooltipData);
+              return (
+                <div>
+                  <div style={{ color: colorScale(tooltipData.nearestDatum.key) }}>{tooltipData.nearestDatum.key}</div>
+                  {accessors.xAccessor(tooltipData.nearestDatum.datum)}
+                  {', '}
+                  {accessors.yAccessor(tooltipData.nearestDatum.datum)}
+                </div>
+              );
+            }}
+          />
+        </XYChart>
+      </>
+    </div>
   );
 };
 
