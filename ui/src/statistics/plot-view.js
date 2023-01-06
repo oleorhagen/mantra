@@ -3,6 +3,7 @@ import React, { useState, useEffect } from 'react';
 import dayjs from 'dayjs';
 
 import {
+  Axis,
   AnimatedAxis, // any of these can be non-animated equivalents
   AnimatedGrid,
   AnimatedLineSeries,
@@ -12,17 +13,30 @@ import {
   Tooltip
 } from '@visx/xychart';
 
-import { LegendOrdinal } from '@visx/legend';
-// import { scaleThreshold } from '@visx/scale';
-// const colorScale = scaleOrdinal({
-//     range: ["#ff8906", "#3da9fc", "#ef4565", "#7f5af0", "#2cb67d"],
-//     domain: [...new Set(data.map(color))],
-// })
+const generateDataArrayFromFailureDates = (baseDate, failureDates) => {
+  let data = [];
 
-// const threshold = scaleThreshold({
-//   domain: [0.02, 0.04, 0.06, 0.08, 0.1],
-//   range: ['#f2f0f7', '#dadaeb', '#bcbddc', '#9e9ac8', '#756bb1', '#54278f']
-// });
+  if (failureDates.length == 0) {
+    return data;
+  }
+
+  let now = dayjs();
+  let tempDate = baseDate;
+  var failureDateIndex = 0;
+  while (tempDate.isBefore(now) || tempDate.isSame(now)) {
+    // TODO - Unify the format somehow (?)
+    var failureDate = failureDates[failureDateIndex] || '01/01/1970';
+    if (tempDate.format('DD/MM/YYYY') == dayjs.unix(failureDate).format('DD/MM/YYYY')) {
+      // Increment the index
+      failureDateIndex++;
+      data.push({ 'date': tempDate.format('DD/MM/YYYY'), 'y': 1 });
+    } else {
+      data.push({ 'date': tempDate.format('DD/MM/YYYY'), 'y': 0 });
+    }
+    tempDate = tempDate.add(1, 'day');
+  }
+  return data;
+};
 
 const accessors = {
   xAccessor: d => {
@@ -34,14 +48,35 @@ const accessors = {
 const PlotView = props => {
   const [results, setResults] = useState([]);
 
+  let now = dayjs();
+  let baselineDays = [];
+  let tempDate = props.sinceDate;
+  while (tempDate.isBefore(now) || tempDate.isSame(now)) {
+    // TODO - Unify the format somehow (?)
+    baselineDays.push(tempDate.format('DD/MM/YYYY'));
+    tempDate = tempDate.add(1, 'day');
+  }
+
+  console.log('baselineDays:');
+  console.log(baselineDays);
+
   const fetchStatistics = params => {
     fetch('/api/tests/statistics/spurious-failures/viz' + '?' + new URLSearchParams(params))
       .then(response => response.json())
       .then(result => {
         console.log('the returned result:');
         console.log(result);
+
+        var data = [];
+        for (var r of result) {
+          console.log('r result');
+          console.log(r);
+          data.push({ 'test_name': r.test_name, 'data': generateDataArrayFromFailureDates(props.sinceDate, r.failures) });
+        }
         // Transform the result into the local x,y schema
-        setResults(result);
+        console.log('final generated data:');
+        console.log(data);
+        setResults(data);
       })
       .catch(err => console.log('Failed to fetch the test statistics: ' + err));
     // .finally(() => setLoading(false));
@@ -54,49 +89,16 @@ const PlotView = props => {
     fetchStatistics({ since_time: props.sinceDate.unix() });
   }, [props.sinceDate]);
 
-  const transformData = params => {
-    // Transform from the data format of the server to the one we present
-    // [T1, T1, ...] => [ {'x': date(T1)}, {'x': date(T2)}]
-    console.log('transformData received params:');
-    console.log(params);
-    return params
-      .map(failureDate => {
-        console.log('in map:');
-        console.log(failureDate);
-        return { 'date': dayjs.unix(failureDate).format('DD-MM-YYYY') };
-      })
-      .sort();
-  };
-
-  let testFailuresBarSeries = results
-    ? results.map((e, i) => <AnimatedBarSeries key={i} dataKey={e.test_name} data={transformData(e.failures)} {...accessors} />)
-    : [];
-
-  let now = dayjs();
-  let baselineDays = [];
-  let tempDate = props.sinceDate;
-  while (tempDate.isBefore(now) || tempDate.isSame(now)) {
-    // TODO - Unify the format somehow (?)
-    baselineDays.push({ 'date': tempDate.format('YYYY-MM-DD') });
-    tempDate = tempDate.add(1, 'day');
-  }
-
-  console.log('baselineDays:');
-  console.log(baselineDays);
-
-  console.log('testFailureBarSeries:');
-  console.log(testFailuresBarSeries);
-
   return (
     <div>
       <>
-        {'testFailuresBarSeries' + testFailuresBarSeries.length}
         <XYChart height={400} xScale={{ type: 'band' }} yScale={{ type: 'linear' }}>
           <AnimatedAxis orientation="bottom" />
-          <AnimatedGrid columns={false} numTicks={1} />
+          <AnimatedGrid columns={false} numTicks={2} />
           <AnimatedBarStack>
-            {/* <AnimatedBarSeries dataKey="baseline" data={baselineDays} xAccessor={d => d.date} yAccessor={d => 0} /> */}
-            {testFailuresBarSeries}
+            {results.map(e => (
+              <AnimatedBarSeries dataKey={e.test_name} data={e.data} xAccessor={d => d.date} yAccessor={d => d.y} />
+            ))}
           </AnimatedBarStack>
           <Tooltip
             renderTooltip={({ tooltipData, colorScale }) => {
